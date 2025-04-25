@@ -1,12 +1,26 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  --color-primary: #b400ae; /* Main purple */
+  --color-accent: #3a558b; /* Accent blue */
+  --color-text: #212121; /* Main text */
+  --color-bg: #fff; /* Main background */
+
+  --color-error-bg: #fdeaee;
+  --color-error-text: #b00020;
+  --color-warning-bg: #fffde5;
+  --color-warning-text: #fc7600;
+  --color-success-bg: #e6f6ec;
+  --color-success-text: #088541;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --color-bg: #171717;
+    --color-text: #ededed;
   }
 }
 

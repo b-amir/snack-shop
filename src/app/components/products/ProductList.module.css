@@ -27,8 +27,8 @@
   box-shadow: var(--card-shadow);
 }
 
-.loading,
-.error {
+.loading {
+  color: var(--color-accent);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,7 +37,10 @@
 }
 
 .error {
-  color: #e11d48;
+  background: var(--color-error-bg);
+  color: var(--color-error-text);
+  padding: 1rem;
+  border-radius: 0.5rem;
   flex-direction: column;
 }
 
@@ -50,6 +53,20 @@
   font-size: 0.875rem;
   overflow-x: auto;
   max-width: 100%;
+}
+
+.warning {
+  background: var(--color-warning-bg);
+  color: var(--color-warning-text);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.success {
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
+  padding: 1rem;
+  border-radius: 0.5rem;
 }
 
 @media (max-width: 768px) {

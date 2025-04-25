@@ -40,7 +40,7 @@ export function ProductList() {
 
   if (isSuccess && (!products || products.length === 0)) {
     return (
-      <div className={styles.emptyState}>
+      <div className={styles.warning}>
         <h2>{t("noProducts")}</h2>
         <p>{t("checkBackLater")}</p>
       </div>

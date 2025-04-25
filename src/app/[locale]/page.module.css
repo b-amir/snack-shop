@@ -162,3 +162,11 @@ a.secondary {
     filter: invert();
   }
 }
+
+.title {
+  color: var(--color-primary);
+}
+
+.subtitle {
+  color: var(--color-accent);
+}
