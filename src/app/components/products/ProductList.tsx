@@ -5,8 +5,12 @@ import styles from "./ProductList.module.css";
 import { Product } from "@/types/product";
 import { ProductCard } from "./ProductCard";
 import { fetchProducts } from "@/services/productService";
+import { useLocale, useTranslations } from "next-intl";
+import { SupportedLocale } from "@/types/product";
 
 export function ProductList() {
+  const locale = useLocale();
+  const t = useTranslations("ProductList");
   const {
     data: products,
     isLoading,
@@ -23,13 +27,13 @@ export function ProductList() {
   });
 
   if (isLoading) {
-    return <div className={styles.loading}>Loading...</div>;
+    return <div className={styles.loading}>{t("loading")}</div>;
   }
 
   if (isError) {
     return (
       <div className={styles.error}>
-        {error.name}: {error.message}
+        {t("error")}: {error.name}: {error.message}
       </div>
     );
   }
@@ -37,8 +41,8 @@ export function ProductList() {
   if (isSuccess && (!products || products.length === 0)) {
     return (
       <div className={styles.emptyState}>
-        <h2>No products found</h2>
-        <p>Please check back later.</p>
+        <h2>{t("noProducts")}</h2>
+        <p>{t("checkBackLater")}</p>
       </div>
     );
   }
@@ -48,7 +52,7 @@ export function ProductList() {
       <div className={styles.grid}>
         {products?.map((product: Product) => (
           <div key={product.id} className={styles.gridItem}>
-            <ProductCard product={product} />
+            <ProductCard product={product} locale={locale as SupportedLocale} />
           </div>
         ))}
       </div>

@@ -1,15 +1,12 @@
+export type SupportedLocale = "en" | "fa";
+
 export interface Product {
   id: string;
-  name: {
-    en: string;
-    fa: string;
-  };
-  price: number;
+  name: Record<SupportedLocale, string>;
+  price: Record<SupportedLocale, number>;
+  currency: Record<SupportedLocale, string>;
   imageUrl: string;
-  description: {
-    en: string;
-    fa: string;
-  };
+  description: Record<SupportedLocale, string>;
   category: string;
 }
 

@@ -1,0 +1,11 @@
+{
+  "ProductList": {
+    "loading": "Loading...",
+    "error": "Error",
+    "noProducts": "No products found",
+    "checkBackLater": "Please check back later.",
+    "addToCart": "Add to Cart"
+  },
+  "header": "SnackShop",
+  "subheader": "Delicious snacks, delivered fast."
+}

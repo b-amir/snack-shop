@@ -6,7 +6,8 @@
         "en": "Crisps (Salt & Vinegar)",
         "fa": "چیپس (نمک و سرکه)"
       },
-      "price": 2,
+      "price": { "en": 2, "fa": 120000 },
+      "currency": { "en": "USD", "fa": "تومان" },
       "imageUrl": "/images/muggle/crisps-salt-vinegar.jpg",
       "description": {
         "en": "Thinly sliced potatoes, fried until crispy and seasoned with salt and tangy vinegar.",
@@ -20,7 +21,8 @@
         "en": "Chocolate Bar",
         "fa": "شکلات تخته‌ای"
       },
-      "price": 1,
+      "price": { "en": 1, "fa": 60000 },
+      "currency": { "en": "USD", "fa": "تومان" },
       "imageUrl": "/images/muggle/chocolate-bar.jpg",
       "description": {
         "en": "A simple, delicious bar of solid milk chocolate. A classic muggle treat.",
@@ -34,7 +36,8 @@
         "en": "Digestive Biscuits",
         "fa": "بیسکویت دایجستیو"
       },
-      "price": 3,
+      "price": { "en": 3, "fa": 180000 },
+      "currency": { "en": "USD", "fa": "تومان" },
       "imageUrl": "/images/muggle/digestive-biscuits.jpg",
       "description": {
         "en": "Semi-sweet biscuits, popular with tea. Made with wholemeal flour.",
