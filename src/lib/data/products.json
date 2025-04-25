@@ -1,0 +1,46 @@
+{
+  "products": [
+    {
+      "id": "p1",
+      "name": {
+        "en": "Crisps (Salt & Vinegar)",
+        "fa": "چیپس (نمک و سرکه)"
+      },
+      "price": 2,
+      "imageUrl": "/images/muggle/crisps-salt-vinegar.jpg",
+      "description": {
+        "en": "Thinly sliced potatoes, fried until crispy and seasoned with salt and tangy vinegar.",
+        "fa": "برش‌های نازک سیب‌زمینی که تا حد ترد شدن سرخ شده و با نمک و سرکه تند طعم‌دار شده‌اند."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p2",
+      "name": {
+        "en": "Chocolate Bar",
+        "fa": "شکلات تخته‌ای"
+      },
+      "price": 1,
+      "imageUrl": "/images/muggle/chocolate-bar.jpg",
+      "description": {
+        "en": "A simple, delicious bar of solid milk chocolate. A classic muggle treat.",
+        "fa": "یک تخته شکلات شیری ساده و خوشمزه. یک خوراکی کلاسیک ماگلی."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p3",
+      "name": {
+        "en": "Digestive Biscuits",
+        "fa": "بیسکویت دایجستیو"
+      },
+      "price": 3,
+      "imageUrl": "/images/muggle/digestive-biscuits.jpg",
+      "description": {
+        "en": "Semi-sweet biscuits, popular with tea. Made with wholemeal flour.",
+        "fa": "بیسکویت‌های نیمه شیرین، محبوب همراه با چای. تهیه شده با آرد کامل."
+      },
+      "category": "muggle"
+    }
+  ]
+}
