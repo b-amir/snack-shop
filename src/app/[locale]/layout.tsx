@@ -67,7 +67,10 @@ function Header({ locale }: { locale: string }) {
     <header className={headerClass}>
       <div className={headerContentClass}>
         <div className={headerTextClass} style={{ flex: 1 }}>
-          <h1 className={styles.title}>{t("header")}</h1>
+          <h1 className={styles.title}>
+            {t("header")}
+            <span className={styles.titleExclamation}>!</span>
+          </h1>
           <p className={styles.subtitle}>{t("subheader")}</p>
         </div>
         <CartIconButton dir={isRTL ? "rtl" : "ltr"} />

@@ -29,7 +29,7 @@
 
 .headerContent {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1136px;
   padding: 1rem 16px 0 16px;
   display: flex;
   align-items: center;
@@ -69,6 +69,11 @@
   font-size: 2rem;
   font-weight: 900;
   color: var(--color-primary);
+}
+
+.titleExclamation {
+  font-style: italic;
+  margin-right: 4px;
 }
 
 .subtitle {

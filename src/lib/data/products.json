@@ -4,11 +4,11 @@
       "id": "p1",
       "name": {
         "en": "Crisps (Salt & Vinegar)",
-        "fa": "چیپس (نمک و سرکه)"
+        "fa": "چیپس (سرکه نمکی)"
       },
-      "price": { "en": 2, "fa": 120000 },
+      "price": { "en": 1.29, "fa": 53000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/muggle/crisps-salt-vinegar.jpg",
+      "imageUrl": "/images/crisps-salt-vinegar.jpg",
       "description": {
         "en": "Thinly sliced potatoes, fried until crispy and seasoned with salt and tangy vinegar.",
         "fa": "برش‌های نازک سیب‌زمینی که تا حد ترد شدن سرخ شده و با نمک و سرکه تند طعم‌دار شده‌اند."
@@ -21,9 +21,9 @@
         "en": "Chocolate Bar",
         "fa": "شکلات تخته‌ای"
       },
-      "price": { "en": 1, "fa": 60000 },
+      "price": { "en": 1.49, "fa": 62500 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/muggle/chocolate-bar.jpg",
+      "imageUrl": "/images/chocolate-bar.jpg",
       "description": {
         "en": "A simple, delicious bar of solid milk chocolate. A classic muggle treat.",
         "fa": "یک تخته شکلات شیری ساده و خوشمزه. یک خوراکی کلاسیک ماگلی."
@@ -36,12 +36,216 @@
         "en": "Digestive Biscuits",
         "fa": "بیسکویت دایجستیو"
       },
-      "price": { "en": 3, "fa": 180000 },
+      "price": { "en": 0.89, "fa": 27000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/muggle/digestive-biscuits.jpg",
+      "imageUrl": "/images/digestive-biscuits.jpg",
       "description": {
         "en": "Semi-sweet biscuits, popular with tea. Made with wholemeal flour.",
         "fa": "بیسکویت‌های نیمه شیرین، محبوب همراه با چای. تهیه شده با آرد کامل."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p4",
+      "name": { "en": "Peanut Butter Cups", "fa": "شکلات کره بادام‌زمینی" },
+      "price": { "en": 1.39, "fa": 64000 },
+      "currency": { "en": "USD", "fa": "تومان" },
+      "imageUrl": "/images/peanut-butter-cups.jpg",
+      "description": {
+        "en": "Chocolate cups filled with creamy peanut butter.",
+        "fa": "شکلات‌هایی با مغز کره بادام‌زمینی نرم."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p5",
+      "name": { "en": "Pretzels", "fa": "چوب شور" },
+      "price": { "en": 0.95, "fa": 18500 },
+      "currency": { "en": "USD", "fa": "تومان" },
+      "imageUrl": "/images/pretzels.jpg",
+      "description": {
+        "en": "Baked bread snack, twisted into a knot and sprinkled with salt.",
+        "fa": "اسنک نانی پخته شده، به شکل گره و با نمک پاشیده شده."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p6",
+      "name": { "en": "Gummy Bears", "fa": "پاستیل خرسی" },
+      "price": { "en": 1.19, "fa": 32000 },
+      "currency": { "en": "USD", "fa": "تومان" },
+      "imageUrl": "/images/gummy-bears.jpg",
+      "description": {
+        "en": "Colorful, fruit-flavored gummy candies shaped like bears.",
+        "fa": "پاستیل‌های رنگارنگ با طعم میوه به شکل خرس."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p7",
+      "name": { "en": "Granola Bar", "fa": "گرانولا بار" },
+      "price": { "en": 1.79, "fa": 30000 },
+      "currency": { "en": "USD", "fa": "تومان" },
+      "imageUrl": "/images/granola-bar.jpg",
+      "description": {
+        "en": "A healthy snack bar made with oats, honey, and nuts.",
+        "fa": "یک اسنک سالم تهیه شده از جو دوسر، عسل و مغزها."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p8",
+      "name": { "en": "Fruit Juice Box", "fa": "آبمیوه پاکتی" },
+      "price": { "en": 1.25, "fa": 14200 },
+      "currency": { "en": "USD", "fa": "تومان" },
+      "imageUrl": "/images/juice-box.jpg",
+      "description": {
+        "en": "A small box of mixed fruit juice, perfect for kids.",
+        "fa": "یک پاکت کوچک آبمیوه مخلوط، مناسب برای کودکان."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p9",
+      "name": { "en": "Popcorn (Butter)", "fa": "پاپ‌کورن (کره‌ای)" },
+      "price": { "en": 0.95, "fa": 26000 },
+      "currency": { "en": "USD", "fa": "تومان" },
+      "imageUrl": "/images/popcorn-butter.jpg",
+      "description": {
+        "en": "Fluffy popcorn tossed in melted butter.",
+        "fa": "پاپ‌کورن نرم و پفکی با کره ذوب شده."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p10",
+      "name": { "en": "Soda Can", "fa": "نوشابه قوطی" },
+      "price": { "en": 1.19, "fa": 18000 },
+      "currency": { "en": "USD", "fa": "تومان" },
+      "imageUrl": "/images/soda-can.jpg",
+      "description": {
+        "en": "A can of fizzy, sweet soda.",
+        "fa": "یک قوطی نوشابه گازدار و شیرین."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p11",
+      "name": { "en": "Energy Drink", "fa": "نوشیدنی انرژی‌زا" },
+      "price": { "en": 2.49, "fa": 39000 },
+      "currency": { "en": "USD", "fa": "تومان" },
+      "imageUrl": "/images/energy-drink.jpg",
+      "description": {
+        "en": "A can of energy drink to boost your day.",
+        "fa": "یک قوطی نوشیدنی انرژی‌زا برای تقویت روز شما."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p12",
+      "name": { "en": "Cheese Crackers", "fa": "کراکر پنیر" },
+      "price": { "en": 1.09, "fa": 11500 },
+      "currency": { "en": "USD", "fa": "تومان" },
+      "imageUrl": "/images/cheese-crackers.jpg",
+      "description": {
+        "en": "Crunchy crackers with a cheesy flavor.",
+        "fa": "کراکرهای ترد با طعم پنیر."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p13",
+      "name": { "en": "Trail Mix", "fa": "میکس آجیل و میوه خشک" },
+      "price": { "en": 3.29, "fa": 175000 },
+      "currency": { "en": "USD", "fa": "تومان" },
+      "imageUrl": "/images/trail-mix.jpg",
+      "description": {
+        "en": "A mix of nuts, dried fruit, and chocolate pieces.",
+        "fa": "ترکیبی از آجیل، میوه خشک و تکه‌های شکلات."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p14",
+      "name": { "en": "Caramel Popcorn", "fa": "پاپ‌کورن کاراملی" },
+      "price": { "en": 1.19, "fa": 13500 },
+      "currency": { "en": "USD", "fa": "تومان" },
+      "imageUrl": "/images/caramel-popcorn.jpg",
+      "description": {
+        "en": "Popcorn coated in sweet caramel.",
+        "fa": "پاپ‌کورن پوشیده شده با کارامل شیرین."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p15",
+      "name": { "en": "Fruit Gummies", "fa": "پاستیل میوه‌ای" },
+      "price": { "en": 1.59, "fa": 42000 },
+      "currency": { "en": "USD", "fa": "تومان" },
+      "imageUrl": "/images/fruit-gummies.jpg",
+      "description": {
+        "en": "Soft, chewy fruit-flavored gummies.",
+        "fa": "پاستیل‌های نرم و جویدنی با طعم میوه."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p16",
+      "name": { "en": "Potato Chips (BBQ)", "fa": "چیپس سیب‌زمینی (باربیکیو)" },
+      "price": { "en": 1.29, "fa": 48000 },
+      "currency": { "en": "USD", "fa": "تومان" },
+      "imageUrl": "/images/chips-bbq.jpg",
+      "description": {
+        "en": "Crispy potato chips with smoky BBQ flavor.",
+        "fa": "چیپس سیب‌زمینی ترد با طعم دودی باربیکیو."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p17",
+      "name": { "en": "Oat Cookies", "fa": "کوکی جو دوسر" },
+      "price": { "en": 1.89, "fa": 62000 },
+      "currency": { "en": "USD", "fa": "تومان" },
+      "imageUrl": "/images/oat-cookies.jpg",
+      "description": {
+        "en": "Homemade-style cookies with oats and raisins.",
+        "fa": "کوکی‌های خانگی با جو دوسر و کشمش."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p18",
+      "name": { "en": "Lemonade Bottle", "fa": "بطری لیموناد" },
+      "price": { "en": 1.69, "fa": 20500 },
+      "currency": { "en": "USD", "fa": "تومان" },
+      "imageUrl": "/images/lemonade-bottle.jpg",
+      "description": {
+        "en": "A refreshing bottle of homemade lemonade.",
+        "fa": "یک بطری لیموناد خانگی و تازه."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p19",
+      "name": { "en": "Nutty Brownie", "fa": "براونی مغزدار" },
+      "price": { "en": 1.99, "fa": 41000 },
+      "currency": { "en": "USD", "fa": "تومان" },
+      "imageUrl": "/images/nutty-brownie.jpg",
+      "description": {
+        "en": "Rich chocolate brownie with crunchy nuts.",
+        "fa": "براونی شکلاتی غنی با مغزهای ترد."
+      },
+      "category": "muggle"
+    },
+    {
+      "id": "p20",
+      "name": { "en": "Yogurt Drink", "fa": "دوغ" },
+      "price": { "en": 1.49, "fa": 20000 },
+      "currency": { "en": "USD", "fa": "تومان" },
+      "imageUrl": "/images/yogurt-drink.jpg",
+      "description": {
+        "en": "A bottle of savory, refreshing yogurt drink.",
+        "fa": "یک بطری دوغ خوشمزه و خنک."
       },
       "category": "muggle"
     }
