@@ -2,10 +2,10 @@
   --background: #ffffff;
   --foreground: #171717;
 
-  --color-primary: #b400ae; /* Main purple */
-  --color-accent: #3a558b; /* Accent blue */
-  --color-text: #212121; /* Main text */
-  --color-bg: #fff; /* Main background */
+  --color-primary: #b400ae;
+  --color-accent: #3a558b;
+  --color-text: #212121;
+  --color-bg: #fff;
 
   --color-error-bg: #fdeaee;
   --color-error-text: #b00020;
@@ -58,4 +58,12 @@ html {
   font-family: var(--font-vazirmatn), Vazirmatn, "Segoe UI", Tahoma, Geneva,
     Arial, sans-serif;
   text-align: start;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-vazirmatn), Vazirmatn, "Segoe UI", Tahoma, Geneva,
+    Arial, sans-serif;
 }

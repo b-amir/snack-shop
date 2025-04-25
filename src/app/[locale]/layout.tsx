@@ -3,7 +3,8 @@ import { Vazirmatn } from "next/font/google";
 import "../globals.css";
 import QueryProvider from "../components/QueryProvider";
 import { getMessages } from "next-intl/server";
-import { NextIntlClientProvider } from "next-intl";
+import { NextIntlClientProvider, useTranslations } from "next-intl";
+import styles from "./layout.module.css";
 
 const vazirmatn = Vazirmatn({
   subsets: ["latin", "arabic"],
@@ -21,7 +22,7 @@ function LanguageSwitcher({ locale }: { locale: string }) {
   return (
     <a
       href={`/${otherLocale}`}
-      style={{ display: "flex", alignItems: "center", gap: 6 }}
+      className={styles.languageSwitcher}
       aria-label="Change language"
     >
       <svg
@@ -30,7 +31,6 @@ function LanguageSwitcher({ locale }: { locale: string }) {
         height="20"
         fill="none"
         viewBox="0 0 24 24"
-        style={{ display: "inline-block", verticalAlign: "middle" }}
       >
         <circle
           cx="12"
@@ -54,25 +54,28 @@ function LanguageSwitcher({ locale }: { locale: string }) {
 
 function Footer({ locale }: { locale: string }) {
   return (
-    <footer
-      style={{
-        width: "100%",
-        display: "flex",
-        justifyContent: "flex-end",
-        alignItems: "center",
-        padding: "1rem 2rem",
-        boxSizing: "border-box",
-        position: "fixed",
-        bottom: 0,
-        right: 0,
-        left: 0,
-        background: "var(--background)",
-        borderTop: "1px solid #eee",
-        zIndex: 100,
-      }}
-    >
-      <LanguageSwitcher locale={locale} />
+    <footer className={styles.footer}>
+      <div className={styles.footerContent}>
+        <LanguageSwitcher locale={locale} />
+      </div>
     </footer>
+  );
+}
+
+function Header({ locale }: { locale: string }) {
+  const t = useTranslations();
+  const isRTL = locale === "fa";
+  const headerContentClass = `${styles.headerContent} ${
+    isRTL ? styles.headerContentRtl : styles.headerContentLtr
+  }`;
+
+  return (
+    <header className={styles.header}>
+      <div className={headerContentClass}>
+        <h1 className={styles.title}>{t("header")}</h1>
+        <p className={styles.subtitle}>{t("subheader")}</p>
+      </div>
+    </header>
   );
 }
 
@@ -90,16 +93,12 @@ export default async function RootLayout({
       dir={locale === "fa" ? "rtl" : "ltr"}
       className={vazirmatn.variable}
     >
-      <body
-        style={{
-          fontFamily:
-            'Vazirmatn, "Segoe UI", "Tahoma", "Geneva", "Arial", "sans-serif"',
-          minHeight: "100vh",
-          paddingBottom: "60px", // space for footer
-        }}
-      >
+      <body className={styles.body}>
         <NextIntlClientProvider messages={messages}>
-          <QueryProvider>{children}</QueryProvider>
+          <Header locale={locale} />
+          <div className={`container ${styles.mainContainer}`}>
+            <QueryProvider>{children}</QueryProvider>
+          </div>
           <Footer locale={locale} />
         </NextIntlClientProvider>
       </body>
