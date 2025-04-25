@@ -4,7 +4,15 @@
     "error": "Error",
     "noProducts": "No products found",
     "checkBackLater": "Please check back later.",
-    "addToCart": "Add to Cart"
+    "addToCart": "Add to Cart",
+    "cart": "Cart",
+    "cartEmpty": "Your cart is empty.",
+    "quantity": "Qty",
+    "remove": "Remove",
+    "clearCart": "Clear Cart",
+    "goToCart": "Go to Cart",
+    "increase": "Increase quantity",
+    "decrease": "Decrease quantity"
   },
   "header": "SnackShop",
   "subheader": "Delicious snacks, delivered fast."

@@ -159,3 +159,66 @@
     padding: 1rem;
   }
 }
+
+.quantityControl {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0 8px;
+  background: #fff;
+  min-width: 100px;
+  justify-content: center;
+  gap: 4px;
+  font-size: 1.3rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.quantityButton {
+  all: unset;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: none;
+  border-radius: 6px;
+  color: #b400ae;
+  cursor: pointer;
+  transition: background 0.15s;
+  padding: 0;
+  outline: none;
+}
+.quantityButton svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+.quantityButton:active,
+.quantityButton:focus,
+.quantityButton:hover {
+  background: #f3e6f7;
+}
+.quantityButton[aria-label*="remove"],
+.quantityButton[aria-label*="حذف"] {
+  color: #b00020;
+}
+.quantityButton[aria-label*="remove"] svg,
+.quantityButton[aria-label*="حذف"] svg {
+  stroke: #b00020;
+  color: #b00020;
+}
+
+.quantityValue {
+  min-width: 32px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-family: inherit;
+  font-weight: 500;
+  direction: inherit;
+  background: #fff;
+  border: none;
+  outline: none;
+  color: #222;
+}

@@ -5,6 +5,7 @@ import QueryProvider from "../components/QueryProvider";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider, useTranslations } from "next-intl";
 import styles from "./layout.module.css";
+import { CartIconButton } from "../components/cart/CartIconButton";
 
 const vazirmatn = Vazirmatn({
   subsets: ["latin", "arabic"],
@@ -26,26 +27,13 @@ function LanguageSwitcher({ locale }: { locale: string }) {
       aria-label="Change language"
     >
       <svg
-        xmlns="http://www.w3.org/2000/svg"
+        fill="#3a558b"
         width="20"
         height="20"
-        fill="none"
-        viewBox="0 0 24 24"
+        viewBox="0 0 16 16"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <circle
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          strokeWidth="2"
-          fill="none"
-        />
-        <path
-          d="M2 12h20M12 2c2.5 3.5 2.5 16.5 0 20M12 2c-2.5 3.5-2.5 16.5 0 20"
-          stroke="currentColor"
-          strokeWidth="2"
-          fill="none"
-        />
+        <path d="M16 7.38A7.82 7.82 0 0 0 8 .5a7.82 7.82 0 0 0-8 6.88v1.24a7.82 7.82 0 0 0 8 6.88 7.82 7.82 0 0 0 8-6.88V7.38zm-1.25 0h-3a11.34 11.34 0 0 0-.43-2.54 7.6 7.6 0 0 0 1.75-1 6 6 0 0 1 1.65 3.54zm-9.18 0a9.69 9.69 0 0 1 .37-2.14A8.43 8.43 0 0 0 8 5.5a8.49 8.49 0 0 0 2.09-.26 10.2 10.2 0 0 1 .37 2.14zm4.92 1.24a9.59 9.59 0 0 1-.37 2.14 8.53 8.53 0 0 0-4.18 0 9.69 9.69 0 0 1-.37-2.14zm.4-5A11.82 11.82 0 0 0 10 2a6.89 6.89 0 0 1 2 1 6.57 6.57 0 0 1-1.14.66zm-2.6-1.86a10 10 0 0 1 1.38 2.3A7.63 7.63 0 0 1 8 4.25a7.56 7.56 0 0 1-1.67-.19 9.82 9.82 0 0 1 1.38-2.3h.58zm-3.15 1.9A6.57 6.57 0 0 1 4 3a6.89 6.89 0 0 1 2-1 10.38 10.38 0 0 0-.86 1.66zM3 3.83a7.6 7.6 0 0 0 1.75 1 11 11 0 0 0-.43 2.54h-3A6 6 0 0 1 3 3.83zM1.28 8.62h3a11 11 0 0 0 .43 2.54 7.6 7.6 0 0 0-1.75 1 6 6 0 0 1-1.68-3.54zm3.86 3.72A10.38 10.38 0 0 0 6 14a6.89 6.89 0 0 1-2-1 6.57 6.57 0 0 1 1.14-.66zm2.57 1.9a9.82 9.82 0 0 1-1.38-2.3 7.43 7.43 0 0 1 3.34 0 9.76 9.76 0 0 1-1.38 2.3h-.58zm3.15-1.9a6.57 6.57 0 0 1 1.19.66 7.24 7.24 0 0 1-2 1 11.48 11.48 0 0 0 .81-1.66zm2.14-.17a7.6 7.6 0 0 0-1.75-1 10.8 10.8 0 0 0 .43-2.54h3A6 6 0 0 1 13 12.17z" />
       </svg>
       {otherLocale === "en" ? "English" : "فارسی"}
     </a>
@@ -65,15 +53,24 @@ function Footer({ locale }: { locale: string }) {
 function Header({ locale }: { locale: string }) {
   const t = useTranslations();
   const isRTL = locale === "fa";
+  const headerClass = `${styles.header} ${
+    isRTL ? styles.headerRtl : styles.headerLtr
+  }`;
   const headerContentClass = `${styles.headerContent} ${
     isRTL ? styles.headerContentRtl : styles.headerContentLtr
   }`;
+  const headerTextClass = `${styles.headerText} ${
+    isRTL ? styles.headerTextRtl : styles.headerTextLtr
+  }`;
 
   return (
-    <header className={styles.header}>
+    <header className={headerClass}>
       <div className={headerContentClass}>
-        <h1 className={styles.title}>{t("header")}</h1>
-        <p className={styles.subtitle}>{t("subheader")}</p>
+        <div className={headerTextClass} style={{ flex: 1 }}>
+          <h1 className={styles.title}>{t("header")}</h1>
+          <p className={styles.subtitle}>{t("subheader")}</p>
+        </div>
+        <CartIconButton dir={isRTL ? "rtl" : "ltr"} />
       </div>
     </header>
   );
