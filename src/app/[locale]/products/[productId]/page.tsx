@@ -137,6 +137,7 @@ export default function ProductDetailPage({
         </div>
       </div>
       <div className={detailStyles.relatedSection}>
+        <hr className={detailStyles.relatedSeparator} />
         <h2 className={detailStyles.relatedTitle}>{t("relatedProducts")}</h2>
         {isLoadingRelated && (
           <div className={detailStyles.loading}>
