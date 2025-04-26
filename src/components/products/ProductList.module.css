@@ -53,6 +53,7 @@
   min-width: 16.25rem;
   max-width: 21.25rem;
   margin: 0 auto;
+  height: 100%;
 }
 
 .productImagePlaceholder {
@@ -96,6 +97,15 @@
   margin-bottom: 0;
 }
 
+.productCardLink {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+}
+
 .addToCartButton {
   margin-top: 0.75rem;
   background: var(--color-primary);
@@ -132,4 +142,20 @@
   .container {
     padding: 1rem;
   }
+}
+
+.relatedProductsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 56.25rem) {
+  .relatedProductsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.relatedProductsGrid > * {
+  height: 100%;
 }
