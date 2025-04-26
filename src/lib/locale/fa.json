@@ -12,7 +12,15 @@
     "clearCart": "خالی کردن سبد خرید",
     "goToCart": "رفتن به سبد خرید",
     "increase": "افزایش تعداد",
-    "decrease": "کاهش تعداد"
+    "decrease": "کاهش تعداد",
+    "sortBy": "مرتب‌سازی بر اساس",
+    "productsPerPage": "تعداد محصولات در هر صفحه",
+    "Previous": "قبلی",
+    "Next": "بعدی",
+    "sortNewest": "جدیدترین",
+    "sortOldest": "قدیمی‌ترین",
+    "sortPriceAsc": "ارزان‌ترین",
+    "sortPriceDesc": "گران‌ترین"
   },
   "header": "اسنک‌شاپ",
   "subheader": "خوشمزه‌ترین اسنک‌ها، سریع و مطمئن به دست شما"

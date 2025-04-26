@@ -12,7 +12,15 @@
     "clearCart": "Clear Cart",
     "goToCart": "Go to Cart",
     "increase": "Increase quantity",
-    "decrease": "Decrease quantity"
+    "decrease": "Decrease quantity",
+    "sortBy": "Sort by",
+    "productsPerPage": "Products per page",
+    "Previous": "Previous",
+    "Next": "Next",
+    "sortNewest": "Newest",
+    "sortOldest": "Oldest",
+    "sortPriceAsc": "Price: Low to High",
+    "sortPriceDesc": "Price: High to Low"
   },
   "header": "SnackShop",
   "subheader": "Delicious snacks, delivered fast"
