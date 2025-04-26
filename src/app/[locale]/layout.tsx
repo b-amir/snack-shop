@@ -62,13 +62,15 @@ function Header({ locale }: { locale: string }) {
   );
 }
 
-export default async function RootLayout({
-  children,
-  params: { locale },
-}: Readonly<{
-  children: React.ReactNode;
-  params: { locale: string };
-}>) {
+export default async function RootLayout(
+  props: Readonly<{
+    children: React.ReactNode;
+    params: { locale: string };
+  }>
+) {
+  const { children } = props;
+  const params = await props.params;
+  const { locale } = params;
   const messages = await getMessages();
   return (
     <html
