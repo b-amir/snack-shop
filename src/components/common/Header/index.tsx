@@ -29,7 +29,7 @@ export function Header({ locale }: { locale: string }) {
           </Link>
           <p className={styles.subtitle}>{t("subheader")}</p>
         </div>
-        <CartIconButton dir={dir} />
+        <CartIconButton dir={dir} locale={locale} />
       </div>
     </header>
   );

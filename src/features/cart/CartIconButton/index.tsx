@@ -1,19 +1,23 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { useCartStore } from "@/store/store";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import LocaleNumber from "@/components/ui/LocaleNumber";
 import styles from "./styles.module.css";
 import Button from "@/components/ui/Button";
-import QuantityControl from "@/components/common/QuantityControl";
+import { CartDropdown } from "@/features/cart/CartDropdown";
 
-export function CartIconButton({ dir }: { dir: "ltr" | "rtl" }) {
+export function CartIconButton({
+  dir,
+  locale,
+}: {
+  dir: "ltr" | "rtl";
+  locale: string;
+}) {
   const [open, setOpen] = useState(false);
-  const { items, removeFromCart, updateQuantity, clearCart } = useCartStore();
+  const { items } = useCartStore();
   const t = useTranslations("ProductList");
   const ref = useRef<HTMLDivElement>(null);
-  const router = useRouter();
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -23,11 +27,17 @@ export function CartIconButton({ dir }: { dir: "ltr" | "rtl" }) {
     }
     if (open) {
       document.addEventListener("mousedown", handleClick);
+    } else {
+      document.removeEventListener("mousedown", handleClick);
     }
     return () => document.removeEventListener("mousedown", handleClick);
   }, [open]);
 
   const itemCount = items.length;
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <div ref={ref} className={styles.cartIconButtonWrapper} dir={dir}>
@@ -59,81 +69,7 @@ export function CartIconButton({ dir }: { dir: "ltr" | "rtl" }) {
           </span>
         )}
       </Button>
-      {open && (
-        <div className={styles.cartDropdown + " " + styles[dir]}>
-          <h3 className={styles.cartDropdownTitle}>{t("cart")}</h3>
-          {items.length === 0 ? (
-            <div className={styles.cartDropdownEmpty}>{t("cartEmpty")}</div>
-          ) : (
-            <ul className={styles.cartDropdownList}>
-              {items.map(({ product, quantity }) => (
-                <li key={product.id} className={styles.cartDropdownListItem}>
-                  <span className={styles.cartDropdownProductName}>
-                    {
-                      product.name[
-                        typeof window !== "undefined" &&
-                        document?.documentElement?.lang === "fa"
-                          ? "fa"
-                          : "en"
-                      ]
-                    }
-                  </span>
-                  <div className={styles.quantityControl}>
-                    <QuantityControl
-                      value={quantity}
-                      min={1}
-                      size="small"
-                      onIncrease={() =>
-                        updateQuantity(product.id, quantity + 1)
-                      }
-                      onDecrease={() =>
-                        quantity > 1
-                          ? updateQuantity(product.id, quantity - 1)
-                          : removeFromCart(product.id)
-                      }
-                      onChange={(val) =>
-                        val > 0
-                          ? updateQuantity(product.id, val)
-                          : removeFromCart(product.id)
-                      }
-                      inputClassName={styles.quantityValue}
-                      decreaseAriaLabel={
-                        quantity === 1 ? t("remove") : t("decrease")
-                      }
-                      increaseAriaLabel={t("increase")}
-                    />
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-          <div className={styles.cartDropdownActions}>
-            {items.length > 0 && (
-              <Button
-                variant="secondary"
-                fullWidth
-                onClick={clearCart}
-                className={styles.clearCartButton}
-                disabled={items.length === 0}
-              >
-                {t("clearCart")}
-              </Button>
-            )}
-            <Button
-              variant="primary"
-              fullWidth
-              onClick={() => {
-                setOpen(false);
-                router.push("/cart");
-              }}
-              className={styles.goToCartButton}
-              disabled={items.length === 0}
-            >
-              {t("goToCart")}
-            </Button>
-          </div>
-        </div>
-      )}
+      {open && <CartDropdown dir={dir} locale={locale} onClose={handleClose} />}
     </div>
   );
 }

@@ -1,0 +1,66 @@
+"use client";
+
+import { useCartStore } from "@/store/store";
+import { CartItems } from "@/features/cart/CartItems";
+import Button from "@/components/ui/Button";
+import { useTranslations, useLocale } from "next-intl";
+import styles from "./page.module.css";
+import { SupportedLocale } from "@/types/product";
+
+export default function CartPage() {
+  const t = useTranslations("ProductList");
+  const { items, clearCart, updateQuantity, removeFromCart } = useCartStore();
+  const locale = useLocale() as SupportedLocale;
+
+  const totalPrice = items.reduce(
+    (acc, item) => acc + item.product.price[locale] * item.quantity,
+    0
+  );
+
+  const formattedTotalPrice =
+    locale === "fa" ? totalPrice.toLocaleString("fa-IR") : totalPrice;
+
+  const currencyString =
+    items.length > 0 ? items[0].product.currency[locale] : "";
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.contentWrapper}>
+        {items.length > 0 && (
+          <div className={styles.cartSummary}>
+            <h2 className={styles.summaryTitle}>{t("summary")}</h2>
+            <div className={styles.totalRow}>
+              <span className={styles.totalPrice}>
+                {formattedTotalPrice} {currencyString}
+              </span>
+              <span>{t("total")}</span>
+            </div>
+            <Button variant="primary" size="large" fullWidth disabled>
+              {t("checkout")}
+            </Button>
+            <Button
+              variant="secondary"
+              size="large"
+              fullWidth
+              onClick={clearCart}
+              className={styles.clearCartButton}
+            >
+              {t("clearCart")}
+            </Button>
+          </div>
+        )}
+
+        <div className={styles.cartItemsSection}>
+          <h1 className={styles.pageTitle}>{t("cart")}</h1>
+          <CartItems
+            items={items}
+            locale={locale}
+            onUpdateQuantity={updateQuantity}
+            onRemoveItem={removeFromCart}
+            showRemoveButton={true}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}

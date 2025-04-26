@@ -17,6 +17,7 @@ interface QuantityControlProps {
   variant?: "default" | "button";
   fullWidth?: boolean;
   size?: "small" | "default" | "large";
+  inputId?: string;
 }
 
 const QuantityControl: React.FC<QuantityControlProps> = ({
@@ -33,6 +34,7 @@ const QuantityControl: React.FC<QuantityControlProps> = ({
   variant = "default",
   fullWidth = false,
   size = "default",
+  inputId,
 }) => {
   return (
     <div
@@ -77,6 +79,7 @@ const QuantityControl: React.FC<QuantityControlProps> = ({
         </svg>
       </Button>
       <Input
+        id={inputId}
         variant="count"
         type="number"
         min={min}

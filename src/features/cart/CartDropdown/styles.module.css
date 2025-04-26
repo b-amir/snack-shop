@@ -1,0 +1,115 @@
+.cartDropdown {
+  position: absolute;
+  top: 110%;
+  min-width: 320px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ltr {
+  right: 0;
+}
+
+.rtl {
+  left: 0;
+}
+
+.cartDropdownTitle {
+  margin: 0;
+  margin-bottom: 12px;
+}
+
+.cartDropdownEmpty {
+  padding: 16px;
+  text-align: center;
+}
+
+.cartDropdownList {
+  list-style: none;
+  padding: 0;
+  padding-inline-end: 8px;
+  margin: 0;
+  max-height: 260px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #eee;
+}
+
+.cartDropdownList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cartDropdownList::-webkit-scrollbar-track {
+  background: #eee;
+  border-radius: 10px;
+}
+
+.cartDropdownList::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+  border: 2px solid #eee;
+}
+
+.cartDropdownListItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.cartDropdownProductName {
+  flex-grow: 1;
+  margin-right: 16px;
+}
+
+.quantityControl {
+  display: flex;
+  align-items: center;
+}
+
+.quantityValue {
+  width: 30px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 0 4px;
+}
+
+.cartDropdownTotal {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+}
+
+.cartDropdownActions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.clearCartButton {
+  width: 100%;
+  border-radius: 6px;
+  padding: 10px 0;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+.goToCartButton {
+  width: 100%;
+  border-radius: 6px;
+  padding: 10px 0;
+  font-weight: 600;
+  cursor: pointer;
+}

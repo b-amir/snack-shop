@@ -26,7 +26,11 @@
     "sortPriceAsc": "ارزان‌ترین",
     "sortPriceDesc": "گران‌ترین",
     "errorFetchingProducts": "خطا در دریافت محصولات.",
-    "imageLoadError": "تصویر بارگذاری نشد."
+    "imageLoadError": "تصویر بارگذاری نشد.",
+    "checkout": "تسویه حساب",
+    "summary": "خلاصه سفارش",
+    "total": "مجموع",
+    "currency": "تومان"
   },
   "header": "اسنک‌شاپ",
   "subheader": "خوشمزه‌ترین اسنک‌ها، سریع و مطمئن به دست شما",

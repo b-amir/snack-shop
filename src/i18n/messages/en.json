@@ -26,7 +26,11 @@
     "sortPriceAsc": "Price: Low to High",
     "sortPriceDesc": "Price: High to Low",
     "errorFetchingProducts": "Failed to fetch products.",
-    "imageLoadError": "Image could not be loaded."
+    "imageLoadError": "Image could not be loaded.",
+    "checkout": "Checkout",
+    "summary": "Summary",
+    "total": "Total",
+    "currency": "USD"
   },
   "header": "SnackShop",
   "subheader": "Delicious snacks, delivered fast",
