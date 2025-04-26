@@ -1,5 +1,6 @@
 import React, { SelectHTMLAttributes } from "react";
 import styles from "./Select.module.css";
+import LocaleNumber from "../LocaleNumber";
 
 interface SelectOption {
   value: string | number;
@@ -33,7 +34,7 @@ export function Select({
         >
           {options.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              <LocaleNumber>{option.label}</LocaleNumber>
             </option>
           ))}
         </select>

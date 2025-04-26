@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import styles from "./Pagination.module.css";
+import LocaleNumber from "../LocaleNumber";
 
 interface PaginationProps {
   currentPage: number;
@@ -54,7 +55,7 @@ export function Pagination({
             className={styles.paginationItem}
             onClick={() => onPageChange(1)}
           >
-            {1}
+            <LocaleNumber>{1}</LocaleNumber>
           </button>
           {start > 2 && <span className={styles.paginationEllipsis}>...</span>}
         </>
@@ -70,7 +71,7 @@ export function Pagination({
           onClick={() => onPageChange(num)}
           aria-current={num === currentPage ? "page" : undefined}
         >
-          {num}
+          <LocaleNumber>{num}</LocaleNumber>
         </button>
       ))}
       {end < totalPages && (
@@ -82,7 +83,7 @@ export function Pagination({
             className={styles.paginationItem}
             onClick={() => onPageChange(totalPages)}
           >
-            {totalPages}
+            <LocaleNumber>{totalPages}</LocaleNumber>
           </button>
         </>
       )}

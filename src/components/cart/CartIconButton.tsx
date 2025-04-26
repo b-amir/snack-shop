@@ -4,6 +4,7 @@ import { useCartStore } from "@/store/store";
 import styles from "@/app/[locale]/layout.module.css";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import LocaleNumber from "../LocaleNumber";
 
 export function CartIconButton({ dir }: { dir: "ltr" | "rtl" }) {
   const [open, setOpen] = useState(false);
@@ -49,7 +50,11 @@ export function CartIconButton({ dir }: { dir: "ltr" | "rtl" }) {
             fill="#b400ae"
           />
         </svg>
-        {itemCount > 0 && <span className={styles.cartBadge}>{itemCount}</span>}
+        {itemCount > 0 && (
+          <span className={styles.cartBadge}>
+            <LocaleNumber>{itemCount}</LocaleNumber>
+          </span>
+        )}
       </button>
       {open && (
         <div
