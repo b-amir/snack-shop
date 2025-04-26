@@ -1,5 +1,5 @@
 import { getRequestConfig } from "next-intl/server";
-import { locales } from "@/config";
+import { locales } from "@/i18n/config";
 
 export default getRequestConfig(async ({ requestLocale }) => {
   let locale = await requestLocale;
@@ -8,6 +8,6 @@ export default getRequestConfig(async ({ requestLocale }) => {
   }
   return {
     locale,
-    messages: (await import(`@/lib/locale/${locale}.json`)).default,
+    messages: (await import(`@/i18n/messages/${locale}.json`)).default,
   };
 });

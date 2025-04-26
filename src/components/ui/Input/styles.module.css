@@ -1,0 +1,66 @@
+.inputContainer {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.inputLabel {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.inputElement {
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--border-radius-md, 6px);
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: var(--color-white, #fff);
+  color: #333;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.inputElement:focus {
+  outline: none;
+  border-color: var(--color-primary, #b400ae);
+  box-shadow: 0 0 0 2px rgba(180, 0, 174, 0.15);
+}
+
+.inputElement:disabled {
+  background: #f3f3f3;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.count {
+  width: 2.5rem;
+  min-width: 2rem;
+  max-width: 3rem;
+  padding: 0.2rem 0.3rem;
+  border: none;
+  background: none;
+  box-shadow: none;
+  font-size: 1rem;
+  text-align: center;
+  color: #333;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.count:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.count[type="number"]::-webkit-inner-spin-button,
+.count[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.count[type="number"] {
+  -moz-appearance: textfield;
+}

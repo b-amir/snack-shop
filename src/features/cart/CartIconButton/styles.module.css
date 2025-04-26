@@ -1,0 +1,132 @@
+.cartIconButton {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  margin-left: auto;
+  font-size: 1.8rem;
+  color: var(--color-primary);
+}
+
+.cartIconButton[dir="rtl"] {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.cartBadge {
+  position: absolute;
+  top: 0;
+  right: 2px;
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  min-width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  z-index: 2;
+}
+
+.cartIconButtonWrapper {
+  position: relative;
+}
+
+.cartDropdown {
+  position: absolute;
+  top: 110%;
+  min-width: 320px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ltr {
+  right: 0;
+}
+
+.rtl {
+  left: 0;
+}
+
+.cartDropdownTitle {
+  margin: 0;
+  margin-bottom: 12px;
+}
+
+.cartDropdownEmpty {
+  padding: 16px;
+  text-align: center;
+}
+
+.cartDropdownList {
+  list-style: none;
+  padding: 0;
+  padding-inline-end: 8px;
+  margin: 0;
+  max-height: 260px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #eee;
+}
+
+.cartDropdownList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cartDropdownList::-webkit-scrollbar-track {
+  background: #eee;
+  border-radius: 10px;
+}
+
+.cartDropdownList::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+  border: 2px solid #eee;
+}
+
+.cartDropdownListItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.cartDropdownProductName {
+  flex: 1;
+}
+
+.cartDropdownActions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.clearCartButton {
+  width: 100%;
+  border-radius: 6px;
+  padding: 10px 0;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+.goToCartButton {
+  width: 100%;
+  border-radius: 6px;
+  padding: 10px 0;
+  font-weight: 600;
+  cursor: pointer;
+}

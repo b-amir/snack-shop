@@ -5,7 +5,7 @@ import {
   paginateProducts,
   getPaginationMetadata,
   preprocessedProducts,
-} from "@/lib/api/products/index";
+} from "@/utils/api/products/index";
 
 export async function GET(request: Request) {
   try {

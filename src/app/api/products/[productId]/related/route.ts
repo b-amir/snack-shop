@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getRelatedProducts } from "@/lib/api/products/index";
+import { getRelatedProducts } from "@/utils/api/products/index";
 import { SupportedLocale } from "@/types/product";
 
 export async function GET(

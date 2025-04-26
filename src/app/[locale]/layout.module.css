@@ -11,132 +11,25 @@
   width: 100%;
 }
 
-.header {
+.pageContainer {
   width: 100%;
-  border-bottom: 1px solid #eee;
-  background: var(--background);
-  display: flex;
-  justify-content: center;
-}
-
-.headerLtr {
-  flex-direction: row;
-}
-
-.headerRtl {
-  flex-direction: row-reverse;
-}
-
-.headerContent {
-  width: 100%;
-  max-width: 1136px;
-  padding: 1rem 16px 0 16px;
-  display: flex;
-  align-items: center;
-}
-
-.headerContentLtr {
-  justify-content: flex-start;
-}
-
-.headerContentRtl {
-  justify-content: flex-start;
-}
-
-.headerText {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
   display: flex;
   flex-direction: column;
-  user-select: none;
-}
-
-.headerTextLtr {
-  align-items: flex-start;
-  text-align: left;
-  direction: ltr;
-}
-
-.headerTextRtl {
-  align-items: flex-start;
-  text-align: right;
-  direction: rtl;
-}
-
-.headerContentRtl .headerText {
-  align-items: flex-start;
-}
-
-.title {
-  margin: 8px 0 0 0;
-  font-size: 2rem;
-  font-weight: 900;
-  color: var(--color-primary);
-  line-height: 1.1;
-}
-
-.titleExclamation {
-  font-style: italic;
-  margin-right: 4px;
-}
-
-.subtitle {
-  margin: 0px 0 16px 0;
-  color: var(--color-accent);
-  font-size: 1.1rem;
-}
-
-.footer {
-  width: 100%;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 1rem 0;
-  box-sizing: border-box;
-  background: var(--background);
-  border-top: 1px solid #eee;
-  z-index: 100;
 }
 
-.footerContent {
-  max-width: 1200px;
-  width: 100%;
-  display: flex;
-  padding: 0 16px;
-  justify-content: flex-end;
+@media (max-width: 1280px) {
+  .pageContainer {
+    max-width: 100vw;
+    padding: 0 8px;
+  }
 }
 
-.cartIconButton {
-  position: relative;
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 8px;
-  margin-left: auto;
-  font-size: 1.8rem;
-  color: var(--color-primary);
-}
-
-.cartIconButton[dir="rtl"] {
-  margin-left: 0;
-  margin-right: auto;
-}
-
-.cartBadge {
-  position: absolute;
-  top: 0;
-  right: 2px;
-  background: var(--color-accent);
-  color: #fff;
-  border-radius: 50%;
-  font-size: 0.8rem;
-  min-width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
-  z-index: 2;
+@media (max-width: 600px) {
+  .pageContainer {
+    padding: 0 4px;
+  }
 }

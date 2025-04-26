@@ -1,6 +1,6 @@
-import { ProductList } from "@/components/products/ProductList";
-import styles from "./page.module.css";
+import { ProductList } from "@/features/products/ProductList";
 import { notFound } from "next/navigation";
+import styles from "./layout.module.css";
 
 export default async function Home(props: { params: { locale: string } }) {
   const params = await props.params;
@@ -10,7 +10,7 @@ export default async function Home(props: { params: { locale: string } }) {
     notFound();
   }
   return (
-    <div className={styles.container}>
+    <div className={styles.pageContainer}>
       <ProductList locale={locale} />
     </div>
   );

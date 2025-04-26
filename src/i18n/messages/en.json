@@ -1,0 +1,41 @@
+{
+  "Metadata": {
+    "title": "SnackShop",
+    "description": "Delicious snacks, delivered fast"
+  },
+  "ProductList": {
+    "loading": "Loading...",
+    "error": "Error",
+    "noProducts": "No products found",
+    "checkBackLater": "Please check back later.",
+    "addToCart": "Add to Cart",
+    "cart": "Cart",
+    "cartEmpty": "Your cart is empty.",
+    "quantity": "Qty",
+    "remove": "Remove",
+    "clearCart": "Clear Cart",
+    "goToCart": "Go to Cart",
+    "increase": "Increase quantity",
+    "decrease": "Decrease quantity",
+    "sortBy": "Sort by",
+    "productsPerPage": "Items per page",
+    "Previous": "Previous",
+    "Next": "Next",
+    "sortNewest": "Newest",
+    "sortOldest": "Oldest",
+    "sortPriceAsc": "Price: Low to High",
+    "sortPriceDesc": "Price: High to Low",
+    "errorFetchingProducts": "Failed to fetch products.",
+    "imageLoadError": "Image could not be loaded."
+  },
+  "header": "SnackShop",
+  "subheader": "Delicious snacks, delivered fast",
+  "ProductDetail": {
+    "relatedError": "Failed to load related products.",
+    "loading": "Loading...",
+    "noRelatedProducts": "No related products found.",
+    "relatedProducts": "Related Products",
+    "dateAdded": "Date added: ",
+    "addToCart": "Add to Cart"
+  }
+}

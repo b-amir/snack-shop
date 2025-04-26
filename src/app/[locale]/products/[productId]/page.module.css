@@ -1,0 +1,89 @@
+.container {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 40px;
+  border: 1px solid #eee;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.topSection {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.imageWrapper {
+  min-width: 350px;
+  min-height: 350px;
+  width: 350px;
+  height: 350px;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  background: #fafafa;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.title {
+  font-size: 36px;
+  margin: 0;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.tag {
+  background: #f0f0f0;
+  color: #333;
+  border-radius: 16px;
+  padding: 4px 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.description {
+  font-size: 20px;
+  color: #666;
+  margin: 0;
+}
+
+.price {
+  margin: 16px 0 0 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #222;
+}
+
+.date {
+  color: #888;
+  font-size: 16px;
+  margin: 8px 0 0 0;
+}
+
+.relatedSection {
+  margin-top: 32px;
+}
+
+.relatedTitle {
+  font-size: 28px;
+  margin-bottom: 24px;
+}
+
+.relatedError {
+  color: red;
+}

@@ -1,16 +1,18 @@
 "use client";
-import { productByIdMap } from "@/lib/api/products/index";
+import { productByIdMap } from "@/utils/api/products/index";
 import { notFound } from "next/navigation";
 import { SupportedLocale, Product } from "@/types/product";
 import { useCartStore } from "@/store/store";
 import { useState, use as usePromise } from "react";
-import { ProductCard } from "@/components/products/ProductCard";
+import { ProductCard } from "@/features/products/ProductCard";
 import { useTranslations } from "next-intl";
 import { useQuery } from "@tanstack/react-query";
 import { fetchRelatedProducts } from "@/services/productService";
 import Image from "next/image";
-import detailStyles from "@/components/products/ProductDetail.module.css";
-import styles from "@/components/products/ProductList.module.css";
+import detailStyles from "./page.module.css";
+import sharedStyles from "@/features/products/ProductList/styles.module.css";
+import Button from "@/components/ui/Button";
+import QuantityControl from "@/components/common/QuantityControl";
 
 export default function ProductDetailPage({
   params,
@@ -44,6 +46,13 @@ export default function ProductDetailPage({
   if (!product) {
     notFound();
   }
+
+  const updateQuantity = useCartStore((state) => state.updateQuantity);
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
+  const cartQuantity = useCartStore(
+    (state) =>
+      state.items.find((item) => item.product.id === product.id)?.quantity || 0
+  );
 
   const dateAdded = new Date(product.dateAdded);
   const formattedDate = dateAdded.toLocaleDateString(
@@ -97,23 +106,52 @@ export default function ProductDetailPage({
             <span>{t("dateAdded")}</span>
             <span>{formattedDate}</span>
           </div>
-          <button
-            className={styles.addToCartButton}
-            onClick={() => addToCart(product)}
-          >
-            {t("addToCart")}
-          </button>
+          {cartQuantity > 0 ? (
+            <QuantityControl
+              value={cartQuantity}
+              min={1}
+              onIncrease={() => updateQuantity(product.id, cartQuantity + 1)}
+              onDecrease={() =>
+                cartQuantity > 1
+                  ? updateQuantity(product.id, cartQuantity - 1)
+                  : removeFromCart(product.id)
+              }
+              onChange={(val) =>
+                val > 0
+                  ? updateQuantity(product.id, val)
+                  : removeFromCart(product.id)
+              }
+              variant="button"
+              size="large"
+            />
+          ) : (
+            <Button
+              variant="primary"
+              size="large"
+              onClick={() => addToCart(product)}
+            >
+              {t("addToCart")}
+            </Button>
+          )}
         </div>
       </div>
       <div className={detailStyles.relatedSection}>
         <h2 className={detailStyles.relatedTitle}>{t("relatedProducts")}</h2>
-        {isLoadingRelated && <p>{t("loading")}</p>}
-        {isErrorRelated && <p style={{ color: "red" }}>{t("relatedError")}</p>}
+        {isLoadingRelated && (
+          <p className={detailStyles.loading}>{t("loading")}</p>
+        )}
+        {isErrorRelated && (
+          <p className={detailStyles.relatedError}>{t("relatedError")}</p>
+        )}
         {!isLoadingRelated &&
           !isErrorRelated &&
-          relatedProducts.length === 0 && <p>{t("noRelatedProducts")}</p>}
+          relatedProducts.length === 0 && (
+            <p className={detailStyles.noRelatedProducts}>
+              {t("noRelatedProducts")}
+            </p>
+          )}
         {!isLoadingRelated && !isErrorRelated && relatedProducts.length > 0 && (
-          <div className={styles.relatedProductsGrid}>
+          <div className={sharedStyles.relatedProductsGrid}>
             {relatedProducts.map((related: Product) => (
               <ProductCard
                 key={related.id}

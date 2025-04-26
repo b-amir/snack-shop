@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { productByIdMap } from "@/lib/api/products/index";
+import { productByIdMap } from "@/utils/api/products/index";
 
 export async function GET(
   request: Request,
