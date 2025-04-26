@@ -19,19 +19,36 @@
 .cartList {
   list-style: none;
   padding: 0;
-  max-height: 300px;
+  max-height: 70vh;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: var(--color-primary) var(--color-bg-secondary);
+  scrollbar-color: var(--color-text-muted) var(--color-bg);
+}
+
+.cartList::-webkit-scrollbar {
+  width: 8px;
+  background: var(--color-bg);
+  border-radius: 8px;
+}
+.cartList::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 8px;
+  border: 2px solid var(--color-bg);
+}
+.cartList::-webkit-scrollbar-track {
+  background: var(--color-bg);
+  border-radius: 8px;
 }
 
 .cartListItem {
   padding: 8px 0;
   border-bottom: 1px solid #eee;
+  margin-bottom: 8px;
 }
 
 .cartListItem:last-child {
   border-bottom: none;
+  margin-bottom: 0;
 }
 
 .itemContent {
