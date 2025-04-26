@@ -65,3 +65,25 @@ export async function fetchProductById(
 
   return response.json();
 }
+
+export async function fetchRelatedProducts({
+  productId,
+  locale,
+  limit = 3,
+}: {
+  productId: string;
+  locale: string;
+  limit?: number;
+}): Promise<Product[]> {
+  const params = new URLSearchParams({
+    locale,
+    limit: limit.toString(),
+  });
+  const response = await fetch(
+    `/api/products/${productId}/related?${params.toString()}`
+  );
+  if (!response.ok) {
+    throw new Error(`Failed to fetch related products: ${response.status}`);
+  }
+  return response.json();
+}
