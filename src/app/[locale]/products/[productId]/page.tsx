@@ -13,6 +13,7 @@ import detailStyles from "./page.module.css";
 import sharedStyles from "@/features/products/ProductList/styles.module.css";
 import Button from "@/components/ui/Button";
 import QuantityControl from "@/components/common/QuantityControl";
+import Skeleton from "@/components/common/Skeleton";
 
 export default function ProductDetailPage({
   params,
@@ -138,7 +139,9 @@ export default function ProductDetailPage({
       <div className={detailStyles.relatedSection}>
         <h2 className={detailStyles.relatedTitle}>{t("relatedProducts")}</h2>
         {isLoadingRelated && (
-          <p className={detailStyles.loading}>{t("loading")}</p>
+          <div className={detailStyles.loading}>
+            <Skeleton count={3} layout="related" />
+          </div>
         )}
         {isErrorRelated && (
           <p className={detailStyles.relatedError}>{t("relatedError")}</p>

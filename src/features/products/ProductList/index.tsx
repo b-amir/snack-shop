@@ -11,6 +11,7 @@ import { ProductControls } from "@/features/products/ProductControls";
 import { Pagination } from "@/features/pagination/Pagination";
 import type { ProductsResponse } from "@/services/productService";
 import styles from "./styles.module.css";
+import Skeleton from "@/components/common/Skeleton";
 
 export function ProductList({ locale }: { locale: string }) {
   const t = useTranslations("ProductList");
@@ -44,7 +45,7 @@ export function ProductList({ locale }: { locale: string }) {
   };
 
   if (isLoading) {
-    return <div className={styles.loading}>{t("loading")}</div>;
+    return <Skeleton count={8} layout="grid" />;
   }
 
   if (isError) {
