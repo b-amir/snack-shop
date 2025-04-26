@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import productsData from "@/data/products.json";
-import { Product } from "@/types/product";
+import { productByIdMap } from "@/lib/api/products/index";
 
 export async function GET(
   request: Request,
@@ -8,9 +7,7 @@ export async function GET(
 ) {
   try {
     const { productId } = params;
-    const products = productsData.products as Product[];
-
-    const product = products.find((p) => p.id === productId);
+    const product = productByIdMap.get(productId);
 
     if (!product) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });

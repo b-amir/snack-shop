@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import {
-  filterProductsByQuery,
+  searchProducts,
   sortProducts,
   paginateProducts,
   getPaginationMetadata,
   preprocessedProducts,
-} from "@/lib/api/products";
+} from "@/lib/api/products/index";
 
 export async function GET(request: Request) {
   try {
@@ -24,10 +24,7 @@ export async function GET(request: Request) {
     // Filtering first reduces the dataset size early,
     // making subsequent sorting and pagination faster.
 
-    const filteredProducts = filterProductsByQuery(
-      preprocessedProducts,
-      searchQuery
-    );
+    const filteredProducts = searchProducts(preprocessedProducts, searchQuery);
     const sortedProducts = sortProducts(filteredProducts, sort);
     const paginatedProducts = paginateProducts(sortedProducts, page, limit);
 
