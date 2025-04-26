@@ -8,6 +8,7 @@ import Link from "next/link";
 import styles from "./styles.module.css";
 import Button from "@/components/ui/Button";
 import QuantityControl from "@/components/common/QuantityControl";
+import Card from "@/components/ui/Card";
 
 interface ProductCardProps {
   product: Product;
@@ -31,7 +32,7 @@ export function ProductCard({ product, locale }: ProductCardProps) {
   const currency = product.currency[locale];
   const showImage = product.imageUrl && !imgError;
   return (
-    <div className={styles.productCard}>
+    <Card className={styles.productCard}>
       <Link
         href={`/${locale}/products/${product.id}`}
         className={styles.productCardLink}
@@ -83,36 +84,38 @@ export function ProductCard({ product, locale }: ProductCardProps) {
           </div>
         </div>
       </Link>
-      {cartQuantity > 0 ? (
-        <QuantityControl
-          value={cartQuantity}
-          fullWidth
-          min={1}
-          onIncrease={() => updateQuantity(product.id, cartQuantity + 1)}
-          onDecrease={() =>
-            cartQuantity > 1
-              ? updateQuantity(product.id, cartQuantity - 1)
-              : removeFromCart(product.id)
-          }
-          onChange={(val) =>
-            val > 0
-              ? updateQuantity(product.id, val)
-              : removeFromCart(product.id)
-          }
-          variant="button"
-        />
-      ) : (
-        <Button
-          variant="primary"
-          fullWidth
-          onClick={(e) => {
-            e.stopPropagation();
-            addToCart(product);
-          }}
-        >
-          {t("addToCart")}
-        </Button>
-      )}
-    </div>
+      <div className={styles.cardActions}>
+        {cartQuantity > 0 ? (
+          <QuantityControl
+            value={cartQuantity}
+            fullWidth
+            min={1}
+            onIncrease={() => updateQuantity(product.id, cartQuantity + 1)}
+            onDecrease={() =>
+              cartQuantity > 1
+                ? updateQuantity(product.id, cartQuantity - 1)
+                : removeFromCart(product.id)
+            }
+            onChange={(val) =>
+              val > 0
+                ? updateQuantity(product.id, val)
+                : removeFromCart(product.id)
+            }
+            variant="button"
+          />
+        ) : (
+          <Button
+            variant="primary"
+            fullWidth
+            onClick={(e) => {
+              e.stopPropagation();
+              addToCart(product);
+            }}
+          >
+            {t("addToCart")}
+          </Button>
+        )}
+      </div>
+    </Card>
   );
 }

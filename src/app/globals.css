@@ -20,6 +20,10 @@
   --border-radius-lg: 0.75rem;
   --border-radius-xl: 1rem;
 
+  --spacing-small: 0.5rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 2rem;
+
   --shadow-sm: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.03);
   --shadow-md: 0 0.125rem 0.5rem rgba(33, 33, 33, 0.04);
   --shadow-focus: 0 0 0 0.125rem rgba(0, 123, 255, 0.25);
