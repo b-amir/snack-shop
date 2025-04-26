@@ -6,10 +6,12 @@ import Button from "@/components/ui/Button";
 import { useTranslations, useLocale } from "next-intl";
 import styles from "./page.module.css";
 import { SupportedLocale } from "@/types/product";
+import Skeleton from "@/components/common/Skeleton";
 
 export default function CartPage() {
   const t = useTranslations("ProductList");
-  const { items, clearCart, updateQuantity, removeFromCart } = useCartStore();
+  const { items, clearCart, updateQuantity, removeFromCart, isLoading } =
+    useCartStore();
   const locale = useLocale() as SupportedLocale;
 
   const totalPrice = items.reduce(
@@ -23,12 +25,17 @@ export default function CartPage() {
   const currencyString =
     items.length > 0 ? items[0].product.currency[locale] : "";
 
+  if (isLoading) {
+    return <Skeleton layout="cartEmpty" />;
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.contentWrapper}>
-        {items.length > 0 && (
+        {items.length > 0 ? (
           <div className={styles.cartSummary}>
             <h2 className={styles.summaryTitle}>{t("summary")}</h2>
+            <hr />
             <div className={styles.totalRow}>
               <span className={styles.totalPrice}>
                 {formattedTotalPrice} {currencyString}
@@ -48,6 +55,8 @@ export default function CartPage() {
               {t("clearCart")}
             </Button>
           </div>
+        ) : (
+          <div style={{ flex: 1 }}></div>
         )}
 
         <div className={styles.cartItemsSection}>
