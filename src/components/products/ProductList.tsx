@@ -23,7 +23,7 @@ export function ProductList({ locale }: { locale: string }) {
     handlePageChange,
   } = useProductFilters();
 
-  const { data, isLoading, isError, isSuccess, error } = useQuery<
+  const { data, isLoading, isError, isSuccess } = useQuery<
     ProductsResponse,
     Error
   >({
@@ -48,11 +48,7 @@ export function ProductList({ locale }: { locale: string }) {
   }
 
   if (isError) {
-    return (
-      <div className={styles.error}>
-        {t("error")}: {error.message}
-      </div>
-    );
+    return <div className={styles.error}>{t("errorFetchingProducts")}</div>;
   }
 
   if (isSuccess && (!products || products.length === 0)) {
