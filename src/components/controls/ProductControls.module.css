@@ -5,9 +5,6 @@
   margin-bottom: 1.5rem;
   gap: 1.5rem;
   flex-wrap: wrap;
-}
-
-.controlSelect {
-  /* Example: override width or margin if necessary */
-  /* min-width: 180px; */
+  margin-left: 0.15rem;
+  margin-right: 0.15rem;
 }
