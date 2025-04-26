@@ -1,4 +1,4 @@
-import { ProductList } from "../components/products/ProductList";
+import { ProductList } from "@/components/products/ProductList";
 import styles from "./page.module.css";
 
 export default function Home() {
