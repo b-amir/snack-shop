@@ -224,3 +224,10 @@
   outline: none;
   color: #222;
 }
+
+.productDateAdded {
+  color: #b400ae;
+  font-size: 0.92rem;
+  margin-top: 4px;
+  margin-bottom: 0;
+}

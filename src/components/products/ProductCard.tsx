@@ -1,7 +1,7 @@
 import { Product, SupportedLocale } from "@/types/product";
 import { useTranslations } from "next-intl";
 import styles from "./ProductList.module.css";
-import { useCartStore } from "@/lib/store";
+import { useCartStore } from "@/store/store";
 import Image from "next/image";
 import { useState } from "react";
 

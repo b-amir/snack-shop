@@ -1,0 +1,15 @@
+.languageSwitcherSelect {
+  min-width: 110px;
+}
+
+.languageSwitcherContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+  color: #3a558b;
+}
+
+.languageSwitcherIcon {
+  display: block;
+}

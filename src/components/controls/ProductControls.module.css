@@ -1,0 +1,13 @@
+.controlRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.controlSelect {
+  /* Example: override width or margin if necessary */
+  /* min-width: 180px; */
+}

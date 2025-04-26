@@ -1,5 +1,5 @@
 "use client";
-import { useCartStore } from "@/lib/store";
+import { useCartStore } from "@/store/store";
 import styles from "./ProductList.module.css";
 import { useTranslations } from "next-intl";
 

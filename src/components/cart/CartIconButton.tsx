@@ -1,7 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { useCartStore } from "@/lib/store";
-import styles from "../../[locale]/layout.module.css";
+import { useCartStore } from "@/store/store";
+import styles from "@/app/[locale]/layout.module.css";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
