@@ -1,6 +1,6 @@
 import { Product } from "@/types/product";
 
-interface ProductsResponse {
+export interface ProductsResponse {
   products: Product[];
   pagination: {
     totalProducts: number;
@@ -14,12 +14,16 @@ interface FetchProductsParams {
   search?: string;
   page?: number;
   limit?: number;
+  pageSize?: number;
+  sort?: string;
 }
 
 export async function fetchProducts({
   search = "",
   page = 1,
-  limit = 10,
+  limit,
+  pageSize,
+  sort,
 }: FetchProductsParams = {}): Promise<ProductsResponse> {
   const searchParams = new URLSearchParams();
 
@@ -33,6 +37,12 @@ export async function fetchProducts({
 
   if (limit) {
     searchParams.append("limit", limit.toString());
+  } else if (pageSize) {
+    searchParams.append("pageSize", pageSize.toString());
+  }
+
+  if (sort) {
+    searchParams.append("sort", sort);
   }
 
   const response = await fetch(`/api/products?${searchParams.toString()}`);

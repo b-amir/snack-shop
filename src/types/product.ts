@@ -8,6 +8,7 @@ export interface Product {
   imageUrl: string;
   description: Record<SupportedLocale, string>;
   category: string;
+  dateAdded: string;
 }
 
 export interface CartItem {
