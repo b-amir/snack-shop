@@ -9,6 +9,7 @@ export interface Product {
   description: Record<SupportedLocale, string>;
   category: string;
   dateAdded: string;
+  tags: Record<SupportedLocale, string[]>;
 }
 
 export interface CartItem {
