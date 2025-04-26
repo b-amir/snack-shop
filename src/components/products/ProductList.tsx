@@ -5,15 +5,14 @@ import styles from "./ProductList.module.css";
 import { Product } from "@/types/product";
 import { ProductCard } from "./ProductCard";
 import { fetchProducts } from "@/services/productService";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { SupportedLocale } from "@/types/product";
 import { useProductFilters } from "@/hooks/useProductFilters";
 import { ProductControls } from "@/components/controls/ProductControls";
 import { Pagination } from "@/components/pagination/Pagination";
 import type { ProductsResponse } from "@/services/productService";
 
-export function ProductList() {
-  const locale = useLocale();
+export function ProductList({ locale }: { locale: string }) {
   const t = useTranslations("ProductList");
   const {
     sort,

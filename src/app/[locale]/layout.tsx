@@ -8,6 +8,7 @@ import styles from "./layout.module.css";
 import { CartIconButton } from "@/components/cart/CartIconButton";
 import Link from "next/link";
 import { LanguageSwitcher } from "@/components/footer/LanguageSwitcher";
+import { getDirection } from "@/utils/direction";
 
 const vazirmatn = Vazirmatn({
   subsets: ["latin", "arabic"],
@@ -32,15 +33,15 @@ function Footer({ locale }: { locale: string }) {
 
 function Header({ locale }: { locale: string }) {
   const t = useTranslations();
-  const isRTL = locale === "fa";
+  const dir = getDirection(locale);
   const headerClass = `${styles.header} ${
-    isRTL ? styles.headerRtl : styles.headerLtr
+    dir === "rtl" ? styles.headerRtl : styles.headerLtr
   }`;
   const headerContentClass = `${styles.headerContent} ${
-    isRTL ? styles.headerContentRtl : styles.headerContentLtr
+    dir === "rtl" ? styles.headerContentRtl : styles.headerContentLtr
   }`;
   const headerTextClass = `${styles.headerText} ${
-    isRTL ? styles.headerTextRtl : styles.headerTextLtr
+    dir === "rtl" ? styles.headerTextRtl : styles.headerTextLtr
   }`;
 
   return (
@@ -55,7 +56,7 @@ function Header({ locale }: { locale: string }) {
           </Link>
           <p className={styles.subtitle}>{t("subheader")}</p>
         </div>
-        <CartIconButton dir={isRTL ? "rtl" : "ltr"} />
+        <CartIconButton dir={dir} />
       </div>
     </header>
   );
@@ -72,7 +73,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      dir={locale === "fa" ? "rtl" : "ltr"}
+      dir={getDirection(locale)}
       className={vazirmatn.variable}
     >
       <body className={styles.body}>

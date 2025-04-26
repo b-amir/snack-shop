@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import styles from "./Pagination.module.css";
 import LocaleNumber from "../LocaleNumber";
+import { getDirection } from "@/utils/direction";
 
 interface PaginationProps {
   currentPage: number;
@@ -36,10 +37,10 @@ export function Pagination({
     pageNumbers.push(i);
   }
 
-  const isRTL = locale === "fa";
+  const dir = getDirection(locale);
 
   return (
-    <div className={styles.pagination} dir={isRTL ? "rtl" : "ltr"}>
+    <div className={styles.pagination} dir={dir}>
       <button
         className={styles.paginationItem}
         onClick={() => onPageChange(currentPage - 1)}
