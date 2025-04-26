@@ -3,12 +3,30 @@
   --foreground: #171717;
 
   --color-primary: #b400ae;
+  --color-primary-hover: #9300a2;
   --color-accent: #3a558b;
   --color-text: #212121;
+  --color-text-muted: #757575;
+  --color-text-dark: #222;
   --color-bg: #fff;
+  --color-white: #fff;
+  --color-bg-subtle: #ededed;
+  --color-border-light: #eee;
+  --color-border-medium: #e0e0e0;
+  --color-button-hover-bg: #f3e6f7;
+
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 0.75rem;
+  --border-radius-xl: 1rem;
+
+  --shadow-sm: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 0.125rem 0.5rem rgba(33, 33, 33, 0.04);
+  --shadow-focus: 0 0 0 0.125rem rgba(0, 123, 255, 0.25);
 
   --color-error-bg: #fdeaee;
   --color-error-text: #b00020;
+  --color-error-dark: #b00020;
   --color-warning-bg: #fffde5;
   --color-warning-text: #fc7600;
   --color-success-bg: #e6f6ec;

@@ -39,7 +39,6 @@ export function ProductControls({
         options={sortOptions}
         value={sort}
         onChange={onSortChange}
-        className={styles.controlSelect}
       />
       <Select
         id="page-size-select"
@@ -47,7 +46,6 @@ export function ProductControls({
         options={pageSizeOptions}
         value={pageSize}
         onChange={onPageSizeChange}
-        className={styles.controlSelect}
       />
     </div>
   );
