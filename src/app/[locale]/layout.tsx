@@ -1,5 +1,4 @@
 import { Vazirmatn } from "next/font/google";
-import QueryProvider from "@/contexts/QueryProvider";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { getDirection } from "@/utils/direction";
@@ -47,9 +46,7 @@ export default async function RootLayout(
       <body className={styles.body}>
         <NextIntlClientProvider messages={messages}>
           <Header locale={locale} />
-          <div className={`container ${styles.mainContainer}`}>
-            <QueryProvider>{children}</QueryProvider>
-          </div>
+          <div className={`container ${styles.mainContainer}`}>{children}</div>
           <Footer locale={locale} />
         </NextIntlClientProvider>
       </body>

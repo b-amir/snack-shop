@@ -1,5 +1,12 @@
 import { Product } from "@/types/product";
 
+const getBaseUrl = () => {
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  return `http://localhost:${process.env.PORT ?? 3000}`;
+};
+
+const API_BASE_URL = `${getBaseUrl()}/api`;
+
 export interface ProductsResponse {
   products: Product[];
   pagination: {
@@ -45,10 +52,11 @@ export async function fetchProducts({
     searchParams.append("sort", sort);
   }
 
-  const response = await fetch(`/api/products?${searchParams.toString()}`);
+  const url = `${API_BASE_URL}/products?${searchParams.toString()}`;
+  const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch products: ${response.status}`);
+    throw new Error(`Failed to fetch products from ${url}: ${response.status}`);
   }
 
   return response.json();
@@ -57,10 +65,11 @@ export async function fetchProducts({
 export async function fetchProductById(
   id: string
 ): Promise<{ product: Product }> {
-  const response = await fetch(`/api/products/${id}`);
+  const url = `${API_BASE_URL}/products/${id}`;
+  const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch product: ${response.status}`);
+    throw new Error(`Failed to fetch product from ${url}: ${response.status}`);
   }
 
   return response.json();
@@ -79,11 +88,13 @@ export async function fetchRelatedProducts({
     locale,
     limit: limit.toString(),
   });
-  const response = await fetch(
-    `/api/products/${productId}/related?${params.toString()}`
-  );
+  const url = `${API_BASE_URL}/products/${productId}/related?${params.toString()}`;
+  const response = await fetch(url);
+
   if (!response.ok) {
-    throw new Error(`Failed to fetch related products: ${response.status}`);
+    throw new Error(
+      `Failed to fetch related products from ${url}: ${response.status}`
+    );
   }
   return response.json();
 }
