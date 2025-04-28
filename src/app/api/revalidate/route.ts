@@ -6,6 +6,7 @@ import {
 } from "@/utils/cache";
 import { getCacheState } from "@/utils/cache/cacheClientInstance";
 import { Redis } from "ioredis";
+import { productByIdMap } from "@/utils/api/products/index";
 
 export const dynamic = "force-dynamic";
 
@@ -44,6 +45,17 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const productExists = productByIdMap.has(productId);
+  if (!productExists) {
+    console.log(
+      `[Cache] Revalidation attempt failed: Product ${productId} not found.`
+    );
+    return NextResponse.json(
+      { message: `Product with ID ${productId} not found. Cannot revalidate.` },
+      { status: 404 }
+    );
+  }
+
   const localesToRevalidate =
     Array.isArray(changedLocales) && changedLocales.length > 0
       ? changedLocales
@@ -72,6 +84,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       revalidated: true,
+      message: `Cache revalidated successfully for product ID: ${productId}`,
       product: productId,
       timestamp: Date.now(),
     });

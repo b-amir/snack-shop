@@ -64,7 +64,7 @@ export function RevalidationButton() {
         }),
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => ({ message: res.statusText }));
       console.log("Response status:", res.status);
       console.log("Response data:", data);
 
@@ -76,6 +76,8 @@ export function RevalidationButton() {
           }),
           "success"
         );
+      } else if (res.status === 404) {
+        showToast(t("productNotFound"), "error");
       } else {
         showToast(
           t("revalidationFailed", {
