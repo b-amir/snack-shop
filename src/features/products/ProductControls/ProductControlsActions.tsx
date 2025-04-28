@@ -1,6 +1,5 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { ChangeEvent, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Select } from "@/components/ui/Select";
@@ -19,17 +18,28 @@ const getPageSizeOptions = () =>
 interface ProductControlsActionsProps {
   initialSort: string;
   initialPageSize: number;
+  translations: {
+    sortBy: string;
+    productsPerPage: string;
+    sortNewest: string;
+    sortOldest: string;
+    sortPriceAsc: string;
+    sortPriceDesc: string;
+  };
 }
 
 export function ProductControlsActions({
   initialSort,
   initialPageSize,
+  translations,
 }: ProductControlsActionsProps) {
-  const t = useTranslations("ProductList");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
+
+  const t = (key: string) =>
+    translations[key as keyof typeof translations] || key;
 
   const sortOptions = getSortOptions(t);
   const pageSizeOptions = getPageSizeOptions();

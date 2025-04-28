@@ -14,39 +14,47 @@ import { productByIdMap } from "@/utils/api/products/index";
 
 const supportedLocales: SupportedLocale[] = ["en", "fa"];
 
-// Enable ISR: Revalidate pages every hour
-export const revalidate = 3600;
-
-// Generate static paths for a subset of products and all locales
 export async function generateStaticParams() {
-  // In a real app, get popular product IDs from analytics/DB
-  // For demo: take first 10 product IDs
-  const productIds = Array.from(productByIdMap.keys()).slice(0, 10);
+  const allProducts = Array.from(productByIdMap.values());
 
-  const params = productIds.flatMap((productId) =>
+  allProducts.sort(
+    (a, b) => new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime()
+  );
+
+  const newestProductIds = allProducts.slice(0, 8).map((p) => p.id);
+
+  if (newestProductIds.length === 0) {
+    console.warn("generateStaticParams: No products found to pre-render.");
+    return [];
+  }
+
+  const params = newestProductIds.flatMap((productId) =>
     supportedLocales.map((locale) => ({ locale, productId }))
   );
 
-  console.log(
-    `Generating static params for ${params.length} product detail pages`
-  );
   return params;
 }
+
+export const dynamicParams = false;
 
 export default async function ProductDetailPage(props: {
   params: Promise<{ locale: string; productId: string }>;
 }) {
   const { locale, productId } = await props.params;
-  const t = await getTranslations("ProductDetail");
 
   if (!supportedLocales.includes(locale as SupportedLocale)) {
     notFound();
   }
 
-  const { product } = await fetchProductById(productId);
-  if (!product) {
+  const t = await getTranslations("ProductDetail");
+
+  const productData = await fetchProductById(productId);
+
+  if (!productData || !productData.product) {
     notFound();
   }
+
+  const { product } = productData;
 
   const safeLocale = locale as SupportedLocale;
 

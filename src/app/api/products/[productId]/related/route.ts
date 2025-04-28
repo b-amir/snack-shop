@@ -19,11 +19,8 @@ export async function GET(
 
     const cachedData = await getCache(cacheKey);
     if (cachedData) {
-      console.log(`API CACHE HIT: ${cacheKey}`);
       return NextResponse.json(cachedData);
     }
-
-    console.log(`API CACHE MISS: ${cacheKey}`);
 
     const relatedProducts = getRelatedProducts(productId, locale).slice(
       0,

@@ -27,11 +27,8 @@ export async function GET(request: Request) {
 
     const cachedData = await getCache(cacheKey);
     if (cachedData) {
-      console.log(`API CACHE HIT: ${cacheKey}`);
       return NextResponse.json(cachedData);
     }
-
-    console.log(`API CACHE MISS: ${cacheKey}`);
 
     // Apply operations in pipeline: filter -> sort -> paginate
     // Filtering first reduces the dataset size early,

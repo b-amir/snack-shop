@@ -5,11 +5,7 @@ import { SupportedLocale } from "@/types/product";
 
 const supportedLocales: SupportedLocale[] = ["en", "fa"];
 
-export function generateStaticParams() {
-  return supportedLocales.map((locale) => ({
-    locale,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 export default async function Home(props: {
   params: Promise<{ locale: string }>;
