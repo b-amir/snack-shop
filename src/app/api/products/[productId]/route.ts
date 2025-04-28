@@ -6,10 +6,10 @@ const PRODUCT_DETAIL_CACHE_TTL = 3600; // 1 hour
 
 export async function GET(
   request: Request,
-  { params }: { params: { productId: string } }
+  context: { params: Promise<{ productId: string }> }
 ) {
   try {
-    const { productId } = params;
+    const { productId } = await context.params;
 
     const cacheKey = `api:product:${productId}`;
 

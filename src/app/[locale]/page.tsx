@@ -3,17 +3,25 @@ import { notFound } from "next/navigation";
 import styles from "./layout.module.css";
 import { SupportedLocale } from "@/types/product";
 
-export default async function Home({
-  params: { locale },
-  searchParams,
-}: {
-  params: { locale: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+const supportedLocales: SupportedLocale[] = ["en", "fa"];
+
+export function generateStaticParams() {
+  return supportedLocales.map((locale) => ({
+    locale,
+  }));
+}
+
+export default async function Home(props: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const supportedLocales: SupportedLocale[] = ["en", "fa"];
+  const locale = (await props.params).locale;
+  const searchParams = await props.searchParams;
+
   if (!supportedLocales.includes(locale as SupportedLocale)) {
     notFound();
   }
+
   return (
     <div className={styles.pageContainer}>
       <ProductList

@@ -7,10 +7,10 @@ const RELATED_PRODUCTS_CACHE_TTL = 900; // 15 minutes
 
 export async function GET(
   request: Request,
-  { params }: { params: { productId: string } }
+  context: { params: Promise<{ productId: string }> }
 ) {
   try {
-    const { productId } = params;
+    const { productId } = await context.params;
     const { searchParams } = new URL(request.url);
     const locale = (searchParams.get("locale") || "en") as SupportedLocale;
     const limit = parseInt(searchParams.get("limit") || "3");

@@ -11,12 +11,10 @@ import {
 import { ProductQuantityActions } from "./components/ProductQuantityActions";
 import { getTranslations } from "next-intl/server";
 
-export default async function ProductDetailPage({
-  params,
-}: {
-  params: { locale: string; productId: string };
+export default async function ProductDetailPage(props: {
+  params: Promise<{ locale: string; productId: string }>;
 }) {
-  const { locale, productId } = params;
+  const { locale, productId } = await props.params;
   const t = await getTranslations("ProductDetail");
 
   const supportedLocales: SupportedLocale[] = ["en", "fa"];
