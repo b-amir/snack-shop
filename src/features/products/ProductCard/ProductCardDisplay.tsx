@@ -33,7 +33,6 @@ export function ProductCardDisplay({
             alt={product.name[locale]}
             fill
             style={{ objectFit: "cover" }}
-            priority
             sizes="(max-width: 600px) 100vw, 200px"
           />
         </div>
