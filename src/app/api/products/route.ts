@@ -6,6 +6,9 @@ import {
   getPaginationMetadata,
   preprocessedProducts,
 } from "@/utils/api/products/index";
+import { getCache, setCache } from "@/utils/cache";
+
+const API_CACHE_TTL = 300; // 5 minutes
 
 export async function GET(request: Request) {
   try {
@@ -20,18 +23,31 @@ export async function GET(request: Request) {
     );
     const sort = searchParams.get("sort") || "";
 
+    const cacheKey = `api:products:${searchQuery}:${page}:${limit}:${sort}`;
+
+    const cachedData = await getCache(cacheKey);
+    if (cachedData) {
+      console.log(`API CACHE HIT: ${cacheKey}`);
+      return NextResponse.json(cachedData);
+    }
+
+    console.log(`API CACHE MISS: ${cacheKey}`);
+
     // Apply operations in pipeline: filter -> sort -> paginate
     // Filtering first reduces the dataset size early,
     // making subsequent sorting and pagination faster.
-
     const filteredProducts = searchProducts(preprocessedProducts, searchQuery);
     const sortedProducts = sortProducts(filteredProducts, sort);
     const paginatedProducts = paginateProducts(sortedProducts, page, limit);
 
-    return NextResponse.json({
+    const result = {
       products: paginatedProducts,
       pagination: getPaginationMetadata(filteredProducts.length, page, limit),
-    });
+    };
+
+    await setCache(cacheKey, result, API_CACHE_TTL);
+
+    return NextResponse.json(result);
   } catch (error) {
     console.error("Error fetching products:", error);
     return NextResponse.json(

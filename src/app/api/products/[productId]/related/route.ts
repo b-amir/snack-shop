@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
-import { getRelatedProducts } from "@/utils/api/products/index";
+import { getRelatedProducts } from "@/utils/api/products/related";
+import { getCache, setCache } from "@/utils/cache";
 import { SupportedLocale } from "@/types/product";
+
+const RELATED_PRODUCTS_CACHE_TTL = 900; // 15 minutes
 
 export async function GET(
   request: Request,
@@ -10,29 +13,30 @@ export async function GET(
     const { productId } = params;
     const { searchParams } = new URL(request.url);
     const locale = (searchParams.get("locale") || "en") as SupportedLocale;
-    const limit = parseInt(searchParams.get("limit") || "3", 10);
+    const limit = parseInt(searchParams.get("limit") || "3");
 
-    if (!productId || isNaN(limit) || limit <= 0) {
-      return NextResponse.json(
-        { error: "Invalid parameters" },
-        { status: 400 }
-      );
+    const cacheKey = `api:related:${productId}:${locale}:${limit}`;
+
+    const cachedData = await getCache(cacheKey);
+    if (cachedData) {
+      console.log(`API CACHE HIT: ${cacheKey}`);
+      return NextResponse.json(cachedData);
     }
 
-    const relatedProducts = getRelatedProducts(productId, locale);
+    console.log(`API CACHE MISS: ${cacheKey}`);
 
-    if (!relatedProducts) {
-      return NextResponse.json(
-        { error: "Product not found or no related products" },
-        { status: 404 }
-      );
-    }
+    const relatedProducts = getRelatedProducts(productId, locale).slice(
+      0,
+      limit
+    );
 
-    return NextResponse.json(relatedProducts.slice(0, limit));
+    await setCache(cacheKey, relatedProducts, RELATED_PRODUCTS_CACHE_TTL);
+
+    return NextResponse.json(relatedProducts);
   } catch (error) {
     console.error("Error fetching related products:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: "Failed to fetch related products" },
       { status: 500 }
     );
   }

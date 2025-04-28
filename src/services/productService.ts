@@ -1,5 +1,5 @@
 import { Product } from "@/types/product";
-import redis from "@/utils/redis";
+import redis from "@/utils/cache/redis";
 
 const getBaseUrl = () => {
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
