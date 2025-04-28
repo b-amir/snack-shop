@@ -1,33 +1,27 @@
-import Redis from "ioredis";
-import { MemoryCache } from "./fallback";
-
-// Cache client: Redis or in-memory fallback
-let cacheClient: Redis | MemoryCache;
-let usingFallback = false;
-
-try {
-  if (process.env.REDIS_URL) {
-    cacheClient = new Redis(process.env.REDIS_URL);
-    console.log("Connected to Redis");
-  } else {
-    throw new Error("REDIS_URL not set");
-  }
-} catch (error: unknown) {
-  console.log(
-    "Redis not available, using in-memory cache fallback",
-    error instanceof Error ? error.message : ""
-  );
-  cacheClient = new MemoryCache();
-  usingFallback = true;
-}
+import { getCacheState } from "./cacheClientInstance";
 
 export async function getCache<T>(key: string): Promise<T | null> {
+  const cacheType = key.startsWith("api:") ? "API" : "Service";
   try {
-    const data = await cacheClient.get(key);
-    if (!data) return null;
+    const { client, usingFallback } = await getCacheState();
+    if (!client) return null;
+
+    const data = await client.get(key);
+    if (!data) {
+      if (!usingFallback) console.log(`[Cache:${cacheType}] MISS key: ${key}`);
+      return null;
+    }
+
+    if (!usingFallback) console.log(`[Cache:${cacheType}] HIT key: ${key}`);
     return JSON.parse(data) as T;
   } catch (error) {
-    console.error(`Cache get error for key ${key}:`, error);
+    if (error instanceof SyntaxError) {
+      console.log(
+        `[Cache:${cacheType}] Error parsing key ${key}: ${
+          (error as Error).message
+        }`
+      );
+    }
     return null;
   }
 }
@@ -38,22 +32,37 @@ export async function setCache<T>(
   ttlSeconds: number
 ): Promise<void> {
   try {
-    await cacheClient.set(key, JSON.stringify(data), "EX", ttlSeconds);
+    const { client } = await getCacheState();
+    if (!client) return;
+
+    const value = JSON.stringify(data);
+    await client.set(key, value, "EX", ttlSeconds);
   } catch (error) {
-    console.error(`Cache set error for key ${key}:`, error);
+    console.log(
+      `[Cache] Error setting key ${key}: ${(error as Error).message}`
+    );
   }
 }
 
 export async function deleteCache(key: string): Promise<void> {
   try {
-    await cacheClient.del(key);
+    const { client } = await getCacheState();
+    if (!client) return;
+
+    await client.del(key);
   } catch (error) {
-    console.error(`Cache delete error for key ${key}:`, error);
+    console.log(
+      `[Cache] Error deleting key ${key}: ${(error as Error).message}`
+    );
   }
 }
 
-export function isUsingFallback(): boolean {
+export async function isUsingFallback(): Promise<boolean> {
+  const { usingFallback } = await getCacheState();
   return usingFallback;
 }
 
-export default cacheClient;
+export async function getCacheInitializationError(): Promise<Error | null> {
+  const { error } = await getCacheState();
+  return error;
+}
