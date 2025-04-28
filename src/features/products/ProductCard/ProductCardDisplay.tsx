@@ -4,6 +4,8 @@ import Link from "next/link";
 import styles from "./styles.module.css";
 import Card from "@/components/ui/Card";
 
+const useCdn = process.env.NEXT_PUBLIC_USE_CLOUDINARY_CDN === "true";
+
 interface ProductCardDisplayProps {
   product: Product;
   locale: SupportedLocale;
@@ -21,6 +23,9 @@ export function ProductCardDisplay({
       : product.price[locale];
   const currency = product.currency[locale];
 
+  const imageSrc = useCdn ? product.imageUrlCdn : product.imageUrlLocal;
+  const placeholderSrc = !useCdn ? "/placeholder.jpg" : undefined;
+
   return (
     <Card className={styles.productCard}>
       <Link
@@ -29,7 +34,7 @@ export function ProductCardDisplay({
       >
         <div className={styles.productImagePlaceholder}>
           <Image
-            src={product.imageUrl || "/placeholder.jpg"}
+            src={imageSrc || placeholderSrc || "/placeholder.jpg"}
             alt={product.name[locale]}
             fill
             style={{ objectFit: "cover" }}

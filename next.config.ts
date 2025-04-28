@@ -3,7 +3,21 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin();
 
+const useCdn = process.env.NEXT_PUBLIC_USE_CLOUDINARY_CDN === "true";
+
+console.log(
+  `Image Loader: ${useCdn ? "Cloudinary (Custom)" : "Default (Local)"}`
+);
+
 const nextConfig: NextConfig = {
+  images: useCdn
+    ? {
+        loader: "custom",
+        loaderFile: "./src/lib/cloudinaryLoader.ts",
+      }
+    : {
+        loader: "default", // Config for local images (default loader)
+      },
   /* config options here */
 };
 

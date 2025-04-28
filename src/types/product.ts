@@ -5,7 +5,8 @@ export interface Product {
   name: Record<SupportedLocale, string>;
   price: Record<SupportedLocale, number>;
   currency: Record<SupportedLocale, string>;
-  imageUrl: string;
+  imageUrlLocal: string;
+  imageUrlCdn: string;
   description: Record<SupportedLocale, string>;
   category: string;
   dateAdded: string;

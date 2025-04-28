@@ -14,6 +14,8 @@ import { productByIdMap } from "@/utils/api/products/index";
 
 const supportedLocales: SupportedLocale[] = ["en", "fa"];
 
+const useCdn = process.env.NEXT_PUBLIC_USE_CLOUDINARY_CDN === "true";
+
 export async function generateStaticParams() {
   const allProducts = Array.from(productByIdMap.values());
 
@@ -58,6 +60,8 @@ export default async function ProductDetailPage(props: {
 
   const safeLocale = locale as SupportedLocale;
 
+  const imageSrc = useCdn ? product.imageUrlCdn : product.imageUrlLocal;
+
   const relatedProducts = await fetchRelatedProducts({
     productId,
     locale: safeLocale,
@@ -83,10 +87,10 @@ export default async function ProductDetailPage(props: {
   return (
     <div className={detailStyles.container}>
       <div className={detailStyles.topSection}>
-        {product.imageUrl && (
+        {imageSrc && (
           <div className={detailStyles.imageWrapper}>
             <Image
-              src={product.imageUrl}
+              src={imageSrc}
               alt={product.name[safeLocale]}
               fill
               style={{ objectFit: "cover" }}

@@ -8,7 +8,8 @@
       },
       "price": { "en": 1.29, "fa": 53000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/crisps-salt-vinegar.jpg",
+      "imageUrlLocal": "/images/crisps-salt-vinegar.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/crisps-salt-vinegar_uvjlz9",
       "description": {
         "en": "Thinly sliced potatoes, fried until crispy and seasoned with salt and tangy vinegar.",
         "fa": "برش‌های نازک سیب‌زمینی که تا حد ترد شدن سرخ شده و با نمک و سرکه تند طعم‌دار شده‌اند."
@@ -28,7 +29,8 @@
       },
       "price": { "en": 1.49, "fa": 62500 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/chocolate-bar.jpg",
+      "imageUrlLocal": "/images/chocolate-bar.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/chocolate-bar_deg8mu",
       "description": {
         "en": "A simple, delicious bar of solid milk chocolate. A classic muggle treat.",
         "fa": "یک تخته شکلات شیری ساده و خوشمزه. یک خوراکی کلاسیک ماگلی."
@@ -48,7 +50,8 @@
       },
       "price": { "en": 0.89, "fa": 27000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/digestive-biscuits.jpg",
+      "imageUrlLocal": "/images/digestive-biscuits.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/digestive-biscuits_bh6g51",
       "description": {
         "en": "Semi-sweet biscuits, popular with tea. Made with wholemeal flour.",
         "fa": "بیسکویت‌های نیمه شیرین، محبوب همراه با چای. تهیه شده با آرد کامل."
@@ -65,7 +68,8 @@
       "name": { "en": "Peanut Butter Cups", "fa": "شکلات کره بادام‌زمینی" },
       "price": { "en": 1.39, "fa": 64000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/peanut-butter-cups.jpg",
+      "imageUrlLocal": "/images/peanut-butter-cups.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/peanut-butter-cups_k1xroo",
       "description": {
         "en": "Chocolate cups filled with creamy peanut butter.",
         "fa": "شکلات‌هایی با مغز کره بادام‌زمینی نرم."
@@ -82,7 +86,8 @@
       "name": { "en": "Pretzels", "fa": "چوب شور" },
       "price": { "en": 0.95, "fa": 18500 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/pretzels.jpg",
+      "imageUrlLocal": "/images/pretzels.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/pretzels_tbyxwq",
       "description": {
         "en": "Baked bread snack, twisted into a knot and sprinkled with salt.",
         "fa": "اسنک نانی پخته شده، به شکل گره و با نمک پاشیده شده."
@@ -99,7 +104,8 @@
       "name": { "en": "Gummy Bears", "fa": "پاستیل خرسی" },
       "price": { "en": 1.19, "fa": 32000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/gummy-bears.jpg",
+      "imageUrlLocal": "/images/gummy-bears.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/gummy-bears_l8mzpx",
       "description": {
         "en": "Colorful, fruit-flavored gummy candies shaped like bears.",
         "fa": "پاستیل‌های رنگارنگ با طعم میوه به شکل خرس."
@@ -116,7 +122,8 @@
       "name": { "en": "Granola Bar", "fa": "گرانولا بار" },
       "price": { "en": 1.79, "fa": 30000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/granola-bar.jpg",
+      "imageUrlLocal": "/images/granola-bar.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/granola-bar_zuyhtc",
       "description": {
         "en": "A healthy snack bar made with oats, honey, and nuts.",
         "fa": "یک اسنک سالم تهیه شده از جو دوسر، عسل و مغزها."
@@ -133,7 +140,8 @@
       "name": { "en": "Fruit Juice Box", "fa": "آبمیوه پاکتی" },
       "price": { "en": 1.25, "fa": 14200 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/juice-box.jpg",
+      "imageUrlLocal": "/images/juice-box.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/juice-box_kwje0e",
       "description": {
         "en": "A small box of mixed fruit juice, perfect for kids.",
         "fa": "یک پاکت کوچک آبمیوه مخلوط، مناسب برای کودکان."
@@ -150,7 +158,8 @@
       "name": { "en": "Popcorn (Butter)", "fa": "پاپ‌کورن (کره‌ای)" },
       "price": { "en": 0.95, "fa": 26000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/popcorn-butter.jpg",
+      "imageUrlLocal": "/images/popcorn-butter.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/popcorn-butter_u6t77t",
       "description": {
         "en": "Fluffy popcorn tossed in melted butter.",
         "fa": "پاپ‌کورن نرم و پفکی با کره ذوب شده."
@@ -167,7 +176,8 @@
       "name": { "en": "Soda Can", "fa": "نوشابه قوطی" },
       "price": { "en": 1.19, "fa": 18000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/soda-can.jpg",
+      "imageUrlLocal": "/images/soda-can.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/soda-can_vls0k7",
       "description": {
         "en": "A can of fizzy, sweet soda.",
         "fa": "یک قوطی نوشابه گازدار و شیرین."
@@ -184,7 +194,8 @@
       "name": { "en": "Energy Drink", "fa": "نوشیدنی انرژی‌زا" },
       "price": { "en": 2.49, "fa": 39000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/energy-drink.jpg",
+      "imageUrlLocal": "/images/energy-drink.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/energy-drink_hx09bs",
       "description": {
         "en": "A can of energy drink to boost your day.",
         "fa": "یک قوطی نوشیدنی انرژی‌زا برای تقویت روز شما."
@@ -199,9 +210,10 @@
     {
       "id": "p12",
       "name": { "en": "Cheese Crackers", "fa": "کراکر پنیر" },
-      "price": { "en": 1.09, "fa": 11500 },
+      "price": { "en": 0.99, "fa": 25000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/cheese-crackers.jpg",
+      "imageUrlLocal": "/images/cheese-crackers.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/cheese-crackers_hvoi1o",
       "description": {
         "en": "Crunchy crackers with a cheesy flavor.",
         "fa": "کراکرهای ترد با طعم پنیر."
@@ -216,9 +228,10 @@
     {
       "id": "p13",
       "name": { "en": "Trail Mix", "fa": "میکس آجیل و میوه خشک" },
-      "price": { "en": 3.29, "fa": 175000 },
+      "price": { "en": 1.65, "fa": 45000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/trail-mix.jpg",
+      "imageUrlLocal": "/images/trail-mix.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/trail-mix_clcizq",
       "description": {
         "en": "A mix of nuts, dried fruit, and chocolate pieces.",
         "fa": "ترکیبی از آجیل، میوه خشک و تکه‌های شکلات."
@@ -233,9 +246,10 @@
     {
       "id": "p14",
       "name": { "en": "Caramel Popcorn", "fa": "پاپ‌کورن کاراملی" },
-      "price": { "en": 1.19, "fa": 13500 },
+      "price": { "en": 1.59, "fa": 40000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/caramel-popcorn.jpg",
+      "imageUrlLocal": "/images/caramel-popcorn.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/caramel-popcorn_lpylbw",
       "description": {
         "en": "Popcorn coated in sweet caramel.",
         "fa": "پاپ‌کورن پوشیده شده با کارامل شیرین."
@@ -250,9 +264,10 @@
     {
       "id": "p15",
       "name": { "en": "Fruit Gummies", "fa": "پاستیل میوه‌ای" },
-      "price": { "en": 1.59, "fa": 42000 },
+      "price": { "en": 1.29, "fa": 28000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/fruit-gummies.jpg",
+      "imageUrlLocal": "/images/fruit-gummies.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/fruit-gummies_skq1gm",
       "description": {
         "en": "Soft, chewy fruit-flavored gummies.",
         "fa": "پاستیل‌های نرم و جویدنی با طعم میوه."
@@ -267,9 +282,10 @@
     {
       "id": "p16",
       "name": { "en": "Potato Chips (BBQ)", "fa": "چیپس سیب‌زمینی (باربیکیو)" },
-      "price": { "en": 1.29, "fa": 48000 },
+      "price": { "en": 1.39, "fa": 35000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/chips-bbq.jpg",
+      "imageUrlLocal": "/images/chips-bbq.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/chips-bbq_gqa2gf",
       "description": {
         "en": "Crispy potato chips with smoky BBQ flavor.",
         "fa": "چیپس سیب‌زمینی ترد با طعم دودی باربیکیو."
@@ -284,9 +300,10 @@
     {
       "id": "p17",
       "name": { "en": "Oat Cookies", "fa": "کوکی جو دوسر" },
-      "price": { "en": 1.89, "fa": 62000 },
+      "price": { "en": 1.89, "fa": 48000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/oat-cookies.jpg",
+      "imageUrlLocal": "/images/oat-cookies.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/oat-cookies_dnekgc",
       "description": {
         "en": "Homemade-style cookies with oats and raisins.",
         "fa": "کوکی‌های خانگی با جو دوسر و کشمش."
@@ -301,9 +318,10 @@
     {
       "id": "p18",
       "name": { "en": "Lemonade Bottle", "fa": "بطری لیموناد" },
-      "price": { "en": 1.69, "fa": 20500 },
+      "price": { "en": 1.25, "fa": 22000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/lemonade-bottle.jpg",
+      "imageUrlLocal": "/images/lemonade-bottle.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/lemonade-bottle_nweizd",
       "description": {
         "en": "A refreshing bottle of homemade lemonade.",
         "fa": "یک بطری لیموناد خانگی و تازه."
@@ -318,9 +336,10 @@
     {
       "id": "p19",
       "name": { "en": "Nutty Brownie", "fa": "براونی مغزدار" },
-      "price": { "en": 1.99, "fa": 41000 },
+      "price": { "en": 1.45, "fa": 32000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/nutty-brownie.jpg",
+      "imageUrlLocal": "/images/nutty-brownie.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/nutty-brownie_zubfgn",
       "description": {
         "en": "Rich chocolate brownie with crunchy nuts.",
         "fa": "براونی شکلاتی غنی با مغزهای ترد."
@@ -335,9 +354,10 @@
     {
       "id": "p20",
       "name": { "en": "Yogurt Drink", "fa": "دوغ" },
-      "price": { "en": 1.49, "fa": 20000 },
+      "price": { "en": 1.05, "fa": 20000 },
       "currency": { "en": "USD", "fa": "تومان" },
-      "imageUrl": "/images/yogurt-drink.jpg",
+      "imageUrlLocal": "/images/yogurt-drink.jpg",
+      "imageUrlCdn": "/snack-shop/public/images/yogurt-drink_rkpkig",
       "description": {
         "en": "A bottle of savory, refreshing yogurt drink.",
         "fa": "یک بطری دوغ خوشمزه و خنک."
