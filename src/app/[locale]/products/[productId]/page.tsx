@@ -10,14 +10,34 @@ import {
 } from "@/services/productService";
 import { ProductQuantityActions } from "./components/ProductQuantityActions";
 import { getTranslations } from "next-intl/server";
+import { productByIdMap } from "@/utils/api/products/index";
+
+const supportedLocales: SupportedLocale[] = ["en", "fa"];
+
+// Enable ISR: Revalidate pages every hour
+export const revalidate = 3600;
+
+// Generate static paths for a subset of products and all locales
+export async function generateStaticParams() {
+  // In a real app, get popular product IDs from analytics/DB
+  // For demo: take first 10 product IDs
+  const productIds = Array.from(productByIdMap.keys()).slice(0, 10);
+
+  const params = productIds.flatMap((productId) =>
+    supportedLocales.map((locale) => ({ locale, productId }))
+  );
+
+  console.log(
+    `Generating static params for ${params.length} product detail pages`
+  );
+  return params;
+}
 
 export default async function ProductDetailPage(props: {
   params: Promise<{ locale: string; productId: string }>;
 }) {
   const { locale, productId } = await props.params;
   const t = await getTranslations("ProductDetail");
-
-  const supportedLocales: SupportedLocale[] = ["en", "fa"];
 
   if (!supportedLocales.includes(locale as SupportedLocale)) {
     notFound();
