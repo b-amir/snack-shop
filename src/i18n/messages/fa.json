@@ -41,5 +41,18 @@
     "relatedProducts": "محصولات مرتبط",
     "dateAdded": "تاریخ افزودن: ",
     "addToCart": "افزودن به سبد خرید"
+  },
+  "Admin": {
+    "revalidation": {
+      "buttonText": "پاک‌سازی کش ردیس",
+      "buttonLoadingText": "در حال پاک‌سازی...",
+      "promptTitle": "شناسه محصول برای پاک‌سازی را وارد کنید. مثلا p20",
+      "revalidationSuccess": "پاک‌سازی کش برای \"{productName}\" با موفقیت انجام شد! ",
+      "revalidationFailed": "پاک‌سازی کش برای \"{productName}\" با خطا مواجه شد: {errorMessage}",
+      "unknownError": "خطای ناشناخته",
+      "productNotFound": "محصول یافت نشد",
+      "requestError": "خطای درخواست: {errorMessage}",
+      "status": "وضعیت: {status}"
+    }
   }
 }

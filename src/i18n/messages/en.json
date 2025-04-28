@@ -41,5 +41,18 @@
     "relatedProducts": "Related Products",
     "dateAdded": "Date added: ",
     "addToCart": "Add to Cart"
+  },
+  "Admin": {
+    "revalidation": {
+      "buttonText": "Revalidate redis cache",
+      "buttonLoadingText": "Revalidating...",
+      "promptTitle": "Enter Product ID to revalidate. Example: p20",
+      "revalidationSuccess": "Revalidation successful! \"{productName}\"",
+      "revalidationFailed": "Failed to revalidate \"{productName}\" (ID: {productId}): {errorMessage}",
+      "unknownError": "Unknown error",
+      "productNotFound": "Product not found",
+      "requestError": "Request error: {errorMessage}",
+      "status": "Status: {status}"
+    }
   }
 }

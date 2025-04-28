@@ -19,6 +19,15 @@ export async function ProductList({ locale, searchParams }: ProductListProps) {
   const page = parseInt(String(searchParams?.page || "1"), 10);
   const pageSize = parseInt(String(searchParams?.pageSize || "8"), 10);
 
+  const controlTranslations = {
+    sortBy: t("sortBy"),
+    productsPerPage: t("productsPerPage"),
+    sortNewest: t("sortNewest"),
+    sortOldest: t("sortOldest"),
+    sortPriceAsc: t("sortPriceAsc"),
+    sortPriceDesc: t("sortPriceDesc"),
+  };
+
   let data: ProductsResponse | null = null;
   let isError = false;
   try {
@@ -36,7 +45,11 @@ export async function ProductList({ locale, searchParams }: ProductListProps) {
   }
 
   const controls = (
-    <ProductControlsActions initialSort={sort} initialPageSize={pageSize} />
+    <ProductControlsActions
+      initialSort={sort}
+      initialPageSize={pageSize}
+      translations={controlTranslations}
+    />
   );
 
   if (!products || products.length === 0) {
