@@ -1,11 +1,13 @@
-import { productByIdMap } from "@/utils/api/products/index";
 import { notFound } from "next/navigation";
 import { SupportedLocale, Product } from "@/types/product";
 import Image from "next/image";
 import detailStyles from "./page.module.css";
 import sharedStyles from "@/features/products/ProductList/styles.module.css";
 import { ProductCard } from "@/features/products/ProductCard";
-import { fetchRelatedProducts } from "@/services/productService";
+import {
+  fetchRelatedProducts,
+  fetchProductById,
+} from "@/services/productService";
 import { ProductQuantityActions } from "./components/ProductQuantityActions";
 import { getTranslations } from "next-intl/server";
 
@@ -23,7 +25,7 @@ export default async function ProductDetailPage({
     notFound();
   }
 
-  const product = productByIdMap.get(productId);
+  const { product } = await fetchProductById(productId);
   if (!product) {
     notFound();
   }

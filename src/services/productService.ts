@@ -1,4 +1,5 @@
 import { Product } from "@/types/product";
+import redis from "@/utils/redis";
 
 const getBaseUrl = () => {
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
@@ -32,6 +33,15 @@ export async function fetchProducts({
   pageSize,
   sort,
 }: FetchProductsParams = {}): Promise<ProductsResponse> {
+  const cacheKey = `products:${search}:${page}:${limit || pageSize || 10}:${
+    sort || ""
+  }`;
+  const cached = await redis.get(cacheKey);
+  if (cached) {
+    console.log(`CACHE HIT: ${cacheKey}`);
+    return JSON.parse(cached);
+  }
+  console.log(`CACHE MISS: ${cacheKey}`);
   const searchParams = new URLSearchParams();
 
   if (search) {
@@ -59,12 +69,21 @@ export async function fetchProducts({
     throw new Error(`Failed to fetch products from ${url}: ${response.status}`);
   }
 
-  return response.json();
+  const data = await response.json();
+  await redis.set(cacheKey, JSON.stringify(data), "EX", 300);
+  return data;
 }
 
 export async function fetchProductById(
   id: string
 ): Promise<{ product: Product }> {
+  const cacheKey = `product:${id}`;
+  const cached = await redis.get(cacheKey);
+  if (cached) {
+    console.log(`CACHE HIT: ${cacheKey}`);
+    return JSON.parse(cached);
+  }
+  console.log(`CACHE MISS: ${cacheKey}`);
   const url = `${API_BASE_URL}/products/${id}`;
   const response = await fetch(url);
 
@@ -72,7 +91,9 @@ export async function fetchProductById(
     throw new Error(`Failed to fetch product from ${url}: ${response.status}`);
   }
 
-  return response.json();
+  const data = await response.json();
+  await redis.set(cacheKey, JSON.stringify(data), "EX", 1800);
+  return data;
 }
 
 export async function fetchRelatedProducts({
@@ -84,6 +105,13 @@ export async function fetchRelatedProducts({
   locale: string;
   limit?: number;
 }): Promise<Product[]> {
+  const cacheKey = `related:${productId}:${locale}:${limit}`;
+  const cached = await redis.get(cacheKey);
+  if (cached) {
+    console.log(`CACHE HIT: ${cacheKey}`);
+    return JSON.parse(cached);
+  }
+  console.log(`CACHE MISS: ${cacheKey}`);
   const params = new URLSearchParams({
     locale,
     limit: limit.toString(),
@@ -96,5 +124,11 @@ export async function fetchRelatedProducts({
       `Failed to fetch related products from ${url}: ${response.status}`
     );
   }
-  return response.json();
+  const data = await response.json();
+  await redis.set(cacheKey, JSON.stringify(data), "EX", 900);
+  return data;
+}
+
+export async function invalidateProductCache(productId: string) {
+  await redis.del(`product:${productId}`);
 }
