@@ -13,12 +13,17 @@ export class MemoryCache {
 
   async get(key: string): Promise<string | null> {
     const item = this.cache.get(key);
-    if (!item) return null;
+    if (!item) {
+      console.log(`[Fallback Cache] MISS: ${key}`);
+      return null;
+    }
 
     if (item.expiry && item.expiry < Date.now()) {
+      console.log(`[Fallback Cache] EXPIRED: ${key}`);
       this.cache.delete(key);
       return null;
     }
+    console.log(`[Fallback Cache] HIT: ${key}`);
     return item.data;
   }
 
