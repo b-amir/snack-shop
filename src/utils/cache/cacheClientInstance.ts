@@ -35,6 +35,7 @@ async function initializeCache(): Promise<CacheState> {
   try {
     await new Promise<void>((resolve, reject) => {
       const timeoutId = setTimeout(() => {
+        redisInstance.removeAllListeners("error");
         reject(
           new Error(
             `[Cache] Redis connection timed out after ${REDIS_CONNECT_TIMEOUT_MS}ms`
@@ -44,22 +45,22 @@ async function initializeCache(): Promise<CacheState> {
 
       redisInstance.once("ready", () => {
         clearTimeout(timeoutId);
+        redisInstance.removeAllListeners("error");
         console.log("[Cache] Redis connection successful");
         resolve();
       });
 
       redisInstance.once("error", (err) => {
         clearTimeout(timeoutId);
-        console.log(
+        console.error(
           `[Cache] Redis connection error during setup: ${err.message}`
         );
+        redisInstance.removeAllListeners("ready");
+        reject(err);
       });
     });
 
-    if (
-      redisInstance.status !== "ready" &&
-      redisInstance.status !== "connecting"
-    ) {
+    if (redisInstance.status !== "ready") {
       throw new Error(
         `[Cache] Redis connected but status is: ${redisInstance.status}`
       );
@@ -67,14 +68,12 @@ async function initializeCache(): Promise<CacheState> {
 
     return { client: redisInstance, usingFallback: false, error: null };
   } catch (error) {
-    console.log(
+    console.warn(
       `[Cache] Failed to connect to Redis: ${
         (error as Error).message
       }. Using fallback.`
     );
-    try {
-      redisInstance.disconnect();
-    } catch {}
+    redisInstance.disconnect();
     return {
       client: new MemoryCache(),
       usingFallback: true,
