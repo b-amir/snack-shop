@@ -3,10 +3,11 @@ import { deleteCache } from "@/utils/cache/redis";
 export async function invalidateProductCache(productId: string) {
   await deleteCache(`product:${productId}`);
   await deleteCache(`api:product:${productId}`);
-
-  console.log(`Invalidated cache for product ${productId}`);
+  console.log(`[Cache] Invalidated cache for product: ${productId}`);
 }
 
 export async function invalidateProductListingCache() {
-  console.log("Product listings would be invalidated here");
+  await deleteCache(`products:*`);
+  await deleteCache(`api:products:*`);
+  console.log("[Cache] Invalidated product listings cache");
 }
