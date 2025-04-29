@@ -3,12 +3,16 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import styles from "./styles.module.css";
 
-export const Logo: React.FC = () => {
+interface LogoProps {
+  locale: string;
+}
+
+export const Logo: React.FC<LogoProps> = ({ locale }) => {
   const t = useTranslations("metadata");
 
   return (
     <div className={styles.logoContainer}>
-      <Link href="/" className={styles.logoLink}>
+      <Link href={`/${locale}`} className={styles.logoLink}>
         <h1 className={styles.title}>
           {t("title")}
           <span className={styles.titleExclamation}>!</span>

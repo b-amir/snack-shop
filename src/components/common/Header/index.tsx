@@ -9,7 +9,7 @@ export function Header({ locale }: { locale: string }) {
   return (
     <header className={styles.header}>
       <div className={styles.headerContent}>
-        <Logo />
+        <Logo locale={locale} />
         <CartIconButton dir={dir} locale={locale} />
       </div>
     </header>
