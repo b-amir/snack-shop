@@ -75,6 +75,7 @@ export function CartItems({
                     increaseAriaLabel={`${t("increase")} ${
                       product.name[locale]
                     }`}
+                    iconClassName="icon-accent"
                   />
                 </div>
 

@@ -47,6 +47,7 @@ export function ProductCardActions({ product }: ProductCardActionsProps) {
           onDecrease={handleDecrease}
           onChange={handleChange}
           variant="button"
+          iconClassName="icon-green"
         />
       ) : (
         <Button

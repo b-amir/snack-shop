@@ -42,6 +42,7 @@ export function ProductQuantityActions({
         }
         variant="button"
         size="large"
+        iconClassName="icon-green"
       />
     );
   }

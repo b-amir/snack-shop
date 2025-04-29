@@ -2,6 +2,8 @@ import React from "react";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import styles from "./styles.module.css";
+import MinusIcon from "./MinusIcon";
+import PlusIcon from "./PlusIcon";
 
 interface QuantityControlProps {
   value: number;
@@ -18,6 +20,7 @@ interface QuantityControlProps {
   fullWidth?: boolean;
   size?: "small" | "default" | "large";
   inputId?: string;
+  iconClassName?: string;
 }
 
 const QuantityControl: React.FC<QuantityControlProps> = ({
@@ -35,6 +38,7 @@ const QuantityControl: React.FC<QuantityControlProps> = ({
   fullWidth = false,
   size = "default",
   inputId,
+  iconClassName = "",
 }) => {
   return (
     <div
@@ -61,22 +65,7 @@ const QuantityControl: React.FC<QuantityControlProps> = ({
         onClick={onDecrease}
         type="button"
       >
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <line
-            x1="4"
-            y1="12"
-            x2="20"
-            y2="12"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        </svg>
+        <MinusIcon className={iconClassName} />
       </Button>
       <Input
         id={inputId}
@@ -95,30 +84,7 @@ const QuantityControl: React.FC<QuantityControlProps> = ({
         onClick={onIncrease}
         type="button"
       >
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <line
-            x1="12"
-            y1="19"
-            x2="12"
-            y2="5"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-          <line
-            x1="5"
-            y1="12"
-            x2="19"
-            y2="12"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        </svg>
+        <PlusIcon className={iconClassName} />
       </Button>
     </div>
   );

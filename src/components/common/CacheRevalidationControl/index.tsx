@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
 import { Toast, ToastType } from "@/components/ui/Toast";
+import RefreshIcon from "@/components/common/CacheRevalidationControl/RefreshIcon";
 
 const REVALIDATE_SECRET =
   process.env.NEXT_PUBLIC_REVALIDATE_SECRET_TOKEN || "your-secret-token";
@@ -108,8 +109,22 @@ export function RevalidationButton() {
         onClick={handleRevalidate}
         variant="secondary"
         disabled={isLoading}
+        style={{ display: "inline-flex", alignItems: "center" }}
       >
-        {isLoading ? t("buttonLoadingText") : `🔄 ${t("buttonText")}`}
+        {isLoading ? (
+          t("buttonLoadingText")
+        ) : (
+          <>
+            <RefreshIcon
+              style={{
+                marginRight: "8px",
+                marginLeft: "8px",
+                color: "var(--color-accent)",
+              }}
+            />
+            {t("buttonText")}
+          </>
+        )}
       </Button>
 
       {toast && (
