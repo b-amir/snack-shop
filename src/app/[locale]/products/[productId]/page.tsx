@@ -5,10 +5,7 @@ import { SupportedLocale, Product } from "@/types/product";
 import { ProductCard } from "@/features/products/ProductCard";
 import detailStyles from "./page.module.css";
 import sharedStyles from "@/features/products/ProductList/styles.module.css";
-import {
-  fetchRelatedProducts,
-  fetchProductById,
-} from "@/services/productService";
+import { fetchRelatedProducts } from "@/services/productService";
 import { ProductQuantityActions } from "./components/ProductQuantityActions";
 import { getTranslations } from "next-intl/server";
 import { productByIdMap } from "@/utils/api/products/index";
@@ -41,19 +38,6 @@ export async function generateStaticParams() {
 
 export const dynamicParams = true;
 
-async function getProductData(productId: string) {
-  try {
-    const productData = await fetchProductById(productId);
-    if (!productData || !productData.product) {
-      notFound();
-    }
-    return productData.product;
-  } catch (error) {
-    console.error("Failed to fetch product:", error);
-    notFound();
-  }
-}
-
 type Params = Promise<{ productId: string; locale: string }>;
 
 export default async function ProductDetailPage({
@@ -67,16 +51,27 @@ export default async function ProductDetailPage({
     notFound();
   }
 
-  const product = await getProductData(productId);
+  const product = productByIdMap.get(productId);
+
+  if (!product) {
+    console.warn(`ProductDetailPage: Product not found for ID: ${productId}`);
+    notFound();
+  }
+
   const t = await getTranslations("ProductDetail");
   const safeLocale = locale as SupportedLocale;
   const imageSrc = useCdn ? product.imageUrlCdn : product.imageUrlLocal;
 
-  const relatedProducts = await fetchRelatedProducts({
-    limit: 4,
-    productId: product.id,
-    locale: safeLocale,
-  });
+  let relatedProducts: Product[] = [];
+  try {
+    relatedProducts = await fetchRelatedProducts({
+      limit: 4,
+      productId: product.id,
+      locale: safeLocale,
+    });
+  } catch (error) {
+    console.error(`Error fetching related products for ${productId}:`, error);
+  }
 
   const dateAdded = new Date(product.dateAdded);
   const formattedDate = dateAdded.toLocaleDateString(
