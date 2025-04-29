@@ -7,6 +7,7 @@ import { useTranslations, useLocale } from "next-intl";
 import styles from "./page.module.css";
 import { SupportedLocale } from "@/types/product";
 import Skeleton from "@/components/common/Skeleton";
+import { safeAdd, safeMultiply } from "@/utils/math";
 
 export default function CartPage() {
   const t = useTranslations("ProductList");
@@ -14,7 +15,8 @@ export default function CartPage() {
     useCartStore();
   const locale = useLocale() as SupportedLocale;
   const totalPrice = items.reduce(
-    (acc, item) => acc + item.product.price[locale] * item.quantity,
+    (acc, item) =>
+      safeAdd(acc, safeMultiply(item.product.price[locale], item.quantity)),
     0
   );
 

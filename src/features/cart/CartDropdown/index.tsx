@@ -7,6 +7,7 @@ import { CartItems } from "@/features/cart/CartItems";
 import { CartDropdownProps } from "./types";
 import Button from "@/components/ui/Button";
 import styles from "./styles.module.css";
+import { safeAdd, safeMultiply } from "@/utils/math";
 
 export function CartDropdown({ dir, locale, onClose }: CartDropdownProps) {
   const { items, removeFromCart, updateQuantity, clearCart } = useCartStore();
@@ -16,7 +17,11 @@ export function CartDropdown({ dir, locale, onClose }: CartDropdownProps) {
   const currentLocale = locale as SupportedLocale;
 
   const totalPrice = items.reduce(
-    (acc, item) => acc + item.product.price[currentLocale] * item.quantity,
+    (acc, item) =>
+      safeAdd(
+        acc,
+        safeMultiply(item.product.price[currentLocale], item.quantity)
+      ),
     0
   );
 
