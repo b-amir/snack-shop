@@ -57,7 +57,7 @@ export default function CartPage() {
             </Button>
           </div>
         ) : (
-          <div style={{ flex: 1 }}></div>
+          <div className={styles.emptyCartPlaceholder}></div>
         )}
 
         <div className={styles.cartItemsSection}>

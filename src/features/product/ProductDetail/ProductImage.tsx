@@ -10,7 +10,7 @@ export function ProductImage({ src, alt }: ProductImageProps) {
         src={src}
         alt={alt}
         fill
-        style={{ objectFit: "cover" }}
+        className={detailStyles.coverImage}
         priority
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />

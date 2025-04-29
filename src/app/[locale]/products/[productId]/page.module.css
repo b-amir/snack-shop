@@ -1,6 +1,6 @@
 .container {
   max-width: 1200px;
-  margin: 3rem auto;
+  margin: 1.5rem auto 3rem;
   padding: 40px;
   border: 1px solid #eee;
   border-radius: 18px;
@@ -11,22 +11,19 @@
   gap: 48px;
 }
 
-/* Styles for the main product layout */
 .productGrid {
   display: grid;
-  grid-template-columns: 350px 1fr; /* Default: image | info */
+  grid-template-columns: 350px 1fr;
   gap: 40px;
   align-items: flex-start;
 }
 
 @media (max-width: 768px) {
-  /* Stack on smaller screens */
   .productGrid {
     grid-template-columns: 1fr;
   }
 }
 
-/* Styles for the image container (ensure position relative for fill Image) */
 .imageContainer {
   position: relative;
   width: 100%;
@@ -36,9 +33,9 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   background: #fafafa;
   border: 2rem solid white;
+  object-fit: contain;
 }
 
-/* Styles for the info section */
 .info {
   display: flex;
   flex-direction: column;
@@ -52,7 +49,7 @@
 
 .tags {
   display: flex;
-  flex-wrap: wrap; /* Allow tags to wrap */
+  flex-wrap: wrap;
   gap: 8px;
   margin: 8px 0;
 }
@@ -85,7 +82,6 @@
   margin: 8px 0 0 0;
 }
 
-/* Styles for the related products section */
 .relatedSection {
   margin-top: 32px;
 }
@@ -112,14 +108,18 @@
 }
 
 .backLinkContainer {
-  margin-bottom: 0rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 1136px;
+  margin: 1.5rem auto 0;
 }
 
 .backLink {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  color: var(--color-primary);
+  color: var(--color-text-muted);
   text-decoration: none;
   font-weight: 500;
 }
@@ -144,4 +144,8 @@
 
 .backLink[dir="rtl"]:hover .backIcon {
   transform: rotate(180deg) translateX(-4px);
+}
+
+.coverImage {
+  object-fit: cover;
 }

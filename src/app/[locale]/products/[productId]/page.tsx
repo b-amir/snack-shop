@@ -51,31 +51,33 @@ export default async function ProductDetailPage({
   );
 
   return (
-    <div className={detailStyles.container}>
+    <>
       <div className={detailStyles.backLinkContainer}>
         <Link href={`/${locale}`} className={detailStyles.backLink} dir={dir}>
           <BackIcon className={detailStyles.backIcon} />
           {tCommon("backHome")}
         </Link>
-      </div>
-      <div className={detailStyles.productGrid}>
-        {imageSrc && (
-          <ProductImage src={imageSrc} alt={product.name[safeLocale]} />
-        )}
-        <ProductInfo
-          product={product}
+      </div>{" "}
+      <div className={detailStyles.container}>
+        <div className={detailStyles.productGrid}>
+          {imageSrc && (
+            <ProductImage src={imageSrc} alt={product.name[safeLocale]} />
+          )}
+          <ProductInfo
+            product={product}
+            locale={safeLocale}
+            formattedPrice={formattedPrice}
+            formattedDate={formattedDate}
+            t={tProductDetail}
+          />
+        </div>
+        <RelatedProductsSection
+          productId={productId}
           locale={safeLocale}
-          formattedPrice={formattedPrice}
-          formattedDate={formattedDate}
           t={tProductDetail}
         />
       </div>
-      <RelatedProductsSection
-        productId={productId}
-        locale={safeLocale}
-        t={tProductDetail}
-      />
-    </div>
+    </>
   );
 }
 

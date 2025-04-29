@@ -29,7 +29,7 @@ export function ProductCardDisplay({
             src={imageSrc || placeholderImage}
             alt={product.name[locale]}
             fill
-            style={{ objectFit: "cover" }}
+            className={styles.coverImage}
             sizes="(max-width: 600px) 100vw, 200px"
           />
         </div>
