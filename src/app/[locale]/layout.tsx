@@ -5,7 +5,7 @@ import { getDirection } from "@/utils/direction";
 import { Header } from "@/components/common/Header";
 import { Footer } from "@/components/common/Footer";
 import { getTranslations } from "next-intl/server";
-import styles from "./layout.module.css";
+import styles from "./page.module.css";
 import "@/app/globals.css";
 
 export async function generateMetadata({
