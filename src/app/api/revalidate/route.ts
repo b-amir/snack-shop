@@ -4,7 +4,7 @@ import {
   invalidateProductCache,
   invalidateProductListingCache,
 } from "@/utils/cache";
-import { getCacheState } from "@/utils/cache/cacheClientInstance";
+import { getCacheState } from "@/utils/cache/client/cacheClientInstance";
 import { Redis } from "ioredis";
 import { productByIdMap } from "@/utils/api/products/index";
 import { locales } from "@/i18n/config";
@@ -12,7 +12,7 @@ import { locales } from "@/i18n/config";
 export const dynamic = "force-dynamic";
 
 const REVALIDATE_SECRET =
-  process.env.REVALIDATE_SECRET_TOKEN || "some-secure-value";
+  process.env.REVALIDATE_SECRET_TOKEN || "your-secret-token";
 
 async function clearRedisKeysByPattern(pattern: string) {
   const { client } = await getCacheState();
