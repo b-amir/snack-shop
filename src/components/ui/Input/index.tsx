@@ -1,13 +1,7 @@
 import React from "react";
 import styles from "./styles.module.css";
 import { toFarsiDigits, toEnglishDigits } from "@/utils/convertDigits";
-
-export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  label?: string;
-  wrapperClassName?: string;
-  inputClassName?: string;
-  variant?: "default" | "count";
-};
+import { InputProps } from "./types";
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
@@ -25,37 +19,45 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    const inputProps = { ...props };
+    const isCountVariant = variant === "count";
+    const isFa =
+      typeof document !== "undefined" && document.documentElement.lang === "fa";
     let inputType = type;
     let displayValue = value;
     let handleChange = onChange;
+    const inputProps = { ...props };
 
-    if (variant === "count") {
+    if (isCountVariant) {
       inputType = "text";
       inputProps.inputMode = "numeric";
       inputProps.pattern = "[0-9۰-۹]*";
-      const isFa =
-        typeof document !== "undefined" &&
-        document.documentElement.lang === "fa";
+
       let safeValue: string | number = "";
       if (typeof value === "string" || typeof value === "number") {
         safeValue = value;
       }
       displayValue = isFa ? toFarsiDigits(safeValue) : value;
+
       handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (onChange) {
           const englishValue = toEnglishDigits(e.target.value);
           const syntheticEvent = {
             ...e,
-            target: {
-              ...e.target,
-              value: englishValue,
-            },
+            target: { ...e.target, value: englishValue },
           };
           onChange(syntheticEvent as React.ChangeEvent<HTMLInputElement>);
         }
       };
     }
+
+    const inputClasses = [
+      styles.inputElement,
+      styles[variant],
+      inputClassName,
+      className,
+    ]
+      .filter(Boolean)
+      .join(" ");
 
     return (
       <div className={`${styles.inputContainer} ${wrapperClassName}`.trim()}>
@@ -68,14 +70,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           id={id}
           ref={ref}
           type={inputType}
-          className={[
-            styles.inputElement,
-            styles[variant],
-            inputClassName,
-            className,
-          ]
-            .filter(Boolean)
-            .join(" ")}
+          className={inputClasses}
           value={displayValue}
           onChange={handleChange}
           {...inputProps}

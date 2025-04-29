@@ -1,9 +1,6 @@
 import { toFarsiDigits } from "@/utils/convertDigits";
 import { useLocale } from "next-intl";
-
-interface LocaleNumberProps {
-  children: React.ReactNode;
-}
+import { LocaleNumberProps } from "./types";
 
 export default function LocaleNumber({ children }: LocaleNumberProps) {
   const locale = useLocale?.() || "en";

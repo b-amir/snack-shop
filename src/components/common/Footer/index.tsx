@@ -1,7 +1,7 @@
-import { LanguageSwitcher } from "./LanguageSwitcher";
 import styles from "./styles.module.css";
-import { RevalidationButton } from "../CacheRevalidationControl";
+import { RevalidationButton } from "@/components/common/CacheRevalidationControl";
 import { getDirection } from "@/utils/direction";
+import { LanguageSwitcher } from "@/components/common/LanguageSwitcher";
 
 export function Footer({ locale }: { locale: string }) {
   const dir = getDirection(locale);

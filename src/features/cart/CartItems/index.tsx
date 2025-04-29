@@ -1,18 +1,11 @@
 "use client";
 import cartStyles from "./styles.module.css";
-import { useTranslations } from "next-intl";
+import React from "react";
 import Button from "@/components/ui/Button";
 import QuantityControl from "@/components/common/QuantityControl";
-import { SupportedLocale, CartItem } from "@/types/product";
-import React from "react";
-
-interface CartItemsProps {
-  items: CartItem[];
-  locale: SupportedLocale;
-  onUpdateQuantity: (productId: string, quantity: number) => void;
-  onRemoveItem: (productId: string) => void;
-  showRemoveButton?: boolean;
-}
+import { CartItem } from "@/types/product";
+import { useTranslations } from "next-intl";
+import { CartItemsProps } from "./types";
 
 export function CartItems({
   items,
@@ -29,7 +22,8 @@ export function CartItems({
 
   return (
     <ul className={cartStyles.cartList}>
-      {items.map(({ product, quantity }) => {
+      {items.map((item: CartItem) => {
+        const { product, quantity } = item;
         const currencyString = product.currency[locale];
         const formattedPrice =
           locale === "fa"

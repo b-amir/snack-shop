@@ -1,24 +1,19 @@
-import React, { SelectHTMLAttributes } from "react";
+import React from "react";
 import styles from "./styles.module.css";
 import LocaleNumber from "@/components/ui/LocaleNumber";
-
-interface SelectOption {
-  value: string | number;
-  label: string;
-}
-
-interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
-  options: SelectOption[];
-  label?: string;
-}
+import { SelectProps, SelectOption } from "./types";
 
 export function Select({
   id,
   options,
   label,
-  className,
+  className = "",
   ...props
 }: SelectProps) {
+  const selectClasses = [styles.selectElement, className]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <div className={styles.selectContainer}>
       {label && (
@@ -27,12 +22,8 @@ export function Select({
         </label>
       )}
       <div className={styles.selectWrapper}>
-        <select
-          id={id}
-          className={`${styles.selectElement} ${className || ""}`}
-          {...props}
-        >
-          {options.map((option) => (
+        <select id={id} className={selectClasses} {...props}>
+          {options.map((option: SelectOption) => (
             <option key={option.value} value={option.value}>
               <LocaleNumber>{option.label}</LocaleNumber>
             </option>

@@ -2,20 +2,13 @@
 import { useCartStore } from "@/store/store";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import styles from "./styles.module.css";
-import Button from "@/components/ui/Button";
 import { SupportedLocale } from "@/types/product";
 import { CartItems } from "@/features/cart/CartItems";
+import { CartDropdownProps } from "./types";
+import Button from "@/components/ui/Button";
+import styles from "./styles.module.css";
 
-export function CartDropdown({
-  dir,
-  locale,
-  onClose,
-}: {
-  dir: "ltr" | "rtl";
-  locale: string;
-  onClose: () => void;
-}) {
+export function CartDropdown({ dir, locale, onClose }: CartDropdownProps) {
   const { items, removeFromCart, updateQuantity, clearCart } = useCartStore();
   const t = useTranslations("ProductList");
   const router = useRouter();

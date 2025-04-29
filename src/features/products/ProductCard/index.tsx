@@ -1,11 +1,6 @@
-import { Product, SupportedLocale } from "@/types/product";
 import { ProductCardDisplay } from "./ProductCardDisplay";
 import { ProductCardActions } from "./ProductCardActions";
-
-interface ProductCardProps {
-  product: Product;
-  locale: SupportedLocale;
-}
+import { ProductCardProps } from "./types";
 
 export function ProductCard({ product, locale }: ProductCardProps) {
   return (

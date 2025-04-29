@@ -1,13 +1,9 @@
 import React from "react";
-import Card from "@/components/ui/Card";
 import styles from "./styles.module.css";
-
-interface SkeletonProps {
-  count?: number;
-  className?: string;
-  containerClassName?: string;
-  layout?: "grid" | "related" | "default" | "cartIcon" | "cartEmpty";
-}
+import { SkeletonProps } from "./types";
+import { SkeletonProductCard } from "./SkeletonProductCard";
+import { SkeletonCartIcon } from "./SkeletonCartIcon";
+import { SkeletonCartPage } from "./SkeletonCartPage";
 
 const Skeleton: React.FC<SkeletonProps> = ({
   count = 1,
@@ -15,55 +11,41 @@ const Skeleton: React.FC<SkeletonProps> = ({
   containerClassName = "",
   layout = "default",
 }) => {
-  let containerStyle = "";
-  if (layout === "grid") containerStyle = styles.grid;
-  else if (layout === "related") containerStyle = styles.relatedProductsGrid;
-
   if (layout === "cartIcon") {
+    return <SkeletonCartIcon className={className} />;
+  }
+
+  if (layout === "cartPage") {
     return (
-      <div className={`${styles.cartIconSkeleton} ${className}`}>
-        <div className={styles.cartIconPulse}></div>
-      </div>
+      <SkeletonCartPage
+        className={className}
+        containerClassName={containerClassName}
+      />
     );
   }
 
-  if (layout === "cartEmpty") {
-    return (
-      <div className={`${styles.cartEmptyContainer} ${className}`}>
-        <div className={styles.cartEmptyContentWrapper}>
-          <div className={styles.cartEmptyItemsSection}>
-            <div className={styles.cartEmptyPageTitle} />
-            <div
-              className={`${styles.cartEmptySkeleton} ${containerClassName}`}
-            >
-              <div className={styles.cartEmptyPulse}></div>
-              <div className={styles.cartEmptyPulse}></div>
-              <div className={styles.cartEmptyPulse}></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const wrapperClasses = [
+    layout === "grid" ? styles.grid : "",
+    layout === "related" ? styles.relatedProductsGrid : "",
+    containerClassName,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
-  return (
-    <div className={`${containerStyle} ${containerClassName}`}>
-      {Array.from({ length: count }).map((_, index) => (
-        <div
-          key={index}
-          className={layout === "grid" ? styles.gridItem : undefined}
-        >
-          <Card className={`${styles.skeleton} ${className}`}>
-            <div className={styles.skeletonImage} />
-            <div className={styles.skeletonTitle} />
-            <div className={styles.skeletonPrice} />
-            <div className={styles.skeletonDescription} />
-            <div className={styles.skeletonButton} />
-          </Card>
-        </div>
-      ))}
+  const skeletons = Array.from({ length: count }).map((_, index) => (
+    <div
+      key={index}
+      className={layout === "grid" ? styles.gridItem : undefined}
+    >
+      <SkeletonProductCard className={className} />
     </div>
-  );
+  ));
+
+  if (wrapperClasses) {
+    return <div className={wrapperClasses}>{skeletons}</div>;
+  }
+
+  return <>{skeletons}</>;
 };
 
 export default Skeleton;

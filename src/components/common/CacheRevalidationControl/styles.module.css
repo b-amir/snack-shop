@@ -1,0 +1,28 @@
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.revalidateButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 204px;
+  transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.refreshIcon {
+  margin-right: 8px;
+  margin-left: 8px;
+  color: var(--color-accent);
+}
+
+.spinningIcon {
+  margin-right: 8px;
+  margin-left: 8px;
+  animation: spin 1s linear infinite;
+}

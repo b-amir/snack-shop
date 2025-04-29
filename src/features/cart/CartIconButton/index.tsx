@@ -2,20 +2,15 @@
 import { useState, useRef, useEffect } from "react";
 import { useCartStore } from "@/store/store";
 import { useTranslations } from "next-intl";
+import { CartDropdown } from "@/features/cart/CartDropdown";
+import { CartIconButtonProps } from "./types";
+import Button from "@/components/ui/Button";
+import Skeleton from "@/components/common/Skeleton";
+import CartIcon from "@/features/cart/CartIconButton/icon";
 import LocaleNumber from "@/components/ui/LocaleNumber";
 import styles from "./styles.module.css";
-import Button from "@/components/ui/Button";
-import { CartDropdown } from "@/features/cart/CartDropdown";
-import Skeleton from "@/components/common/Skeleton";
-import CartIcon from "@/features/cart/CartIconButton/CartIcon";
 
-export function CartIconButton({
-  dir,
-  locale,
-}: {
-  dir: "ltr" | "rtl";
-  locale: string;
-}) {
+export function CartIconButton({ dir, locale }: CartIconButtonProps) {
   const [open, setOpen] = useState(false);
   const { items, isLoading } = useCartStore();
   const t = useTranslations("ProductList");

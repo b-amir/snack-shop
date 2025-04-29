@@ -8,7 +8,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  gap: 1rem;
   margin-bottom: 2rem;
 }
 
@@ -70,22 +70,6 @@
   .container {
     padding: 1rem;
   }
-}
-
-.relatedProductsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-}
-
-@media (max-width: 56.25rem) {
-  .relatedProductsGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.relatedProductsGrid > * {
-  height: 100%;
 }
 
 /* Added from page.module.css */

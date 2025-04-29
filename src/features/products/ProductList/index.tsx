@@ -1,24 +1,25 @@
 import { Product } from "@/types/product";
-import { ProductCard } from "../ProductCard";
+import { ProductCard } from "@/features/products/ProductCard";
 import { fetchProducts, ProductsResponse } from "@/services/productService";
-import { SupportedLocale } from "@/types/product";
-import { ProductControlsActions } from "@/features/products/ProductControls/ProductControlsActions";
-import { PaginationActions } from "@/features/pagination/Pagination/PaginationActions";
+import { ProductControls } from "@/features/products/ProductControls";
+import { PaginationActions } from "@/components/common/Pagination/PaginationActions";
 import styles from "./styles.module.css";
 import { getTranslations } from "next-intl/server";
-
-interface ProductListProps {
-  locale: SupportedLocale;
-  searchParams: { [key: string]: string | string[] | undefined };
-}
+import { DEFAULT_PAGE_SIZE, DEFAULT_SORT_ORDER } from "@/constants";
+import { ProductListProps } from "./types";
 
 export async function ProductList({ locale, searchParams }: ProductListProps) {
   const t = await getTranslations("ProductList");
 
-  const sort = String(searchParams?.sort || "date_desc");
+  const sort = String(searchParams?.sort || DEFAULT_SORT_ORDER);
   const page = parseInt(String(searchParams?.page || "1"), 10);
-  const pageSize = parseInt(String(searchParams?.pageSize || "8"), 10);
+  const pageSize = parseInt(
+    String(searchParams?.pageSize || DEFAULT_PAGE_SIZE),
+    10
+  );
 
+  // fetching translations server-side
+  // and passing them to the client-side component
   const controlTranslations = {
     sortBy: t("sortBy"),
     productsPerPage: t("productsPerPage"),
@@ -29,23 +30,23 @@ export async function ProductList({ locale, searchParams }: ProductListProps) {
   };
 
   let data: ProductsResponse | null = null;
-  let isError = false;
+  let hasError = false;
   try {
     data = await fetchProducts({ sort, page, pageSize });
   } catch (error) {
     console.error("Failed to fetch products:", error);
-    isError = true;
+    hasError = true;
   }
 
   const products = data?.products;
   const paginationInfo = data?.pagination;
 
-  if (isError) {
+  if (hasError) {
     return <div className={styles.error}>{t("errorFetchingProducts")}</div>;
   }
 
   const controls = (
-    <ProductControlsActions
+    <ProductControls
       initialSort={sort}
       initialPageSize={pageSize}
       translations={controlTranslations}

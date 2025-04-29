@@ -2,17 +2,17 @@
 
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
+import { Toast } from "@/components/ui/Toast";
+import { ToastType } from "@/components/ui/Toast/types";
+import { ToastState } from "./types";
+import { fetchProductDetails } from "./utils";
+import RefreshIcon from "@/components/common/CacheRevalidationControl/icon";
 import Button from "@/components/ui/Button";
-import { Toast, ToastType } from "@/components/ui/Toast";
-import RefreshIcon from "@/components/common/CacheRevalidationControl/RefreshIcon";
+import styles from "./styles.module.css";
+import { REVALIDATION_EVENT_MANUAL } from "@/constants";
 
 const REVALIDATE_SECRET =
   process.env.NEXT_PUBLIC_REVALIDATE_SECRET_TOKEN || "your-secret-token";
-
-interface ToastState {
-  message: string | null;
-  type: ToastType;
-}
 
 export function RevalidationButton() {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,21 +22,6 @@ export function RevalidationButton() {
 
   const showToast = (message: string, type: ToastType) => {
     setToast({ message, type });
-  };
-
-  const fetchProductDetails = async (productId: string) => {
-    try {
-      const response = await fetch(`/api/products/${productId}`);
-      if (!response.ok) {
-        console.warn(`Product not found: ${productId}`);
-        return null;
-      }
-      const data = await response.json();
-      return data.product;
-    } catch (error) {
-      console.error("Error fetching product details:", error);
-      return null;
-    }
   };
 
   const handleRevalidate = async () => {
@@ -50,7 +35,10 @@ export function RevalidationButton() {
       const product = await fetchProductDetails(productIdToRevalidate);
       const productName = product ? product.name[locale] : t("productNotFound");
 
-      console.log("Sending revalidation request for:", productIdToRevalidate);
+      console.log(
+        "[Cache] Sending revalidation request for:",
+        productIdToRevalidate
+      );
 
       const res = await fetch("/api/revalidate", {
         method: "POST",
@@ -59,15 +47,15 @@ export function RevalidationButton() {
           "x-revalidate-secret": REVALIDATE_SECRET,
         },
         body: JSON.stringify({
-          event: "manual_trigger",
+          event: REVALIDATION_EVENT_MANUAL,
           productId: productIdToRevalidate,
           changedLocales: [locale],
         }),
       });
 
       const data = await res.json().catch(() => ({ message: res.statusText }));
-      console.log("Response status:", res.status);
-      console.log("Response data:", data);
+      console.log("[Cache] Response status:", res.status);
+      console.log("[Cache] Response data:", data);
 
       if (res.ok) {
         showToast(
@@ -109,19 +97,18 @@ export function RevalidationButton() {
         onClick={handleRevalidate}
         variant="secondary"
         disabled={isLoading}
-        style={{ display: "inline-flex", alignItems: "center" }}
+        className={styles.revalidateButton}
       >
         {isLoading ? (
-          t("buttonLoadingText")
-        ) : (
           <>
             <RefreshIcon
-              style={{
-                marginRight: "8px",
-                marginLeft: "8px",
-                color: "var(--color-accent)",
-              }}
+              className={`${styles.refreshIcon} ${styles.spinningIcon}`}
             />
+            {t("buttonLoadingText")}
+          </>
+        ) : (
+          <>
+            <RefreshIcon className={styles.refreshIcon} />
             {t("buttonText")}
           </>
         )}

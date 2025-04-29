@@ -1,51 +1,67 @@
-import { useTranslations } from "next-intl";
-import { ChangeEvent } from "react";
+"use client";
+
+import { ChangeEvent, useTransition } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { getSortOptions, getPageSizeOptions, createQueryString } from "./utils";
 import { Select } from "@/components/ui/Select";
+import { ProductControlsProps } from "./types";
 import styles from "./styles.module.css";
 
-const getSortOptions = (t: (key: string) => string) => [
-  { value: "date_desc", label: t("sortNewest") },
-  { value: "date_asc", label: t("sortOldest") },
-  { value: "price_asc", label: t("sortPriceAsc") },
-  { value: "price_desc", label: t("sortPriceDesc") },
-];
-
-const getPageSizeOptions = () =>
-  [8, 12].map((size) => ({ value: size, label: String(size) }));
-
-interface ProductControlsProps {
-  sort: string;
-  pageSize: number;
-  onSortChange: (e: ChangeEvent<HTMLSelectElement>) => void;
-  onPageSizeChange: (e: ChangeEvent<HTMLSelectElement>) => void;
-}
-
 export function ProductControls({
-  sort,
-  pageSize,
-  onSortChange,
-  onPageSizeChange,
+  initialSort,
+  initialPageSize,
+  translations,
 }: ProductControlsProps) {
-  const t = useTranslations("ProductList");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
+
+  const t = (key: string) =>
+    translations[key as keyof typeof translations] || key;
 
   const sortOptions = getSortOptions(t);
   const pageSizeOptions = getPageSizeOptions();
 
+  const handleSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    startTransition(() => {
+      const newQueryString = createQueryString(
+        searchParams,
+        "sort",
+        e.target.value
+      );
+      router.push(pathname + "?" + newQueryString);
+    });
+  };
+
+  const handlePageSizeChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    startTransition(() => {
+      const newQueryString = createQueryString(
+        searchParams,
+        "pageSize",
+        e.target.value
+      );
+      router.push(pathname + "?" + newQueryString);
+    });
+  };
+
   return (
-    <div className={styles.controlRow}>
+    <div className={`${styles.controlRow} ${isPending ? styles.pending : ""}`}>
       <Select
         id="sort-select"
         label={`${t("sortBy")}:`}
         options={sortOptions}
-        value={sort}
-        onChange={onSortChange}
+        value={initialSort}
+        onChange={handleSortChange}
+        disabled={isPending}
       />
       <Select
         id="page-size-select"
         label={`${t("productsPerPage")}:`}
         options={pageSizeOptions}
-        value={pageSize}
-        onChange={onPageSizeChange}
+        value={String(initialPageSize)}
+        onChange={handlePageSizeChange}
+        disabled={isPending}
       />
     </div>
   );

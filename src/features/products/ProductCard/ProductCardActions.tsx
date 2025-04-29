@@ -1,14 +1,10 @@
 "use client";
 
-import { Product } from "@/types/product";
 import { useCartStore } from "@/store/store";
 import { useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
 import QuantityControl from "@/components/common/QuantityControl";
-
-interface ProductCardActionsProps {
-  product: Product;
-}
+import { ProductCardActionsProps } from "./types";
 
 export function ProductCardActions({ product }: ProductCardActionsProps) {
   const t = useTranslations("ProductList");

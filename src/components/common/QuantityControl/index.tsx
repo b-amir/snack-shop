@@ -2,26 +2,8 @@ import React from "react";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import styles from "./styles.module.css";
-import MinusIcon from "./MinusIcon";
-import PlusIcon from "./PlusIcon";
-
-interface QuantityControlProps {
-  value: number;
-  min?: number;
-  max?: number;
-  onIncrease: () => void;
-  onDecrease: () => void;
-  onChange?: (value: number) => void;
-  className?: string;
-  inputClassName?: string;
-  decreaseAriaLabel?: string;
-  increaseAriaLabel?: string;
-  variant?: "default" | "button";
-  fullWidth?: boolean;
-  size?: "small" | "default" | "large";
-  inputId?: string;
-  iconClassName?: string;
-}
+import { MinusIcon, PlusIcon } from "./icon";
+import { QuantityControlProps } from "./types";
 
 const QuantityControl: React.FC<QuantityControlProps> = ({
   value,
@@ -40,24 +22,19 @@ const QuantityControl: React.FC<QuantityControlProps> = ({
   inputId,
   iconClassName = "",
 }) => {
+  const containerClasses = [
+    styles.quantityControl,
+    variant === "button" && styles["quantityControl--button-replacement"],
+    fullWidth && styles["quantityControl--fullWidth"],
+    size === "large" && styles["quantityControl--large"],
+    size === "small" && styles["quantityControl--small"],
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <div
-      className={[
-        styles.quantityControl,
-        variant === "button"
-          ? styles["quantityControl--button-replacement"]
-          : "",
-        fullWidth ? styles["quantityControl--fullWidth"] : "",
-        size === "default"
-          ? styles["quantityControl--default"]
-          : size === "large"
-          ? styles["quantityControl--large"]
-          : "",
-        className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
-    >
+    <div className={containerClasses}>
       <Button
         variant="link"
         className={styles.quantityButton}

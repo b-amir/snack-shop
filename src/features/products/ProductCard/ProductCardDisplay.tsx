@@ -1,30 +1,22 @@
-import { Product, SupportedLocale } from "@/types/product";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./styles.module.css";
 import Card from "@/components/ui/Card";
+import { ProductCardDisplayProps } from "./types";
+import { formatProductPrice } from "./utils";
 
 const useCdn = process.env.NEXT_PUBLIC_USE_CLOUDINARY_CDN === "true";
-
-interface ProductCardDisplayProps {
-  product: Product;
-  locale: SupportedLocale;
-  children?: React.ReactNode;
-}
 
 export function ProductCardDisplay({
   product,
   locale,
   children,
 }: ProductCardDisplayProps) {
-  const price =
-    locale === "fa"
-      ? product.price[locale].toLocaleString("fa-IR")
-      : product.price[locale];
-  const currency = product.currency[locale];
+  const formattedPrice = formatProductPrice(product, locale);
 
   const imageSrc = useCdn ? product.imageUrlCdn : product.imageUrlLocal;
-  const placeholderSrc = !useCdn ? "/placeholder.jpg" : undefined;
+  const placeholderImage = "/placeholder.jpg";
 
   return (
     <Card className={styles.productCard}>
@@ -34,7 +26,7 @@ export function ProductCardDisplay({
       >
         <div className={styles.productImagePlaceholder}>
           <Image
-            src={imageSrc || placeholderSrc || "/placeholder.jpg"}
+            src={imageSrc || placeholderImage}
             alt={product.name[locale]}
             fill
             style={{ objectFit: "cover" }}
@@ -43,9 +35,7 @@ export function ProductCardDisplay({
         </div>
         <div className={styles.productInfo}>
           <div className={styles.productTitle}>{product.name[locale]}</div>
-          <div className={styles.productPrice}>
-            {locale === "fa" ? `${price} ${currency}` : `$${price} ${currency}`}
-          </div>
+          <div className={styles.productPrice}>{formattedPrice}</div>
           <div className={styles.productDescription}>
             {product.description[locale]}
           </div>

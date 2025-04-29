@@ -9,8 +9,9 @@
   border: 0.0625rem solid var(--color-border-light);
   border-radius: var(--border-radius-xl);
   box-shadow: var(--shadow-md);
+  transition: box-shadow 0.2s ease-in-out;
 }
 
 .card:hover {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-focus);
 }

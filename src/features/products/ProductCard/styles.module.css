@@ -1,8 +1,6 @@
 .productCard {
   background: var(--color-white);
-  border: 0.0625rem solid var(--color-border-light);
   border-radius: var(--border-radius-xl);
-  box-shadow: var(--shadow-md);
   padding: 1.5rem 1rem 1rem 1rem;
   display: flex;
   flex-direction: column;
@@ -26,7 +24,6 @@
   margin-bottom: 1.25rem;
 }
 
-/* Assuming this style is needed based on ProductCard.tsx usage */
 .imageErrorText {
   color: var(--color-text-muted);
   font-size: 0.875rem;

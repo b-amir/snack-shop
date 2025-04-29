@@ -145,27 +145,27 @@
   animation: pulse 1.5s infinite ease-in-out;
 }
 
-.cartEmptyContainer {
+.cartPageContainer {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
 
-.cartEmptyContentWrapper {
+.cartPageContentWrapper {
   display: flex;
   gap: 2rem;
   align-items: flex-start;
 }
 
-.cartEmptyItemsSection {
+.cartPageItemsSection {
   flex: 2;
   border-radius: var(--border-radius-lg);
   padding: 1.5rem;
   border: 1px solid var(--color-border);
 }
 
-.cartEmptyPageTitle {
+.cartPagePageTitle {
   width: 40%;
   height: 2rem;
   background-color: var(--color-gray-medium, #e0e0e0);
@@ -174,7 +174,7 @@
   margin-bottom: 1.5rem;
 }
 
-.cartEmptySkeleton {
+.cartPageSkeleton {
   width: 100%;
   margin-top: 1rem;
   display: flex;
@@ -183,7 +183,7 @@
   gap: 1rem;
 }
 
-.cartEmptyPulse {
+.cartPagePulse {
   width: 80%;
   height: 2rem;
   background-color: var(--color-gray-medium, #e0e0e0);
