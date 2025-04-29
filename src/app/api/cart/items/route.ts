@@ -3,8 +3,7 @@ import { getCache, setCache, isUsingFallback } from "@/utils/cache";
 import { Product } from "@/types/product";
 import { CartItem } from "@/types/cart";
 import { getSessionId, getCartKey } from "@/utils/api/cart";
-
-const CART_SESSION_TTL = 7 * 24 * 60 * 60; // 7 days in seconds
+import { CART_SESSION_TTL } from "@/constants";
 
 export const dynamic = "force-dynamic";
 

@@ -2,8 +2,7 @@ import { NextResponse } from "next/server";
 import { getRelatedProducts } from "@/utils/api/products/related";
 import { getCache, setCache } from "@/utils/cache";
 import { SupportedLocale } from "@/types/product";
-
-const RELATED_PRODUCTS_CACHE_TTL = 900; // 15 minutes
+import { RELATED_PRODUCTS_CACHE_TTL } from "@/constants";
 
 export async function GET(
   request: Request,

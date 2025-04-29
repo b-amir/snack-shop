@@ -6,8 +6,8 @@ import {
 } from "@/utils/api/products/index";
 import { getCache, setCache } from "@/utils/cache";
 import productsData from "@/data/products.json";
-
-const API_CACHE_TTL = 300; // 5 minutes
+import { API_CACHE_TTL } from "@/constants";
+import { ProductSortOption, Product } from "@/types/product";
 
 export async function GET(request: Request) {
   try {
@@ -19,7 +19,7 @@ export async function GET(request: Request) {
         searchParams.get("limit") || searchParams.get("pageSize") || "10"
       )
     );
-    const sort = searchParams.get("sort") || "";
+    const sort = (searchParams.get("sort") || "") as ProductSortOption;
 
     const cacheKey = `api:products:${page}:${limit}:${sort}`;
 
@@ -28,12 +28,22 @@ export async function GET(request: Request) {
       return NextResponse.json(cachedData);
     }
 
-    const sortedProducts = sortProducts(productsData.products, sort);
-    const paginatedProducts = paginateProducts(sortedProducts, page, limit);
+    const sortedProductsReadonly = sortProducts(productsData.products, sort);
+    const sortedProductsMutable: Product[] = Array.from(sortedProductsReadonly);
+
+    const paginatedProducts = paginateProducts(
+      sortedProductsMutable,
+      page,
+      limit
+    );
 
     const result = {
       products: paginatedProducts,
-      pagination: getPaginationMetadata(sortedProducts.length, page, limit),
+      pagination: getPaginationMetadata(
+        sortedProductsReadonly.length,
+        page,
+        limit
+      ),
     };
 
     await setCache(cacheKey, result, API_CACHE_TTL);
