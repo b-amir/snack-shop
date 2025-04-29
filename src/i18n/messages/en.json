@@ -1,7 +1,7 @@
 {
   "Metadata": {
     "title": "SnackShop",
-    "description": "Delicious snacks, delivered fast"
+    "tagline": "Delicious snacks, delivered fast"
   },
   "ProductList": {
     "loading": "Loading...",
@@ -32,8 +32,6 @@
     "total": "Total",
     "currency": "USD"
   },
-  "header": "SnackShop",
-  "subheader": "Delicious snacks, delivered fast",
   "ProductDetail": {
     "relatedError": "Failed to load related products.",
     "loading": "Loading...",
@@ -54,5 +52,10 @@
       "requestError": "Request error: {errorMessage}",
       "status": "Status: {status}"
     }
+  },
+  "LanguageSwitcher": {
+    "languageSwitcherLabel": "Language:",
+    "languageName_en": "English",
+    "languageName_fa": "Farsi"
   }
 }

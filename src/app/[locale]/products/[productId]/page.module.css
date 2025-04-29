@@ -1,5 +1,5 @@
 .container {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 3rem auto;
   padding: 40px;
   border: 1px solid #eee;
@@ -11,26 +11,35 @@
   gap: 48px;
 }
 
-.topSection {
-  display: flex;
+/* Styles for the main product layout */
+.productGrid {
+  display: grid;
+  grid-template-columns: 350px 1fr; /* Default: image | info */
   gap: 40px;
   align-items: flex-start;
 }
 
-.imageWrapper {
-  min-width: 350px;
-  min-height: 350px;
-  width: 350px;
-  height: 350px;
+@media (max-width: 768px) {
+  /* Stack on smaller screens */
+  .productGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Styles for the image container (ensure position relative for fill Image) */
+.imageContainer {
   position: relative;
-  border-radius: 12px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   background: #fafafa;
+  border: 2rem solid white;
 }
 
+/* Styles for the info section */
 .info {
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -43,6 +52,7 @@
 
 .tags {
   display: flex;
+  flex-wrap: wrap; /* Allow tags to wrap */
   gap: 8px;
   margin: 8px 0;
 }
@@ -75,6 +85,7 @@
   margin: 8px 0 0 0;
 }
 
+/* Styles for the related products section */
 .relatedSection {
   margin-top: 32px;
 }
@@ -87,6 +98,13 @@
 .relatedTitle {
   font-size: 28px;
   margin-bottom: 24px;
+}
+
+.noRelatedProducts {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+  margin-top: 1rem;
 }
 
 .relatedError {

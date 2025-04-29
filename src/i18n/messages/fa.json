@@ -1,7 +1,7 @@
 {
   "Metadata": {
     "title": "اسنک‌شاپ",
-    "description": "خوشمزه‌ترین اسنک‌ها، سریع و مطمئن به دست شما"
+    "tagline": "خوشمزه‌ترین اسنک‌ها، سریع و مطمئن به دست شما"
   },
   "ProductList": {
     "loading": "در حال بارگذاری...",
@@ -32,8 +32,6 @@
     "total": "مجموع",
     "currency": "تومان"
   },
-  "header": "اسنک‌شاپ",
-  "subheader": "خوشمزه‌ترین اسنک‌ها، سریع و مطمئن به دست شما",
   "ProductDetail": {
     "relatedError": "خطا در بارگذاری محصولات مرتبط.",
     "loading": "در حال بارگذاری...",
@@ -54,5 +52,10 @@
       "requestError": "خطای درخواست: {errorMessage}",
       "status": "وضعیت: {status}"
     }
+  },
+  "LanguageSwitcher": {
+    "languageSwitcherLabel": "انتخاب زبان:",
+    "languageName_en": "English",
+    "languageName_fa": "فارسی"
   }
 }

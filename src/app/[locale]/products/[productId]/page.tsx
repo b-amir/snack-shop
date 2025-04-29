@@ -1,9 +1,10 @@
+import React from "react";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { SupportedLocale, Product } from "@/types/product";
-import Image from "next/image";
+import { ProductCard } from "@/features/products/ProductCard";
 import detailStyles from "./page.module.css";
 import sharedStyles from "@/features/products/ProductList/styles.module.css";
-import { ProductCard } from "@/features/products/ProductCard";
 import {
   fetchRelatedProducts,
   fetchProductById,
@@ -11,10 +12,11 @@ import {
 import { ProductQuantityActions } from "./components/ProductQuantityActions";
 import { getTranslations } from "next-intl/server";
 import { productByIdMap } from "@/utils/api/products/index";
-
-const supportedLocales: SupportedLocale[] = ["en", "fa"];
+import { locales } from "@/i18n/config";
 
 const useCdn = process.env.NEXT_PUBLIC_USE_CLOUDINARY_CDN === "true";
+
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const allProducts = Array.from(productByIdMap.values());
@@ -31,41 +33,49 @@ export async function generateStaticParams() {
   }
 
   const params = newestProductIds.flatMap((productId) =>
-    supportedLocales.map((locale) => ({ locale, productId }))
+    locales.map((locale) => ({ locale, productId }))
   );
 
   return params;
 }
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
-export default async function ProductDetailPage(props: {
-  params: Promise<{ locale: string; productId: string }>;
+async function getProductData(productId: string) {
+  try {
+    const productData = await fetchProductById(productId);
+    if (!productData || !productData.product) {
+      notFound();
+    }
+    return productData.product;
+  } catch (error) {
+    console.error("Failed to fetch product:", error);
+    notFound();
+  }
+}
+
+type Params = Promise<{ productId: string; locale: string }>;
+
+export default async function ProductDetailPage({
+  params,
+}: {
+  params: Params;
 }) {
-  const { locale, productId } = await props.params;
+  const { productId, locale } = await params;
 
-  if (!supportedLocales.includes(locale as SupportedLocale)) {
+  if (!locales.includes(locale as SupportedLocale)) {
     notFound();
   }
 
+  const product = await getProductData(productId);
   const t = await getTranslations("ProductDetail");
-
-  const productData = await fetchProductById(productId);
-
-  if (!productData || !productData.product) {
-    notFound();
-  }
-
-  const { product } = productData;
-
   const safeLocale = locale as SupportedLocale;
-
   const imageSrc = useCdn ? product.imageUrlCdn : product.imageUrlLocal;
 
   const relatedProducts = await fetchRelatedProducts({
-    productId,
+    limit: 4,
+    productId: product.id,
     locale: safeLocale,
-    limit: 3,
   });
 
   const dateAdded = new Date(product.dateAdded);
@@ -86,18 +96,19 @@ export default async function ProductDetailPage(props: {
 
   return (
     <div className={detailStyles.container}>
-      <div className={detailStyles.topSection}>
-        {imageSrc && (
-          <div className={detailStyles.imageWrapper}>
+      <div className={detailStyles.productGrid}>
+        <div className={detailStyles.imageContainer}>
+          {imageSrc && (
             <Image
               src={imageSrc}
               alt={product.name[safeLocale]}
               fill
               style={{ objectFit: "cover" }}
               priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
-          </div>
-        )}
+          )}
+        </div>
         <div className={detailStyles.info}>
           <h1 className={detailStyles.title}>{product.name[safeLocale]}</h1>
           <div className={detailStyles.tags}>
@@ -111,9 +122,7 @@ export default async function ProductDetailPage(props: {
             {product.description[safeLocale]}
           </p>
           <div className={detailStyles.price}>
-            {safeLocale === "fa"
-              ? `${price} ${currency}`
-              : `$${price} ${currency}`}
+            {price} {currency}
           </div>
           <div className={detailStyles.date}>
             <span>{t("dateAdded")}</span>
@@ -123,6 +132,7 @@ export default async function ProductDetailPage(props: {
           <ProductQuantityActions productId={product.id} product={product} />
         </div>
       </div>
+
       <div className={detailStyles.relatedSection}>
         <hr className={detailStyles.relatedSeparator} />
         <h2 className={detailStyles.relatedTitle}>{t("relatedProducts")}</h2>
@@ -132,13 +142,11 @@ export default async function ProductDetailPage(props: {
             {t("noRelatedProducts")}
           </p>
         ) : (
-          <div className={sharedStyles.relatedProductsGrid}>
+          <div className={sharedStyles.grid}>
             {relatedProducts.map((related: Product) => (
-              <ProductCard
-                key={related.id}
-                product={related}
-                locale={safeLocale}
-              />
+              <div key={related.id} className={sharedStyles.gridItem}>
+                <ProductCard product={related} locale={safeLocale} />
+              </div>
             ))}
           </div>
         )}
