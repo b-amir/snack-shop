@@ -13,10 +13,9 @@ export async function GET(
     const { searchParams } = new URL(request.url);
     const locale = (searchParams.get("locale") || "en") as SupportedLocale;
     const limit = parseInt(searchParams.get("limit") || "3");
-
     const cacheKey = `api:related:${productId}:${locale}:${limit}`;
-
     const cachedData = await getCache(cacheKey);
+
     if (cachedData) {
       return NextResponse.json(cachedData);
     }
@@ -27,7 +26,6 @@ export async function GET(
     );
 
     await setCache(cacheKey, relatedProducts, RELATED_PRODUCTS_CACHE_TTL);
-
     return NextResponse.json(relatedProducts);
   } catch (error) {
     console.error("Error fetching related products:", error);

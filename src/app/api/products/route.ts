@@ -19,11 +19,11 @@ export async function GET(request: Request) {
         searchParams.get("limit") || searchParams.get("pageSize") || "10"
       )
     );
+
     const sort = (searchParams.get("sort") || "") as ProductSortOption;
-
     const cacheKey = `api:products:${page}:${limit}:${sort}`;
-
     const cachedData = await getCache(cacheKey);
+
     if (cachedData) {
       return NextResponse.json(cachedData);
     }

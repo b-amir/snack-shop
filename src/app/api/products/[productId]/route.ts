@@ -12,10 +12,9 @@ export async function GET(
 ) {
   try {
     const { productId } = await context.params;
-
     const cacheKey = `${CACHE_KEY_PRODUCT_DETAIL_PREFIX}${productId}`;
-
     const cachedData = await getCache(cacheKey);
+
     if (cachedData) {
       return NextResponse.json(cachedData);
     }
@@ -27,9 +26,7 @@ export async function GET(
     }
 
     const result = { product };
-
     await setCache(cacheKey, result, PRODUCT_DETAIL_CACHE_TTL);
-
     return NextResponse.json(result);
   } catch (error) {
     console.error("Error fetching product:", error);
