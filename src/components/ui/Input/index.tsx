@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./styles.module.css";
-import { toFarsiDigits, toEnglishDigits } from "@/utils/convertDigits";
 import { InputProps } from "./types";
+import { toEnglishDigits, toFarsiDigits } from "@/utils/convertDigits";
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (

@@ -12,6 +12,7 @@ import { safeAdd, safeMultiply } from "@/utils/math";
 export function CartDropdown({ dir, locale, onClose }: CartDropdownProps) {
   const { items, removeFromCart, updateQuantity, clearCart } = useCartStore();
   const t = useTranslations("productList");
+  const tCommon = useTranslations("common");
   const router = useRouter();
 
   const currentLocale = locale as SupportedLocale;
@@ -46,7 +47,7 @@ export function CartDropdown({ dir, locale, onClose }: CartDropdownProps) {
         <div className={styles.cartDropdownTotal}>
           <span>{t("total")}:</span>
           <span>
-            {formattedTotalPrice} {t("currency")}
+            {formattedTotalPrice} {tCommon("currency")}
           </span>
         </div>
       )}
