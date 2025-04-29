@@ -17,11 +17,15 @@ export const getPageSizeOptions = () =>
   }));
 
 export const createQueryString = (
-  currentSearchParams: ReadonlyURLSearchParams,
+  currentSearchParams: ReadonlyURLSearchParams | string | null,
   name: string,
   value: string
 ) => {
-  const params = new URLSearchParams(currentSearchParams.toString());
+  const searchString =
+    typeof currentSearchParams === "string"
+      ? currentSearchParams
+      : currentSearchParams?.toString() || "";
+  const params = new URLSearchParams(searchString);
   params.set(name, value);
   if (name !== "page") {
     params.set("page", "1");

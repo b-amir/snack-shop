@@ -24,7 +24,8 @@ export function LanguageSwitcher({ locale }: LanguageSwitcherProps) {
 
   const handleLanguageChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const newLocale = e.target.value;
-    const currentPathWithoutLocale = pathname.replace(`/${locale}`, "") || "/";
+    const currentPathWithoutLocale =
+      (pathname || "").replace(`/${locale}`, "") || "/";
     router.push(`/${newLocale}${currentPathWithoutLocale}`);
   };
 
