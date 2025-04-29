@@ -1,13 +1,16 @@
 import { NextRequest } from "next/server";
 import { randomUUID } from "crypto";
-
-const CART_COOKIE_MAX_AGE = 7 * 24 * 60 * 60; // 7 days in seconds
+import {
+  CART_COOKIE_MAX_AGE,
+  CART_SESSION_COOKIE_NAME,
+  CACHE_KEY_CART_PREFIX,
+} from "@/constants";
 
 export function getSessionId(request: NextRequest): {
   sessionId: string;
   setCookieHeader?: { "Set-Cookie": string };
 } {
-  let sessionId = request.cookies.get("cartSessionId")?.value;
+  let sessionId = request.cookies.get(CART_SESSION_COOKIE_NAME)?.value;
   let setCookieHeader: { "Set-Cookie": string } | undefined = undefined;
 
   if (!sessionId) {
@@ -19,7 +22,7 @@ export function getSessionId(request: NextRequest): {
       path: "/",
       sameSite: "lax" as const,
     };
-    let cookieString = `cartSessionId=${sessionId}; Path=${cookieOptions.path}; Max-Age=${cookieOptions.maxAge}; HttpOnly; SameSite=${cookieOptions.sameSite}`;
+    let cookieString = `${CART_SESSION_COOKIE_NAME}=${sessionId}; Path=${cookieOptions.path}; Max-Age=${cookieOptions.maxAge}; HttpOnly; SameSite=${cookieOptions.sameSite}`;
     if (cookieOptions.secure) {
       cookieString += "; Secure";
     }
@@ -29,5 +32,5 @@ export function getSessionId(request: NextRequest): {
 }
 
 export function getCartKey(sessionId: string): string {
-  return `cart:${sessionId}`;
+  return `${CACHE_KEY_CART_PREFIX}${sessionId}`;
 }

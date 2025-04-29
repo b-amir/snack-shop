@@ -2,9 +2,14 @@ import { productByIdMap } from "@/utils/api/products/index";
 import { Redis } from "ioredis";
 import { Product } from "@/types/product";
 import { ProductsResponse } from "@/services/productService";
-
-const PRODUCT_DETAIL_CACHE_TTL = 1 * 60 * 60; // 1 hour
-const PRODUCT_LIST_CACHE_TTL = 5 * 60; // 5 minutes
+import {
+  PRODUCT_DETAIL_CACHE_TTL,
+  PRODUCT_LIST_CACHE_TTL,
+  DEFAULT_PAGE_SIZE,
+  DEFAULT_SORT_ORDER,
+  CACHE_KEY_PRODUCT_DETAIL_PREFIX,
+  CACHE_KEY_PRODUCT_LIST_PREFIX,
+} from "@/constants";
 
 export async function preloadPopularProducts(redisClient: Redis) {
   console.log("[Cache] Preloading products to cache...");
@@ -20,9 +25,9 @@ export async function preloadPopularProducts(redisClient: Redis) {
   );
 
   try {
-    const defaultListPage = allProducts.slice(0, 8);
+    const defaultListPage = allProducts.slice(0, DEFAULT_PAGE_SIZE);
     const totalProducts = allProducts.length;
-    const totalPages = Math.ceil(totalProducts / 8);
+    const totalPages = Math.ceil(totalProducts / DEFAULT_PAGE_SIZE);
 
     const defaultListData: ProductsResponse = {
       products: defaultListPage,
@@ -30,11 +35,11 @@ export async function preloadPopularProducts(redisClient: Redis) {
         totalProducts: totalProducts,
         totalPages: totalPages,
         currentPage: 1,
-        limit: 8,
+        limit: DEFAULT_PAGE_SIZE,
       },
     };
 
-    const cacheKey = "products::1:8:date_desc";
+    const cacheKey = `${CACHE_KEY_PRODUCT_LIST_PREFIX}:1:${DEFAULT_PAGE_SIZE}:${DEFAULT_SORT_ORDER}`;
     await redisClient.set(
       cacheKey,
       JSON.stringify(defaultListData),
@@ -48,15 +53,14 @@ export async function preloadPopularProducts(redisClient: Redis) {
     );
   }
 
-  // Preload individual products (newest 8)
-  const popularProducts: Product[] = allProducts.slice(0, 8);
+  const popularProducts: Product[] = allProducts.slice(0, DEFAULT_PAGE_SIZE);
 
   if (popularProducts.length > 0) {
     try {
       const pipeline = redisClient.pipeline();
 
       for (const product of popularProducts) {
-        const cacheKey = `product:${product.id}`;
+        const cacheKey = `${CACHE_KEY_PRODUCT_DETAIL_PREFIX}${product.id}`;
         pipeline.set(
           cacheKey,
           JSON.stringify({ product }),

@@ -3,12 +3,16 @@
  * In case you don't have Redis installed when cloning the repo
  */
 
+import { FALLBACK_CACHE_CLEANUP_INTERVAL_MINUTES } from "@/constants";
+
 export class MemoryCache {
   private cache = new Map<string, { data: string; expiry: number | null }>();
   private cleanupTimer: NodeJS.Timeout | null = null;
 
   constructor() {
-    this.startPeriodicCleanup(10 * 60 * 1000); // cleanup every 10 minutes
+    this.startPeriodicCleanup(
+      FALLBACK_CACHE_CLEANUP_INTERVAL_MINUTES * 60 * 1000
+    );
   }
 
   async get(key: string): Promise<string | null> {

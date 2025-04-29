@@ -3,50 +3,56 @@ dotenv.config();
 
 import Redis from "ioredis";
 import { preloadPopularProducts } from "@/utils/cache/cacheWarming";
+import {
+  CACHE_WARMING_INTERVAL_MINUTES,
+  REDIS_MAX_RETRIES,
+  REDIS_CONNECT_TIMEOUT_MS,
+} from "@/constants";
 
 const REDIS_URL = process.env.REDIS_URL;
-const WARMING_INTERVAL_MINUTES = parseInt(
-  process.env.CACHE_WARMING_INTERVAL_MINUTES || "30",
+const warmingIntervalMinutes = parseInt(
+  process.env.CACHE_WARMING_INTERVAL_MINUTES ||
+    String(CACHE_WARMING_INTERVAL_MINUTES),
   10
 );
-const WARMING_INTERVAL_MS = WARMING_INTERVAL_MINUTES * 60 * 1000;
+const WARMING_INTERVAL_MS = warmingIntervalMinutes * 60 * 1000;
 
 let redisClient: Redis | null = null;
 
 async function connectRedis() {
   if (!REDIS_URL) {
-    console.error("CACHE WARMER: REDIS_URL is not set. Worker cannot start.");
+    console.error("[Cache Warmer] REDIS_URL is not set. Worker cannot start.");
     process.exit(1);
   }
   try {
     redisClient = new Redis(REDIS_URL, {
-      maxRetriesPerRequest: 3,
-      connectTimeout: 10000,
+      maxRetriesPerRequest: REDIS_MAX_RETRIES,
+      connectTimeout: REDIS_CONNECT_TIMEOUT_MS,
     });
     await redisClient.ping();
-    console.log("CACHE WARMER: Connected to Redis.");
+    console.log("[Cache Warmer] Connected to Redis.");
 
     redisClient.on("error", (error) => {
-      console.error("CACHE WARMER: Redis connection error:", error);
+      console.error("[Cache Warmer] Redis connection error:", error);
     });
   } catch (error) {
-    console.error("CACHE WARMER: Failed to connect to Redis:", error);
+    console.error("[Cache Warmer] Failed to connect to Redis:", error);
     process.exit(1);
   }
 }
 
 async function runCacheWarming() {
   if (!redisClient || redisClient.status !== "ready") {
-    console.log("CACHE WARMER: Redis not ready, skipping warming cycle.");
+    console.log("[Cache Warmer] Redis not ready, skipping warming cycle.");
     return;
   }
 
-  console.log(`CACHE WARMER: Starting cache warming cycle...`);
+  console.log(`[Cache Warmer] Starting cache warming cycle...`);
   try {
     await preloadPopularProducts(redisClient);
-    console.log(`CACHE WARMER: Cache warming cycle completed.`);
+    console.log(`[Cache Warmer] Cache warming cycle completed.`);
   } catch (error) {
-    console.error("CACHE WARMER: Error during cache warming cycle:", error);
+    console.error("[Cache Warmer] Error during cache warming cycle:", error);
   }
 }
 
@@ -54,7 +60,7 @@ async function startWorker() {
   await connectRedis();
 
   console.log(
-    `CACHE WARMER: Worker started. Warming cache every ${WARMING_INTERVAL_MINUTES} minutes.`
+    `[Cache Warmer] Worker started. Warming cache every ${warmingIntervalMinutes} minutes.`
   );
 
   await runCacheWarming();
@@ -63,7 +69,7 @@ async function startWorker() {
 }
 
 process.on("SIGTERM", () => {
-  console.log("CACHE WARMER: Received SIGTERM. Shutting down...");
+  console.log("[Cache Warmer] Received SIGTERM. Shutting down...");
   if (redisClient) {
     redisClient.quit();
   }
@@ -71,7 +77,7 @@ process.on("SIGTERM", () => {
 });
 
 process.on("SIGINT", () => {
-  console.log("CACHE WARMER: Received SIGINT. Shutting down...");
+  console.log("[Cache Warmer] Received SIGINT. Shutting down...");
   if (redisClient) {
     redisClient.quit();
   }
@@ -79,6 +85,6 @@ process.on("SIGINT", () => {
 });
 
 startWorker().catch((err) => {
-  console.error("CACHE WARMER: Worker failed to start:", err);
+  console.error("[Cache Warmer] Worker failed to start:", err);
   process.exit(1);
 });

@@ -1,7 +1,6 @@
 import Redis, { RedisOptions } from "ioredis";
 import { MemoryCache } from "./fallback";
-
-const REDIS_CONNECT_TIMEOUT_MS = 2000;
+import { REDIS_CONNECT_TIMEOUT_MS } from "@/constants";
 
 interface CacheState {
   client: Redis | MemoryCache;

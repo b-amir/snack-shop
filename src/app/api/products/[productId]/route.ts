@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import { productByIdMap } from "@/utils/api/products/index";
 import { getCache, setCache } from "@/utils/cache";
-
-const PRODUCT_DETAIL_CACHE_TTL = 3600; // 1 hour
+import {
+  PRODUCT_DETAIL_CACHE_TTL,
+  CACHE_KEY_PRODUCT_DETAIL_PREFIX,
+} from "@/constants";
 
 export async function GET(
   request: Request,
@@ -11,14 +13,13 @@ export async function GET(
   try {
     const { productId } = await context.params;
 
-    const cacheKey = `api:product:${productId}`;
+    const cacheKey = `${CACHE_KEY_PRODUCT_DETAIL_PREFIX}${productId}`;
 
     const cachedData = await getCache(cacheKey);
     if (cachedData) {
       return NextResponse.json(cachedData);
     }
 
-    // Get product (in a real app, this would be a DB query)
     const product = productByIdMap.get(productId);
 
     if (!product) {
