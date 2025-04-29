@@ -110,3 +110,38 @@
 .relatedError {
   color: red;
 }
+
+.backLinkContainer {
+  margin-bottom: 0rem;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+.backLink .backIcon {
+  transition: transform 0.2s ease-in-out;
+  height: 26px;
+  width: 24px;
+}
+
+.backLink:hover .backIcon {
+  transform: translateX(-4px);
+}
+
+.backLink[dir="rtl"] .backIcon {
+  transform: rotate(180deg);
+}
+
+.backLink[dir="rtl"]:hover .backIcon {
+  transform: rotate(180deg) translateX(-4px);
+}

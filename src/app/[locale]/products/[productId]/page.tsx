@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SupportedLocale } from "@/types/product";
 import { getTranslations } from "next-intl/server";
@@ -11,6 +12,8 @@ import {
 } from "@/features/product/ProductDetail";
 import detailStyles from "./page.module.css";
 import { formatProductDisplayData } from "@/utils/formatProductDisplayData";
+import { BackIcon } from "@/features/product/ProductDetail/icon";
+import { getDirection } from "@/utils/direction";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -37,8 +40,10 @@ export default async function ProductDetailPage({
     notFound();
   }
 
-  const t = await getTranslations("productDetail");
+  const tProductDetail = await getTranslations("productDetail");
+  const tCommon = await getTranslations("common");
   const safeLocale = locale as SupportedLocale;
+  const dir = getDirection(safeLocale);
 
   const { formattedDate, formattedPrice, imageSrc } = formatProductDisplayData(
     product,
@@ -47,6 +52,12 @@ export default async function ProductDetailPage({
 
   return (
     <div className={detailStyles.container}>
+      <div className={detailStyles.backLinkContainer}>
+        <Link href={`/${locale}`} className={detailStyles.backLink} dir={dir}>
+          <BackIcon className={detailStyles.backIcon} />
+          {tCommon("backHome")}
+        </Link>
+      </div>
       <div className={detailStyles.productGrid}>
         {imageSrc && (
           <ProductImage src={imageSrc} alt={product.name[safeLocale]} />
@@ -56,10 +67,14 @@ export default async function ProductDetailPage({
           locale={safeLocale}
           formattedPrice={formattedPrice}
           formattedDate={formattedDate}
-          t={t}
+          t={tProductDetail}
         />
       </div>
-      <RelatedProductsSection productId={productId} locale={safeLocale} t={t} />
+      <RelatedProductsSection
+        productId={productId}
+        locale={safeLocale}
+        t={tProductDetail}
+      />
     </div>
   );
 }
