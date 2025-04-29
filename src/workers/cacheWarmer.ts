@@ -2,7 +2,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 import Redis from "ioredis";
-import { preloadPopularProducts } from "@/utils/cache/cacheWarming";
+import { warmCache } from "@/utils/cache/cacheWarming";
 import {
   CACHE_WARMING_INTERVAL_MINUTES,
   REDIS_MAX_RETRIES,
@@ -41,15 +41,10 @@ async function connectRedis() {
   }
 }
 
-async function runCacheWarming() {
-  if (!redisClient || redisClient.status !== "ready") {
-    console.log("[Cache Warmer] Redis not ready, skipping warming cycle.");
-    return;
-  }
-
+async function runCacheWarmingCycle() {
   console.log(`[Cache Warmer] Starting cache warming cycle...`);
   try {
-    await preloadPopularProducts(redisClient);
+    await warmCache();
     console.log(`[Cache Warmer] Cache warming cycle completed.`);
   } catch (error) {
     console.error("[Cache Warmer] Error during cache warming cycle:", error);
@@ -63,9 +58,9 @@ async function startWorker() {
     `[Cache Warmer] Worker started. Warming cache every ${warmingIntervalMinutes} minutes.`
   );
 
-  await runCacheWarming();
+  await runCacheWarmingCycle();
 
-  setInterval(runCacheWarming, WARMING_INTERVAL_MS);
+  setInterval(runCacheWarmingCycle, WARMING_INTERVAL_MS);
 }
 
 process.on("SIGTERM", () => {
