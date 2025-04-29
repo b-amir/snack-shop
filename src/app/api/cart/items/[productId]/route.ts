@@ -6,25 +6,17 @@ import {
   isUsingFallback,
 } from "@/utils/cache";
 import { CartItem } from "@/types/product";
-
-const CART_SESSION_TTL = 7 * 24 * 60 * 60; // 7 days in seconds
+import { getSessionId, getCartKey } from "@/utils/api/cart/helpers";
+import { CART_COOKIE_MAX_AGE } from "@/constants";
 
 export const dynamic = "force-dynamic";
-
-function getSessionId(request: NextRequest): string | undefined {
-  return request.cookies.get("cartSessionId")?.value;
-}
-
-function getCartKey(sessionId: string): string {
-  return `cart:${sessionId}`;
-}
 
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ productId: string }> }
 ) {
   try {
-    const sessionId = getSessionId(request);
+    const { sessionId } = getSessionId(request);
     if (!sessionId) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
@@ -52,7 +44,7 @@ export async function PUT(
 
     items[itemIndex].quantity = quantity;
 
-    await setCache(cartKey, items, CART_SESSION_TTL);
+    await setCache(cartKey, items, CART_COOKIE_MAX_AGE);
 
     return NextResponse.json({ items });
   } catch (error) {
@@ -80,7 +72,7 @@ export async function DELETE(
   { params }: { params: Promise<{ productId: string }> }
 ) {
   try {
-    const sessionId = getSessionId(request);
+    const { sessionId } = getSessionId(request);
     if (!sessionId) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
@@ -99,7 +91,7 @@ export async function DELETE(
     }
 
     if (updatedItems.length > 0) {
-      await setCache(cartKey, updatedItems, CART_SESSION_TTL);
+      await setCache(cartKey, updatedItems, CART_COOKIE_MAX_AGE);
     } else {
       await deleteCache(cartKey);
     }

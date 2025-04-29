@@ -6,7 +6,7 @@ import { Header } from "@/components/common/Header";
 import { Footer } from "@/components/common/Footer";
 import { getTranslations } from "next-intl/server";
 import styles from "./layout.module.css";
-import "../globals.css";
+import "@/app/globals.css";
 
 export async function generateMetadata({
   params,
@@ -18,7 +18,7 @@ export async function generateMetadata({
 
   return {
     title: t("title"),
-    description: t("description"),
+    description: t("tagline"),
   };
 }
 

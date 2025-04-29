@@ -26,7 +26,7 @@ export default function CartPage() {
     items.length > 0 ? items[0].product.currency[locale] : "";
 
   if (isLoading) {
-    return <Skeleton layout="cartEmpty" />;
+    return <Skeleton layout="cartPage" />;
   }
 
   return (

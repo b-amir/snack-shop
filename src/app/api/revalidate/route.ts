@@ -7,6 +7,7 @@ import {
 import { getCacheState } from "@/utils/cache/cacheClientInstance";
 import { Redis } from "ioredis";
 import { productByIdMap } from "@/utils/api/products/index";
+import { locales } from "@/i18n/config";
 
 export const dynamic = "force-dynamic";
 
@@ -59,7 +60,7 @@ export async function POST(request: NextRequest) {
   const localesToRevalidate =
     Array.isArray(changedLocales) && changedLocales.length > 0
       ? changedLocales
-      : ["en", "fa"];
+      : locales;
 
   console.log(
     `[Cache] Revalidation triggered for product ${productId}, event: ${event}`

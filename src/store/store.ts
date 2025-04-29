@@ -1,16 +1,6 @@
 import { create } from "zustand";
-import { CartItem, Product } from "@/types/product";
-
-interface CartState {
-  items: CartItem[];
-  isLoading: boolean;
-  error: string | null;
-  fetchCart: () => Promise<void>;
-  addToCart: (product: Product, quantity?: number) => Promise<void>;
-  removeFromCart: (productId: string) => Promise<void>;
-  clearCart: () => Promise<void>;
-  updateQuantity: (productId: string, quantity: number) => Promise<void>;
-}
+import { CartItem } from "@/types/product";
+import { CartState } from "@/types/cart";
 
 export const useCartStore = create<CartState>()((set, get) => ({
   items: [],

@@ -25,8 +25,10 @@
   --spacing-large: 2rem;
 
   --shadow-sm: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.03);
-  --shadow-md: 0 0.125rem 0.5rem rgba(33, 33, 33, 0.04);
-  --shadow-focus: 0 0 0 0.125rem rgba(0, 123, 255, 0.25);
+  --shadow-md: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  --shadow-focus: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 
   --color-error-bg: #fdeaee;
   --color-error-text: #b00020;
@@ -37,6 +39,7 @@
   --color-success-text: #088541;
 
   --gray-rgb: 0, 0, 0;
+  --gray-subtle: #fafafa;
   --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
   --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
   --button-primary-hover: #383838;

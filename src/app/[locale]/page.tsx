@@ -2,19 +2,22 @@ import { ProductList } from "@/features/products/ProductList";
 import { notFound } from "next/navigation";
 import styles from "./layout.module.css";
 import { SupportedLocale } from "@/types/product";
+import { locales } from "@/i18n/config";
 
-const supportedLocales: SupportedLocale[] = ["en", "fa"];
+type Locale = (typeof locales)[number];
+type Params = Promise<{ locale: Locale }>;
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function Home(props: {
-  params: Promise<{ locale: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  params: Params;
+  searchParams: SearchParams;
 }) {
   const locale = (await props.params).locale;
   const searchParams = await props.searchParams;
 
-  if (!supportedLocales.includes(locale as SupportedLocale)) {
+  if (!locales.includes(locale as SupportedLocale)) {
     notFound();
   }
 
