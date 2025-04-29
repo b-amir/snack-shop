@@ -20,11 +20,13 @@ async function initializeRedisClient(): Promise<{ client: CacheClient }> {
     throw new Error("REDIS_URL not set.");
   }
 
+  console.log(`[Cache:Redis] Attempting connection...`);
+
   const redisOptions: RedisOptions = {
     maxRetriesPerRequest: 1,
     enableOfflineQueue: false,
     connectTimeout: REDIS_CONNECT_TIMEOUT_MS,
-    lazyConnect: true,
+    lazyConnect: false,
     showFriendlyErrorStack: false,
     tls: process.env.REDIS_URL.startsWith("rediss://")
       ? { rejectUnauthorized: false }
@@ -33,29 +35,47 @@ async function initializeRedisClient(): Promise<{ client: CacheClient }> {
 
   const redisInstance = new Redis(process.env.REDIS_URL, redisOptions);
 
-  try {
-    await redisInstance.ping();
-    console.log("[Cache:Redis] Connection successful (via ping).");
-  } catch (connectionError) {
-    redisInstance.disconnect();
-    throw connectionError;
-  }
-
   const redisClientWrapper: CacheClient = {
     isFallback: false,
-    get: (key) => redisInstance.get(key),
-    set: (key, value, mode, ttlSeconds) => {
+    get: (key: string) => redisInstance.get(key),
+    set: (key: string, value: string, mode?: "EX", ttlSeconds?: number) => {
       return mode === "EX" && ttlSeconds !== undefined
         ? redisInstance.set(key, value, mode, ttlSeconds)
         : redisInstance.set(key, value);
     },
-    del: (keyOrKeys) => redisInstance.del(keyOrKeys as string[]),
+    del: (keyOrKeys: string | string[]) =>
+      redisInstance.del(keyOrKeys as string[]),
     disconnect: async () => {
       await redisInstance.quit();
     },
   };
 
-  return { client: redisClientWrapper };
+  return new Promise((resolve, reject) => {
+    const connectTimer = setTimeout(() => {
+      redisInstance.removeAllListeners();
+      redisInstance.disconnect();
+      reject(
+        new Error(
+          `[Cache:Redis] Connection timed out after ${REDIS_CONNECT_TIMEOUT_MS}ms.`
+        )
+      );
+    }, REDIS_CONNECT_TIMEOUT_MS);
+
+    redisInstance.once("ready", () => {
+      clearTimeout(connectTimer);
+      redisInstance.removeAllListeners("error");
+      console.log("[Cache:Redis] Connection successful.");
+      resolve({ client: redisClientWrapper });
+    });
+
+    redisInstance.once("error", (err) => {
+      clearTimeout(connectTimer);
+      redisInstance.removeAllListeners();
+      redisInstance.disconnect();
+      console.error(`[Cache:Redis] Connection error: ${err.message}`);
+      reject(err);
+    });
+  });
 }
 
 async function initializeCache(): Promise<ResolvedCacheState> {
@@ -73,6 +93,7 @@ async function initializeCache(): Promise<ResolvedCacheState> {
 
 export function getCacheState(): Promise<ResolvedCacheState> {
   if (!cacheInitializationPromise) {
+    console.log("[Cache] Initializing cache state...");
     cacheInitializationPromise = initializeCache();
   }
   return cacheInitializationPromise;
