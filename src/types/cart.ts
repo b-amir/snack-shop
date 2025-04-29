@@ -1,4 +1,9 @@
-import { CartItem, Product } from "./product";
+import { Product } from "./product";
+
+export interface CartItem {
+  product: Product;
+  quantity: number;
+}
 
 export type CartState = {
   items: CartItem[];

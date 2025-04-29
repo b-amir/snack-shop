@@ -1,4 +1,5 @@
-import { SupportedLocale, CartItem } from "@/types/product";
+import { SupportedLocale } from "@/types/product";
+import { CartItem } from "@/types/cart";
 
 export type CartItemsProps = {
   items: CartItem[];

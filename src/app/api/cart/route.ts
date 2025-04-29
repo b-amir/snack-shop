@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCache, deleteCache, isUsingFallback } from "@/utils/cache";
-import { CartItem } from "@/types/product";
+import { CartItem } from "@/types/cart";
 import { getSessionId, getCartKey } from "@/utils/api/cart";
 
 export const dynamic = "force-dynamic";

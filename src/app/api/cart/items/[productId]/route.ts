@@ -5,7 +5,7 @@ import {
   deleteCache,
   isUsingFallback,
 } from "@/utils/cache";
-import { CartItem } from "@/types/product";
+import { CartItem } from "@/types/cart";
 import { getSessionId, getCartKey } from "@/utils/api/cart/helpers";
 import { CART_COOKIE_MAX_AGE } from "@/constants";
 

@@ -8,12 +8,13 @@ export interface Product {
   imageUrlLocal: string;
   imageUrlCdn: string;
   description: Record<SupportedLocale, string>;
-  category: string;
   dateAdded: string;
   tags: Record<SupportedLocale, string[]>;
 }
 
-export interface CartItem {
-  product: Product;
-  quantity: number;
-}
+export type ProductSortOption =
+  | "price_asc"
+  | "price_desc"
+  | "date_asc"
+  | "date_desc"
+  | "";
