@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
   images: useCdn
     ? {
         loader: "custom",
-        loaderFile: "./src/lib/cloudinaryLoader.ts",
+        loaderFile: "./src/utils/cloudinaryLoader.ts",
       }
     : {
         loader: "default", // Config for local images (default loader)

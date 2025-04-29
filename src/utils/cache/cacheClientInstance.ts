@@ -51,7 +51,7 @@ async function initializeCache(): Promise<CacheState> {
 
       redisInstance.once("error", (err) => {
         clearTimeout(timeoutId);
-        console.error(
+        console.warn(
           `[Cache] Redis connection error during setup: ${err.message}`
         );
         redisInstance.removeAllListeners("ready");

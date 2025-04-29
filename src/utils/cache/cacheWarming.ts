@@ -1,7 +1,6 @@
 import { productByIdMap } from "@/utils/api/products/index";
 import { Redis } from "ioredis";
 import { Product } from "@/types/product";
-import { ProductsResponse } from "@/services/productService";
 import {
   PRODUCT_DETAIL_CACHE_TTL,
   PRODUCT_LIST_CACHE_TTL,
@@ -10,6 +9,7 @@ import {
   CACHE_KEY_PRODUCT_DETAIL_PREFIX,
   CACHE_KEY_PRODUCT_LIST_PREFIX,
 } from "@/constants";
+import { ProductsResponse } from "@/services/types";
 
 export async function preloadPopularProducts(redisClient: Redis) {
   console.log("[Cache] Preloading products to cache...");
@@ -30,7 +30,7 @@ export async function preloadPopularProducts(redisClient: Redis) {
     const totalPages = Math.ceil(totalProducts / DEFAULT_PAGE_SIZE);
 
     const defaultListData: ProductsResponse = {
-      products: defaultListPage,
+      products: defaultListPage as Product[],
       pagination: {
         totalProducts: totalProducts,
         totalPages: totalPages,
