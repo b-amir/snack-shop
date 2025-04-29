@@ -12,7 +12,7 @@ import styles from "./styles.module.css";
 export function LanguageSwitcher({ locale }: LanguageSwitcherProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const t = useTranslations("LanguageSwitcher");
+  const t = useTranslations("languageSwitcher");
 
   const languageOptions = locales.map((loc) => {
     const labelKey = `languageName_${loc}`;

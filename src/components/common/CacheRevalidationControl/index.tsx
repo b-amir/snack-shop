@@ -18,7 +18,7 @@ export function RevalidationButton() {
   const [isLoading, setIsLoading] = useState(false);
   const [toast, setToast] = useState<ToastState | null>(null);
   const locale = useLocale();
-  const t = useTranslations("Admin.revalidation");
+  const t = useTranslations("admin.revalidation");
 
   const showToast = (message: string, type: ToastType) => {
     setToast({ message, type });

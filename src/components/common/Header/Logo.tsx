@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import styles from "./styles.module.css";
 
 export const Logo: React.FC = () => {
-  const t = useTranslations("Metadata");
+  const t = useTranslations("metadata");
 
   return (
     <div className={styles.logoContainer}>

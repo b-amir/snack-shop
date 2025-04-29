@@ -10,7 +10,7 @@ import Skeleton from "@/components/common/Skeleton";
 import { safeAdd, safeMultiply } from "@/utils/math";
 
 export default function CartPage() {
-  const t = useTranslations("ProductList");
+  const t = useTranslations("productList");
   const { items, clearCart, updateQuantity, removeFromCart, isLoading } =
     useCartStore();
   const locale = useLocale() as SupportedLocale;

@@ -1,14 +1,19 @@
 {
-  "Metadata": {
+  "common": {
+    "loading": "در حال بارگذاری...",
+    "error": "خطا",
+    "addToCart": "افزودن به سبد خرید",
+    "currency": "تومان",
+    "previous": "قبلی",
+    "next": "بعدی"
+  },
+  "metadata": {
     "title": "اسنک‌شاپ",
     "tagline": "خوشمزه‌ترین اسنک‌ها، سریع و مطمئن به دست شما"
   },
-  "ProductList": {
-    "loading": "در حال بارگذاری...",
-    "error": "خطا",
+  "productList": {
     "noProducts": "محصولی یافت نشد",
     "checkBackLater": "لطفاً بعداً دوباره بررسی کنید.",
-    "addToCart": "افزودن به سبد خرید",
     "cart": "سبد خرید",
     "cartEmpty": "سبد خرید شما خالی است.",
     "quantity": "تعداد",
@@ -19,8 +24,6 @@
     "decrease": "کاهش تعداد",
     "sortBy": "مرتب‌سازی",
     "productsPerPage": "آیتم در صفحه",
-    "Previous": "قبلی",
-    "Next": "بعدی",
     "sortNewest": "جدیدترین",
     "sortOldest": "قدیمی‌ترین",
     "sortPriceAsc": "ارزان‌ترین",
@@ -29,18 +32,15 @@
     "imageLoadError": "تصویر بارگذاری نشد.",
     "checkout": "تسویه حساب",
     "summary": "خلاصه سفارش",
-    "total": "مجموع",
-    "currency": "تومان"
+    "total": "مجموع"
   },
-  "ProductDetail": {
+  "productDetail": {
     "relatedError": "خطا در بارگذاری محصولات مرتبط.",
-    "loading": "در حال بارگذاری...",
     "noRelatedProducts": "محصول مرتبطی یافت نشد.",
     "relatedProducts": "محصولات مرتبط",
-    "dateAdded": "تاریخ افزودن: ",
-    "addToCart": "افزودن به سبد خرید"
+    "dateAdded": "تاریخ افزودن: "
   },
-  "Admin": {
+  "admin": {
     "revalidation": {
       "buttonText": "پاک‌سازی کش ردیس",
       "buttonLoadingText": "در حال پاک‌سازی...",
@@ -53,7 +53,7 @@
       "status": "وضعیت: {status}"
     }
   },
-  "LanguageSwitcher": {
+  "languageSwitcher": {
     "languageSwitcherLabel": "انتخاب زبان:",
     "languageName_en": "English",
     "languageName_fa": "فارسی"

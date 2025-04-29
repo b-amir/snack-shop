@@ -14,7 +14,7 @@ export function CartItems({
   onRemoveItem,
   showRemoveButton = true,
 }: CartItemsProps) {
-  const t = useTranslations("ProductList");
+  const t = useTranslations("productList");
 
   if (items.length === 0) {
     return <div className={cartStyles.warning}>{t("cartEmpty")}</div>;

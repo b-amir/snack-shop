@@ -37,7 +37,7 @@ export default async function ProductDetailPage({
     notFound();
   }
 
-  const t = await getTranslations("ProductDetail");
+  const t = await getTranslations("productDetail");
   const safeLocale = locale as SupportedLocale;
 
   const { formattedDate, formattedPrice, imageSrc } = formatProductDisplayData(

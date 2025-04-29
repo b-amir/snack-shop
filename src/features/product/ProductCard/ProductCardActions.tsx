@@ -7,7 +7,7 @@ import QuantityControl from "@/features/quantity-control/QuantityControl";
 import { ProductCardActionsProps } from "./types";
 
 export function ProductCardActions({ product }: ProductCardActionsProps) {
-  const t = useTranslations("ProductList");
+  const t = useTranslations("common");
   const { isLoading } = useCartStore();
   const addToCart = useCartStore((state) => state.addToCart);
   const updateQuantity = useCartStore((state) => state.updateQuantity);

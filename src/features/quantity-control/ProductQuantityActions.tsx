@@ -15,7 +15,7 @@ export function ProductQuantityActions({
   productId,
   product,
 }: ProductQuantityActionsProps) {
-  const t = useTranslations("ProductDetail");
+  const t = useTranslations("common");
   const { isLoading } = useCartStore();
   const addToCart = useCartStore((state) => state.addToCart);
   const updateQuantity = useCartStore((state) => state.updateQuantity);

@@ -10,7 +10,7 @@ import { DEFAULT_PAGE_SIZE, DEFAULT_SORT_ORDER } from "@/constants";
 import { ProductListProps } from "./types";
 
 export async function ProductList({ locale, searchParams }: ProductListProps) {
-  const t = await getTranslations("ProductList");
+  const t = await getTranslations("productList");
 
   const sort = String(searchParams?.sort || DEFAULT_SORT_ORDER);
   const page = parseInt(String(searchParams?.page || "1"), 10);

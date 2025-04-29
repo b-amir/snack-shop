@@ -1,14 +1,19 @@
 {
-  "Metadata": {
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "addToCart": "Add to Cart",
+    "currency": "USD",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "metadata": {
     "title": "SnackShop",
     "tagline": "Delicious snacks, delivered fast"
   },
-  "ProductList": {
-    "loading": "Loading...",
-    "error": "Error",
+  "productList": {
     "noProducts": "No products found",
     "checkBackLater": "Please check back later.",
-    "addToCart": "Add to Cart",
     "cart": "Cart",
     "cartEmpty": "Your cart is empty.",
     "quantity": "Qty",
@@ -19,8 +24,6 @@
     "decrease": "Decrease quantity",
     "sortBy": "Sort by",
     "productsPerPage": "Items per page",
-    "Previous": "Previous",
-    "Next": "Next",
     "sortNewest": "Newest",
     "sortOldest": "Oldest",
     "sortPriceAsc": "Price: Low to High",
@@ -29,18 +32,15 @@
     "imageLoadError": "Image could not be loaded.",
     "checkout": "Checkout",
     "summary": "Summary",
-    "total": "Total",
-    "currency": "USD"
+    "total": "Total"
   },
-  "ProductDetail": {
+  "productDetail": {
     "relatedError": "Failed to load related products.",
-    "loading": "Loading...",
     "noRelatedProducts": "No related products found.",
     "relatedProducts": "Related Products",
-    "dateAdded": "Date added: ",
-    "addToCart": "Add to Cart"
+    "dateAdded": "Date added: "
   },
-  "Admin": {
+  "admin": {
     "revalidation": {
       "buttonText": "Revalidate redis cache",
       "buttonLoadingText": "Revalidating...",
@@ -53,7 +53,7 @@
       "status": "Status: {status}"
     }
   },
-  "LanguageSwitcher": {
+  "languageSwitcher": {
     "languageSwitcherLabel": "Language:",
     "languageName_en": "English",
     "languageName_fa": "Farsi"

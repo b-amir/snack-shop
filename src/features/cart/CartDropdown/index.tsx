@@ -11,7 +11,7 @@ import { safeAdd, safeMultiply } from "@/utils/math";
 
 export function CartDropdown({ dir, locale, onClose }: CartDropdownProps) {
   const { items, removeFromCart, updateQuantity, clearCart } = useCartStore();
-  const t = useTranslations("ProductList");
+  const t = useTranslations("productList");
   const router = useRouter();
 
   const currentLocale = locale as SupportedLocale;

@@ -1,10 +1,10 @@
 import React from "react";
 import { useTranslations } from "next-intl";
-import { getDirection } from "@/utils/direction";
 import LocaleNumber from "@/components/ui/LocaleNumber";
 import Button from "@/components/ui/Button";
 import styles from "./styles.module.css";
 import { PaginationDisplayProps } from "./types";
+import { getDirection } from "@/utils/direction";
 
 export const PaginationDisplay: React.FC<PaginationDisplayProps> = ({
   pageNumbers,
@@ -14,7 +14,7 @@ export const PaginationDisplay: React.FC<PaginationDisplayProps> = ({
   isPending = false,
   locale,
 }) => {
-  const t = useTranslations("ProductList");
+  const t = useTranslations("common");
   const dir = getDirection(locale);
 
   return (
@@ -27,9 +27,9 @@ export const PaginationDisplay: React.FC<PaginationDisplayProps> = ({
         className={styles.paginationItem}
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1 || isPending}
-        aria-label={t("Previous")}
+        aria-label={t("previous")}
       >
-        {t("Previous")}
+        {t("previous")}
       </Button>
 
       {pageNumbers.map((num, index) =>
@@ -60,9 +60,9 @@ export const PaginationDisplay: React.FC<PaginationDisplayProps> = ({
         className={styles.paginationItem}
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages || isPending}
-        aria-label={t("Next")}
+        aria-label={t("next")}
       >
-        {t("Next")}
+        {t("next")}
       </Button>
     </div>
   );

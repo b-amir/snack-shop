@@ -13,7 +13,7 @@ import styles from "./styles.module.css";
 export function CartIconButton({ dir, locale }: CartIconButtonProps) {
   const [open, setOpen] = useState(false);
   const { items, isLoading } = useCartStore();
-  const t = useTranslations("ProductList");
+  const t = useTranslations("productList");
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
