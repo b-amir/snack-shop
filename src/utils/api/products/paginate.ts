@@ -1,9 +1,10 @@
-import { memoize, preprocessedProducts } from "./helpers";
+import { memoize } from "./helpers";
+import productsData from "@/data/products.json";
 
 // Memoized pagination for product lists.
 // Slices the product array based on page and limit.
 export const paginateProducts = memoize(
-  (products: typeof preprocessedProducts, page: number, limit: number) => {
+  (products: typeof productsData.products, page: number, limit: number) => {
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
     return products.slice(startIndex, endIndex);

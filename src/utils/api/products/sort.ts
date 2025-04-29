@@ -1,30 +1,29 @@
-import { memoize, preprocessedProducts } from "./helpers";
+import { Product, ProductSortOption } from "@/types/product";
+import { memoize } from "./helpers";
 
-// Memoized sorting for products based on price or date.
-// Sorting is isolated for clarity and easy extension (e.g., adding new sort options).
+type ProductComparator = (a: Product, b: Product) => number;
+
+const comparators: Record<Exclude<ProductSortOption, "">, ProductComparator> = {
+  price_asc: (a, b) => a.price.en - b.price.en,
+  price_desc: (a, b) => b.price.en - a.price.en,
+  date_asc: (a, b) =>
+    new Date(a.dateAdded).getTime() - new Date(b.dateAdded).getTime(),
+  date_desc: (a, b) =>
+    new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime(),
+};
+
 export const sortProducts = memoize(
-  (products: typeof preprocessedProducts, sortOption: string) => {
-    if (!sortOption) return products;
+  (
+    products: readonly Product[],
+    sortOption: ProductSortOption
+  ): readonly Product[] => {
+    const comparator =
+      comparators[sortOption as Exclude<ProductSortOption, "">];
 
-    const sortedProducts = [...products];
-
-    switch (sortOption) {
-      case "price_asc":
-        return sortedProducts.sort((a, b) => a.price.en - b.price.en);
-      case "price_desc":
-        return sortedProducts.sort((a, b) => b.price.en - a.price.en);
-      case "date_asc":
-        return sortedProducts.sort(
-          (a, b) =>
-            new Date(a.dateAdded).getTime() - new Date(b.dateAdded).getTime()
-        );
-      case "date_desc":
-        return sortedProducts.sort(
-          (a, b) =>
-            new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime()
-        );
-      default:
-        return sortedProducts;
+    if (!sortOption || !comparator) {
+      return products;
     }
+
+    return [...products].sort(comparator);
   }
 );

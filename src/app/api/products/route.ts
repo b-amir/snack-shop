@@ -1,19 +1,17 @@
 import { NextResponse } from "next/server";
 import {
-  searchProducts,
   sortProducts,
   paginateProducts,
   getPaginationMetadata,
-  preprocessedProducts,
 } from "@/utils/api/products/index";
 import { getCache, setCache } from "@/utils/cache";
+import productsData from "@/data/products.json";
 
 const API_CACHE_TTL = 300; // 5 minutes
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const searchQuery = searchParams.get("search") || "";
     const page = Math.max(1, parseInt(searchParams.get("page") || "1"));
     const limit = Math.max(
       1,
@@ -23,23 +21,19 @@ export async function GET(request: Request) {
     );
     const sort = searchParams.get("sort") || "";
 
-    const cacheKey = `api:products:${searchQuery}:${page}:${limit}:${sort}`;
+    const cacheKey = `api:products:${page}:${limit}:${sort}`;
 
     const cachedData = await getCache(cacheKey);
     if (cachedData) {
       return NextResponse.json(cachedData);
     }
 
-    // Apply operations in pipeline: filter -> sort -> paginate
-    // Filtering first reduces the dataset size early,
-    // making subsequent sorting and pagination faster.
-    const filteredProducts = searchProducts(preprocessedProducts, searchQuery);
-    const sortedProducts = sortProducts(filteredProducts, sort);
+    const sortedProducts = sortProducts(productsData.products, sort);
     const paginatedProducts = paginateProducts(sortedProducts, page, limit);
 
     const result = {
       products: paginatedProducts,
-      pagination: getPaginationMetadata(filteredProducts.length, page, limit),
+      pagination: getPaginationMetadata(sortedProducts.length, page, limit),
     };
 
     await setCache(cacheKey, result, API_CACHE_TTL);

@@ -1,5 +1,6 @@
-import { memoize, preprocessedProducts, productByIdMap } from "./helpers";
+import { memoize, productByIdMap } from "./helpers";
 import { SupportedLocale } from "@/types/product";
+import productsData from "@/data/products.json";
 
 // Inverted index for tags per locale.
 // Fast lookup of products by tag, efficient related product queries.
@@ -10,7 +11,7 @@ export const tagIndex: Record<SupportedLocale, Map<string, Set<string>>> = {
 
 // Populate the tag index at load time for O(1) tag-based lookups.
 // This avoids repeated iteration over all products for every related query.
-for (const product of preprocessedProducts) {
+for (const product of productsData.products) {
   (Object.keys(tagIndex) as SupportedLocale[]).forEach((locale) => {
     for (const tag of product.tags[locale]) {
       if (!tagIndex[locale].has(tag)) tagIndex[locale].set(tag, new Set());
@@ -49,7 +50,7 @@ export const getRelatedProducts = memoize(
 
     relatedProductIds.delete(productId);
 
-    const relatedProducts: (typeof preprocessedProducts)[0][] = [];
+    const relatedProducts: (typeof productsData.products)[0][] = [];
     relatedProductIds.forEach((id) => {
       const relatedProduct = productByIdMap.get(id);
       if (relatedProduct) {

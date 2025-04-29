@@ -1,5 +1,5 @@
 import { Product } from "@/types/product";
-import { getCache, setCache } from "@/utils/cache";
+import { FetchProductsParams, ProductsResponse } from "./types";
 import {
   PRODUCT_LIST_CACHE_TTL,
   PRODUCT_DETAIL_CACHE_TTL,
@@ -11,121 +11,42 @@ import {
   CACHE_KEY_RELATED_PRODUCTS_PREFIX,
   RELATED_PRODUCTS_DEFAULT_LIMIT,
 } from "@/constants";
-
-const getBaseUrl = () => {
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-  return `http://localhost:${process.env.PORT ?? 3000}`;
-};
-
-const API_BASE_URL = `${getBaseUrl()}/api`;
-
-export interface ProductsResponse {
-  products: Product[];
-  pagination: {
-    totalProducts: number;
-    totalPages: number;
-    currentPage: number;
-    limit: number;
-  };
-}
-
-interface FetchProductsParams {
-  search?: string;
-  page?: number;
-  limit?: number;
-  pageSize?: number;
-  sort?: string;
-}
+import {
+  buildApiUrl,
+  checkCache,
+  fetchProductsAndCache,
+  fetchSingleProductAndCache,
+} from "@/utils/services/helpers";
 
 export async function fetchProducts({
-  search = "",
   page = 1,
   limit,
   pageSize,
   sort = DEFAULT_SORT_ORDER,
 }: FetchProductsParams = {}): Promise<ProductsResponse> {
   const effectivePageSize = limit || pageSize || DEFAULT_PAGE_SIZE;
-  const cacheKey = `${CACHE_KEY_PRODUCT_LIST_PREFIX}${search}:${page}:${effectivePageSize}:${sort}`;
+  const cacheKey = `${CACHE_KEY_PRODUCT_LIST_PREFIX}${page}:${effectivePageSize}:${sort}`;
 
-  const cachedData = await getCache<ProductsResponse>(cacheKey);
+  const cachedData = await checkCache<ProductsResponse>(cacheKey);
   if (cachedData) {
     return cachedData;
   }
 
   const searchParams = new URLSearchParams();
-
-  if (search) {
-    searchParams.append("search", search);
-  }
-  if (page) {
-    searchParams.append("page", page.toString());
-  }
+  searchParams.append("page", page.toString());
   searchParams.append("pageSize", String(effectivePageSize));
   if (sort) {
     searchParams.append("sort", sort);
   }
 
-  const url = `${API_BASE_URL}/products?${searchParams.toString()}`;
-  const response = await fetch(url);
+  const url = buildApiUrl("/products", searchParams);
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch products from ${url}: ${response.status}`);
-  }
-
-  const data = (await response.json()) as ProductsResponse;
-  await setCache(cacheKey, data, PRODUCT_LIST_CACHE_TTL);
-
-  return data;
-}
-
-export async function fetchProductById(
-  id: string
-): Promise<{ product: Product } | null> {
-  const cacheKey = `${CACHE_KEY_PRODUCT_DETAIL_PREFIX}${id}`;
-
-  const cachedData = await getCache<{ product: Product }>(cacheKey);
-  if (cachedData) {
-    return cachedData;
-  }
-
-  const url = `${API_BASE_URL}/products/${id}`;
-  let response: Response;
-  try {
-    response = await fetch(url);
-  } catch (networkError) {
-    console.error(`Network error fetching product ${id}:`, networkError);
-    throw new Error(
-      `Network error fetching product from ${url}: ${
-        (networkError as Error).message
-      }`
-    );
-  }
-
-  if (!response.ok) {
-    if (response.status === 404) {
-      return null;
-    }
-    throw new Error(
-      `API error fetching product from ${url}: ${response.status} ${response.statusText}`
-    );
-  }
-
-  try {
-    const data = (await response.json()) as { product: Product };
-    if (!data || !data.product) {
-      console.warn(`API response for ${url} is OK but missing product data.`);
-      return null;
-    }
-    await setCache(cacheKey, data, PRODUCT_DETAIL_CACHE_TTL);
-    return data;
-  } catch (parseError) {
-    console.error(`Failed to parse JSON response from ${url}:`, parseError);
-    throw new Error(
-      `Failed to parse product data from ${url}: ${
-        (parseError as Error).message
-      }`
-    );
-  }
+  return fetchProductsAndCache<ProductsResponse>(
+    url,
+    cacheKey,
+    PRODUCT_LIST_CACHE_TTL,
+    "fetching product list"
+  );
 }
 
 export async function fetchRelatedProducts({
@@ -139,7 +60,7 @@ export async function fetchRelatedProducts({
 }): Promise<Product[]> {
   const cacheKey = `${CACHE_KEY_RELATED_PRODUCTS_PREFIX}${productId}:${locale}:${limit}`;
 
-  const cachedData = await getCache<Product[]>(cacheKey);
+  const cachedData = await checkCache<Product[]>(cacheKey);
   if (cachedData) {
     return cachedData;
   }
@@ -148,16 +69,33 @@ export async function fetchRelatedProducts({
     locale,
     limit: limit.toString(),
   });
-  const url = `${API_BASE_URL}/products/${productId}/related?${params.toString()}`;
-  const response = await fetch(url);
+  const url = buildApiUrl(`/products/${productId}/related`, params);
 
-  if (!response.ok) {
-    throw new Error(
-      `Failed to fetch related products from ${url}: ${response.status}`
-    );
+  return fetchProductsAndCache<Product[]>(
+    url,
+    cacheKey,
+    RELATED_PRODUCTS_CACHE_TTL,
+    `fetching related products for ${productId}`
+  );
+}
+
+export async function fetchProductById(
+  id: string
+): Promise<{ product: Product } | null> {
+  if (!id) {
+    console.warn("[productService] fetchProductById called with empty ID.");
+    return null;
   }
-  const data = (await response.json()) as Product[];
-  await setCache(cacheKey, data, RELATED_PRODUCTS_CACHE_TTL);
+  const cacheKey = `${CACHE_KEY_PRODUCT_DETAIL_PREFIX}${id}`;
 
-  return data;
+  // Check cache first
+  const cachedData = await checkCache<{ product: Product }>(cacheKey);
+  if (cachedData) {
+    return cachedData;
+  }
+
+  const url = buildApiUrl(`/products/${id}`);
+
+  // Delegate fetch, 404 handling, parsing, validation, and caching
+  return fetchSingleProductAndCache(url, cacheKey, PRODUCT_DETAIL_CACHE_TTL);
 }
