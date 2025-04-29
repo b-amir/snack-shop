@@ -2,7 +2,7 @@
 import cartStyles from "./styles.module.css";
 import React from "react";
 import Button from "@/components/ui/Button";
-import QuantityControl from "@/components/common/QuantityControl";
+import QuantityControl from "@/features/quantity-control/QuantityControl";
 import { CartItem } from "@/types/cart";
 import { useTranslations } from "next-intl";
 import { CartItemsProps } from "./types";

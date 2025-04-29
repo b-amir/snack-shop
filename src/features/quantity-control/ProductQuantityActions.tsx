@@ -3,7 +3,7 @@
 import { useCartStore } from "@/store/store";
 import { Product } from "@/types/product";
 import Button from "@/components/ui/Button";
-import QuantityControl from "@/components/common/QuantityControl";
+import QuantityControl from "@/features/quantity-control/QuantityControl";
 import { useTranslations } from "next-intl";
 
 interface ProductQuantityActionsProps {
