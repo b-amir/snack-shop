@@ -13,7 +13,6 @@ export default function CartPage() {
   const { items, clearCart, updateQuantity, removeFromCart, isLoading } =
     useCartStore();
   const locale = useLocale() as SupportedLocale;
-
   const totalPrice = items.reduce(
     (acc, item) => acc + item.product.price[locale] * item.quantity,
     0
