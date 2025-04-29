@@ -9,7 +9,6 @@ export async function GET(request: NextRequest) {
   try {
     const { sessionId, setCookieHeader } = getSessionId(request);
     const cartKey = getCartKey(sessionId);
-
     const items: CartItem[] = (await getCache<CartItem[]>(cartKey)) || [];
 
     return new NextResponse(JSON.stringify({ items }), {
@@ -21,6 +20,7 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error fetching cart:", error);
+
     if (await isUsingFallback()) {
       return NextResponse.json({ items: [] }, { status: 200 });
     }
@@ -37,10 +37,9 @@ export async function DELETE(request: NextRequest) {
     if (!sessionId) {
       return NextResponse.json({ items: [] }, { status: 200 });
     }
+
     const cartKey = getCartKey(sessionId);
-
     await deleteCache(cartKey);
-
     return NextResponse.json({ message: "Cart cleared" }, { status: 200 });
   } catch (error) {
     console.error("Error clearing cart:", error);
