@@ -3,7 +3,7 @@
 import { useCartStore } from "@/store/store";
 import { useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
-import QuantityControl from "@/components/common/QuantityControl";
+import QuantityControl from "@/features/quantity-control/QuantityControl";
 import { ProductCardActionsProps } from "./types";
 
 export function ProductCardActions({ product }: ProductCardActionsProps) {

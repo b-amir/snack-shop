@@ -1,6 +1,6 @@
 import { Product } from "@/types/product";
 import { ProductsResponse } from "@/services/types";
-import { ProductCard } from "@/features/products/ProductCard";
+import { ProductCard } from "@/features/product/ProductCard";
 import { fetchProducts } from "@/services/productService";
 import { ProductControls } from "@/features/products/ProductControls";
 import { PaginationActions } from "@/components/common/Pagination/PaginationActions";
