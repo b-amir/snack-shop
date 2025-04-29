@@ -16,6 +16,7 @@ export function ProductQuantityActions({
   product,
 }: ProductQuantityActionsProps) {
   const t = useTranslations("ProductDetail");
+  const { isLoading } = useCartStore();
   const addToCart = useCartStore((state) => state.addToCart);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
@@ -25,7 +26,6 @@ export function ProductQuantityActions({
   );
 
   const buttonLabel = t("addToCart");
-
   if (cartQuantity > 0) {
     return (
       <QuantityControl
@@ -43,12 +43,18 @@ export function ProductQuantityActions({
         variant="button"
         size="large"
         iconClassName="icon-green"
+        disabled={isLoading}
       />
     );
   }
 
   return (
-    <Button variant="primary" size="large" onClick={() => addToCart(product)}>
+    <Button
+      variant="primary"
+      size="large"
+      onClick={() => addToCart(product)}
+      disabled={isLoading}
+    >
       {buttonLabel}
     </Button>
   );

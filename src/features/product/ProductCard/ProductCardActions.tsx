@@ -8,6 +8,7 @@ import { ProductCardActionsProps } from "./types";
 
 export function ProductCardActions({ product }: ProductCardActionsProps) {
   const t = useTranslations("ProductList");
+  const { isLoading } = useCartStore();
   const addToCart = useCartStore((state) => state.addToCart);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
@@ -44,6 +45,7 @@ export function ProductCardActions({ product }: ProductCardActionsProps) {
           onChange={handleChange}
           variant="button"
           iconClassName="icon-green"
+          disabled={isLoading}
         />
       ) : (
         <Button
@@ -53,6 +55,7 @@ export function ProductCardActions({ product }: ProductCardActionsProps) {
             e.stopPropagation();
             addToCart(product);
           }}
+          disabled={isLoading}
         >
           {t("addToCart")}
         </Button>

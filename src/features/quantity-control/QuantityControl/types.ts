@@ -14,4 +14,5 @@ export type QuantityControlProps = {
   size?: "small" | "default" | "large";
   inputId?: string;
   iconClassName?: string;
+  disabled?: boolean;
 };

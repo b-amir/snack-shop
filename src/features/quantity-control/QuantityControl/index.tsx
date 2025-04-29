@@ -21,6 +21,7 @@ const QuantityControl: React.FC<QuantityControlProps> = ({
   size = "default",
   inputId,
   iconClassName = "",
+  disabled = false,
 }) => {
   const containerClasses = [
     styles.quantityControl,
@@ -41,6 +42,7 @@ const QuantityControl: React.FC<QuantityControlProps> = ({
         aria-label={decreaseAriaLabel}
         onClick={onDecrease}
         type="button"
+        disabled={disabled}
       >
         <MinusIcon className={iconClassName} />
       </Button>
@@ -53,6 +55,7 @@ const QuantityControl: React.FC<QuantityControlProps> = ({
         value={value}
         onChange={(e) => onChange?.(Number(e.target.value))}
         className={inputClassName}
+        disabled={disabled}
       />
       <Button
         variant="link"
@@ -60,6 +63,7 @@ const QuantityControl: React.FC<QuantityControlProps> = ({
         aria-label={increaseAriaLabel}
         onClick={onIncrease}
         type="button"
+        disabled={disabled}
       >
         <PlusIcon className={iconClassName} />
       </Button>
