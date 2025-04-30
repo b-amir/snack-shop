@@ -45,13 +45,14 @@ export function CartIconButton({ dir, locale }: CartIconButtonProps) {
           variant="link"
           size="small"
           className={styles.cartIconButton}
+          data-testid="cart-icon-button"
           aria-label={t("cart")}
           onClick={() => setOpen((v) => !v)}
           type="button"
         >
           <CartIcon />
           {itemCount > 0 && (
-            <span className={styles.cartBadge}>
+            <span className={styles.cartBadge} data-testid="cart-count">
               <LocaleNumber>{itemCount}</LocaleNumber>
             </span>
           )}

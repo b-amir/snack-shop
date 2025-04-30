@@ -19,7 +19,10 @@ export function ProductCardDisplay({
   const placeholderImage = "/placeholder.jpg";
 
   return (
-    <Card className={styles.productCard}>
+    <Card
+      className={styles.productCard}
+      data-testid={`product-card-${product.id}`}
+    >
       <Link
         href={`/${locale}/products/${product.id}`}
         className={styles.productCardLink}

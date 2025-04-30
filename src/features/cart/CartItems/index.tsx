@@ -32,7 +32,10 @@ export function CartItems({
 
         return (
           <React.Fragment key={product.id}>
-            <li className={cartStyles.cartListItem}>
+            <li
+              className={cartStyles.cartListItem}
+              data-testid={`cart-item-${product.id}`}
+            >
               <div className={cartStyles.itemContent}>
                 <div className={cartStyles.itemInfo}>
                   <div className={cartStyles.itemTitle}>
@@ -70,6 +73,9 @@ export function CartItems({
                       product.name[locale]
                     }`}
                     iconClassName="icon-accent"
+                    increaseButtonTestId={`increase-qty-${product.id}`}
+                    decreaseButtonTestId={`decrease-qty-${product.id}`}
+                    quantityDisplayTestId="quantity-display"
                   />
                 </div>
 
@@ -79,6 +85,7 @@ export function CartItems({
                     onClick={() => onRemoveItem(product.id)}
                     className={cartStyles.removeButton}
                     aria-label={`${t("remove")} ${product.name[locale]}`}
+                    data-testid={`remove-item-${product.id}`}
                   >
                     {t("remove")}
                   </Button>

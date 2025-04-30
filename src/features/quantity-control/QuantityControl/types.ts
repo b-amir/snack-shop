@@ -15,4 +15,8 @@ export type QuantityControlProps = {
   inputId?: string;
   iconClassName?: string;
   disabled?: boolean;
+  // Test IDs
+  increaseButtonTestId?: string;
+  decreaseButtonTestId?: string;
+  quantityDisplayTestId?: string;
 };
