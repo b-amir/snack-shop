@@ -163,7 +163,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  max-width: 71rem;
+  max-width: 73rem;
   margin: var(--spacing-lg) auto 0;
   padding: 0 var(--spacing-md);
 }
@@ -172,7 +172,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  color: var(--color-text-muted);
+  color: var(--color-accent);
   text-decoration: none;
   font-weight: 500;
 }
