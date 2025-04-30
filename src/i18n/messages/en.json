@@ -6,7 +6,8 @@
     "currency": "USD",
     "previous": "Previous",
     "next": "Next",
-    "backHome": "Back to Home"
+    "backHome": "Back to Home",
+    "cancel": "Cancel"
   },
   "metadata": {
     "title": "SnackShop",
@@ -58,5 +59,10 @@
     "languageSwitcherLabel": "Language:",
     "languageName_en": "English",
     "languageName_fa": "Farsi"
+  },
+  "errorBoundary": {
+    "title": "Oops! Something Went Wrong",
+    "message": "We encountered an unexpected issue. Please try again.",
+    "retry": "Try Again"
   }
 }

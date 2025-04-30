@@ -58,5 +58,11 @@
     "languageSwitcherLabel": "انتخاب زبان:",
     "languageName_en": "English",
     "languageName_fa": "فارسی"
+  },
+  "cancel": "انصراف",
+  "errorBoundary": {
+    "title": "خطا! مشکلی پیش آمده",
+    "message": "با یک مشکل غیرمنتظره روبرو شدیم. لطفا دوباره تلاش کنید.",
+    "retry": "تلاش مجدد"
   }
 }

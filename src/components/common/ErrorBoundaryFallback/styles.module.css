@@ -1,0 +1,19 @@
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  text-align: center;
+  padding: 2rem;
+}
+
+.errorHeading {
+  margin-bottom: 1rem;
+  color: var(--color-text-error, red);
+}
+
+.errorMessage {
+  margin-bottom: 1.5rem;
+  color: var(--color-text-secondary, gray);
+}
