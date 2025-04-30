@@ -13,8 +13,8 @@ This project demonstrates an e-commerce application for an online store with Nex
 
 <div align="center">
   <h2>
-    🚀 <a href="https://h8dxfr-3000.csb.app" target="_blank">Live Demo!</a>
-     ✨ <a href="https://codesandbox.io/p/sandbox/github/b-amir/snack-shop" target="_blank">CodeSandbox</a> 
+    🚀 <a href="https://88p29d-3000.csb.app" target="_blank">Live Demo!</a>
+     ✨ <a href="https://codesandbox.io/p/github/b-amir/snack-shop/main?import=true" target="_blank">CodeSandbox</a> 
   </h2>
 </div>
 
