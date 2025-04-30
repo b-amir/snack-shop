@@ -1,13 +1,13 @@
 .cartDropdown {
   position: absolute;
   top: 110%;
-  min-width: 320px;
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  min-width: 20rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
   z-index: 100;
-  padding: 16px;
+  padding: var(--spacing-md);
   display: flex;
   flex-direction: column;
 }
@@ -22,94 +22,142 @@
 
 .cartDropdownTitle {
   margin: 0;
-  margin-bottom: 12px;
+  margin-bottom: var(--spacing-sm);
 }
 
 .cartDropdownEmpty {
-  padding: 16px;
+  padding: var(--spacing-md);
   text-align: center;
+  color: var(--color-text-muted);
 }
 
 .cartDropdownList {
   list-style: none;
   padding: 0;
-  padding-inline-end: 8px;
+  padding-inline-end: var(--spacing-xs);
   margin: 0;
-  max-height: 260px;
+  max-height: 16.25rem;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: #888 #eee;
+  scrollbar-color: var(--color-text-muted) var(--color-border-light);
 }
 
 .cartDropdownList::-webkit-scrollbar {
-  width: 8px;
+  width: var(--spacing-xs);
 }
 
 .cartDropdownList::-webkit-scrollbar-track {
-  background: #eee;
-  border-radius: 10px;
+  background: var(--color-border-light);
+  border-radius: 0.625rem;
 }
 
 .cartDropdownList::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 10px;
-  border: 2px solid #eee;
+  background-color: var(--color-text-muted);
+  border-radius: 0.625rem;
+  border: 2px solid var(--color-border-light);
 }
 
 .cartDropdownListItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: var(--spacing-sm);
+  flex-wrap: nowrap;
+  min-width: 0;
 }
 
-.cartDropdownProductName {
-  flex-grow: 1;
-  margin-right: 16px;
-}
-
-.quantityControl {
+.cartDropdownProductName,
+.quantityControl,
+.quantityValue {
+  min-width: 0;
+  width: auto;
   display: flex;
   align-items: center;
 }
 
+.cartDropdownProductName {
+  flex-grow: 1;
+  margin-right: var(--spacing-md);
+  color: var(--color-text);
+}
+
+.quantityControl {
+  flex-shrink: 0;
+}
+
 .quantityValue {
-  width: 30px;
+  width: 1.875rem;
   text-align: center;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin: 0 4px;
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--border-radius-sm);
+  margin: 0 var(--spacing-xxs);
+  padding: var(--spacing-xxs) 0;
+  background-color: var(--color-white);
+  color: var(--color-text);
 }
 
 .cartDropdownTotal {
   display: flex;
   justify-content: space-between;
   font-weight: bold;
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid #eee;
+  color: var(--color-text);
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .cartDropdownActions {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 16px;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-md);
 }
 
 .clearCartButton {
   width: 100%;
-  border-radius: 6px;
-  padding: 10px 0;
+  border-radius: var(--border-radius-sm);
+  padding: 0.625rem 0;
   font-weight: 600;
   cursor: pointer;
   margin-bottom: 0;
+  background: var(--color-bg-subtle);
+  color: var(--color-text-muted);
+  border: none;
+}
+.clearCartButton:hover {
+  background: var(--color-border-light);
+  color: var(--color-text);
 }
 
 .goToCartButton {
   width: 100%;
-  border-radius: 6px;
-  padding: 10px 0;
+  border-radius: var(--border-radius-sm);
+  padding: 0.625rem 0;
   font-weight: 600;
   cursor: pointer;
+  background: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+}
+.goToCartButton:hover {
+  background: var(--color-primary-hover);
+}
+
+@media (max-width: 37.5em) {
+  .cartDropdown {
+    min-width: auto;
+    width: 97vw;
+    left: 0;
+    right: 0;
+    position: fixed;
+    top: 10vh;
+    z-index: 9999;
+  }
+  .rtl.cartDropdown {
+    right: 0;
+    left: 0;
+  }
+  .cartDropdownList {
+    max-height: 50vh;
+  }
 }

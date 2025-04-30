@@ -5,9 +5,9 @@
 .languageSwitcherContainer {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-xs);
   margin-left: auto;
-  color: #3a558b;
+  color: var(--color-accent);
 }
 
 .languageSwitcherIcon {

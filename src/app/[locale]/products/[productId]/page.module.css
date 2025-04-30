@@ -1,26 +1,75 @@
 .container {
-  max-width: 1200px;
-  margin: 1.5rem auto 3rem;
-  padding: 40px;
-  border: 1px solid #eee;
-  border-radius: 18px;
-  background: #fff;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+  max-width: var(--breakpoint-lg);
+  margin: var(--spacing-lg) auto var(--spacing-xxl);
+  padding: 2.5rem;
+  border: 1px solid var(--color-border-light);
+  border-radius: 1.125rem;
+  background: var(--color-bg);
+  box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: var(--spacing-xxl);
 }
 
 .productGrid {
   display: grid;
-  grid-template-columns: 350px 1fr;
-  gap: 40px;
+  grid-template-columns: minmax(250px, 350px) 1fr;
+  grid-template-areas: "image info";
+  gap: 2.5rem;
   align-items: flex-start;
+}
+
+@media (max-width: 992px) {
+  .productGrid {
+    gap: var(--spacing-xl);
+  }
 }
 
 @media (max-width: 768px) {
   .productGrid {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "image"
+      "info";
+    gap: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 62em) {
+  .productGrid {
+    gap: var(--spacing-xl);
+  }
+}
+
+@media (max-width: 48em) {
+  .productGrid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "image"
+      "info";
+    gap: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 37.5em) {
+  .container {
+    padding: var(--spacing-lg);
+    gap: var(--spacing-xl);
+  }
+  .title {
+    font-size: 1.75rem;
+  }
+  .description {
+    font-size: 1rem;
+  }
+  .price {
+    font-size: 1.5rem;
+  }
+  .relatedTitle {
+    font-size: 1.5rem;
+  }
+  .backLinkContainer {
+    padding: 0 var(--spacing-xxs);
   }
 }
 
@@ -28,91 +77,95 @@
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  border-radius: 18px;
+  border-radius: 1.125rem;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  background: #fafafa;
-  border: 2rem solid white;
+  box-shadow: var(--shadow-sm);
+  background: var(--gray-subtle);
+  border: var(--spacing-xxs) solid var(--color-bg);
   object-fit: contain;
 }
 
 .info {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 0.875rem;
 }
 
 .title {
-  font-size: 36px;
+  font-size: 2.25rem;
   margin: 0;
+  color: var(--color-text);
 }
 
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin: 8px 0;
+  gap: var(--spacing-xs);
+  margin: var(--spacing-xs) 0;
 }
 
 .tag {
-  background: #f0f0f0;
-  color: #333;
-  border-radius: 16px;
-  padding: 4px 16px;
-  font-size: 14px;
+  background: var(--color-bg-subtle);
+  color: var(--color-text);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-xxs) var(--spacing-md);
+  font-size: 0.875rem;
   font-weight: 500;
 }
 
 .description {
-  font-size: 20px;
-  color: #666;
+  font-size: 1.25rem;
+  color: var(--color-text-muted);
   margin: 0;
 }
 
 .price {
-  margin: 16px 0 0 0;
-  font-size: 28px;
+  margin: var(--spacing-md) 0 0 0;
+  font-size: 1.75rem;
   font-weight: 700;
-  color: #222;
+  color: var(--color-text);
 }
 
 .date {
-  color: #888;
-  font-size: 16px;
-  margin: 8px 0 0 0;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  margin: var(--spacing-xs) 0 0 0;
 }
 
 .relatedSection {
-  margin-top: 32px;
+  margin-top: var(--spacing-xl);
 }
 
 .relatedSeparator {
-  margin-bottom: 2rem;
-  border: 0.5px solid var(--color-border-light);
+  margin-bottom: var(--spacing-xl);
+  border: 0;
+  border-top: 1px solid var(--color-border-light);
 }
 
 .relatedTitle {
-  font-size: 28px;
-  margin-bottom: 24px;
+  font-size: 1.75rem;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text);
 }
 
 .noRelatedProducts {
-  color: #666;
+  color: var(--color-text-muted);
   font-style: italic;
   text-align: center;
-  margin-top: 1rem;
+  margin-top: var(--spacing-md);
 }
 
 .relatedError {
-  color: red;
+  color: var(--color-error-text);
 }
 
 .backLinkContainer {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  max-width: 1136px;
-  margin: 1.5rem auto 0;
+  max-width: 71rem;
+  margin: var(--spacing-lg) auto 0;
+  padding: 0 var(--spacing-md);
 }
 
 .backLink {
@@ -126,16 +179,17 @@
 
 .backLink:hover {
   text-decoration: underline;
+  color: var(--color-primary);
 }
 
 .backLink .backIcon {
   transition: transform 0.2s ease-in-out;
-  height: 26px;
-  width: 24px;
+  height: 1.625rem;
+  width: 1.5rem;
 }
 
 .backLink:hover .backIcon {
-  transform: translateX(-4px);
+  transform: translateX(-0.25rem);
 }
 
 .backLink[dir="rtl"] .backIcon {
@@ -143,9 +197,26 @@
 }
 
 .backLink[dir="rtl"]:hover .backIcon {
-  transform: rotate(180deg) translateX(-4px);
+  transform: rotate(180deg) translateX(-0.25rem);
 }
 
 .coverImage {
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+}
+
+@media (max-width: var(--breakpoint-lg)) {
+  .backLinkContainer {
+    padding: 0 var(--spacing-xs);
+  }
+}
+
+.gridImage {
+  grid-area: image;
+}
+
+.gridInfo {
+  grid-area: info;
 }

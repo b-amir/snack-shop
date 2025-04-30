@@ -14,8 +14,9 @@
   background-color: var(--color-gray-light);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 1.5rem 1rem 1rem 1rem;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg) var(--spacing-md) var(--spacing-md)
+    var(--spacing-md);
   min-width: 16.25rem;
   max-width: 21.25rem;
   margin: 0 auto;
@@ -32,8 +33,8 @@
 .skeletonPrice,
 .skeletonButton,
 .skeletonDescription {
-  background: var(--color-gray-medium, #e0e0e0);
-  border-radius: var(--border-radius-sm, 6px);
+  background: var(--color-gray-medium);
+  border-radius: var(--border-radius-sm);
   animation: pulse 1.5s infinite ease-in-out;
 }
 
@@ -53,13 +54,13 @@
 .skeletonPrice {
   width: 40%;
   height: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-md);
 }
 
 .skeletonDescription {
   width: 100%;
   height: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-md);
 }
 
 .skeletonButton {
@@ -71,10 +72,10 @@
 .relatedProductsGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  gap: var(--spacing-lg);
 }
 
-@media (max-width: 56.25rem) {
+@media (max-width: var(--breakpoint-md)) {
   .relatedProductsGrid {
     grid-template-columns: 1fr;
   }
@@ -86,18 +87,17 @@
 
 .container {
   width: 100%;
-  max-width: 75rem;
+  max-width: var(--breakpoint-lg);
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: var(--spacing-xl) var(--spacing-md);
 }
 
 .grid {
-  margin-bottom: 0.25rem;
   margin-top: 5rem;
+  margin-bottom: var(--spacing-xl);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  margin-bottom: 2rem;
+  gap: var(--spacing-xl);
 }
 
 .gridItem {
@@ -105,25 +105,25 @@
   height: 100%;
 }
 
-@media (max-width: 75rem) {
+@media (max-width: var(--breakpoint-lg)) {
   .grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 56.25rem) {
+@media (max-width: var(--breakpoint-md)) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 37.5rem) {
+@media (max-width: var(--breakpoint-xs)) {
   .grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: var(--spacing-md);
   }
   .container {
-    padding: 1rem;
+    padding: var(--spacing-md);
   }
 }
 
@@ -134,59 +134,59 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 12px;
+  margin: 0 var(--spacing-sm);
 }
 
 .cartIconPulse {
   width: 3rem;
   height: 3rem;
-  background-color: var(--color-gray-medium, #e0e0e0);
-  border-radius: 15px;
+  background-color: var(--color-gray-medium);
+  border-radius: 0.9375rem;
   animation: pulse 1.5s infinite ease-in-out;
 }
 
 .cartPageContainer {
   width: 100%;
-  max-width: 1200px;
+  max-width: var(--breakpoint-lg);
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: var(--spacing-xl) var(--spacing-md);
 }
 
 .cartPageContentWrapper {
   display: flex;
-  gap: 2rem;
+  gap: var(--spacing-xl);
   align-items: flex-start;
 }
 
 .cartPageItemsSection {
   flex: 2;
   border-radius: var(--border-radius-lg);
-  padding: 1.5rem;
-  border: 1px solid var(--color-border);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-border-medium);
 }
 
 .cartPagePageTitle {
   width: 40%;
   height: 2rem;
-  background-color: var(--color-gray-medium, #e0e0e0);
-  border-radius: var(--border-radius-sm, 6px);
+  background-color: var(--color-gray-medium);
+  border-radius: var(--border-radius-sm);
   animation: pulse 1.5s infinite ease-in-out;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-lg);
 }
 
 .cartPageSkeleton {
   width: 100%;
-  margin-top: 1rem;
+  margin-top: var(--spacing-md);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: var(--spacing-md);
 }
 
 .cartPagePulse {
   width: 80%;
   height: 2rem;
-  background-color: var(--color-gray-medium, #e0e0e0);
-  border-radius: var(--border-radius-sm, 6px);
+  background-color: var(--color-gray-medium);
+  border-radius: var(--border-radius-sm);
   animation: pulse 1.5s infinite ease-in-out;
 }

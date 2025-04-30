@@ -9,9 +9,10 @@ export function ProductInfo({
   formattedPrice,
   formattedDate,
   t,
+  className,
 }: ProductInfoProps) {
   return (
-    <div className={detailStyles.info}>
+    <div className={`${detailStyles.info} ${className || ""}`}>
       <h1 className={detailStyles.title}>{product.name[locale]}</h1>
       <div className={detailStyles.tags}>
         {product.tags[locale].map((tag) => (

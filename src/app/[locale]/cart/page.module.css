@@ -1,75 +1,86 @@
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: var(--breakpoint-lg);
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: var(--spacing-xl) var(--spacing-md);
 }
 
 .contentWrapper {
   display: flex;
-  gap: 2rem;
+  gap: var(--spacing-xl);
   align-items: flex-start;
 }
 
 .pageTitle {
   font-size: 1.8rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-lg);
   font-weight: 600;
 }
 
 .cartItemsSection {
   flex: 2;
   border-radius: var(--border-radius-lg);
-  padding: 1.5rem;
-  border: 1px solid var(--color-border);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--color-border-medium);
+  background: var(--color-white);
+  width: 100%;
 }
 
 .cartSummary {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  gap: 1rem;
+  gap: var(--spacing-md);
   flex: 1;
   background-color: var(--color-bg-subtle);
-  padding: 1.5rem;
+  padding: var(--spacing-lg);
   border-radius: var(--border-radius-lg);
   height: fit-content;
   position: sticky;
-  top: 2rem;
-  border: 1px solid var(--color-border);
+  top: var(--spacing-xl);
+  border: 1px solid var(--color-border-medium);
+  min-width: 260px;
+  max-width: 400px;
 }
 
 .summaryTitle {
   font-size: 1.5rem;
-  margin-bottom: 0.25rem;
+  margin-bottom: var(--spacing-xxs);
   font-weight: 600;
   text-align: start;
 }
 
 .totalRow {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   justify-content: space-between;
   font-size: 1.1rem;
-  margin-bottom: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--color-border);
+  margin-bottom: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border-medium);
 }
 
 .totalPrice {
   font-weight: bold;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 37.5em) {
   .contentWrapper {
-    flex-direction: column-reverse;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    align-items: stretch;
   }
-
   .cartSummary {
-    position: relative;
-    top: auto;
-    margin-top: 2rem;
     width: 100%;
+    position: static;
+    margin-top: var(--spacing-lg);
+    top: auto;
+  }
+  .cartItemsSection {
+    width: 100%;
+  }
+  .emptyCartPlaceholder {
+    width: 100%;
+    min-height: 200px;
   }
 }
 

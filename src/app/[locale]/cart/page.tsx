@@ -33,6 +33,16 @@ export default function CartPage() {
   return (
     <div className={styles.container}>
       <div className={styles.contentWrapper}>
+        <div className={styles.cartItemsSection}>
+          <h1 className={styles.pageTitle}>{t("cart")}</h1>
+          <CartItems
+            items={items}
+            locale={locale}
+            onUpdateQuantity={updateQuantity}
+            onRemoveItem={removeFromCart}
+            showRemoveButton={true}
+          />
+        </div>
         {items.length > 0 ? (
           <div className={styles.cartSummary}>
             <h2 className={styles.summaryTitle}>{t("summary")}</h2>
@@ -59,17 +69,6 @@ export default function CartPage() {
         ) : (
           <div className={styles.emptyCartPlaceholder}></div>
         )}
-
-        <div className={styles.cartItemsSection}>
-          <h1 className={styles.pageTitle}>{t("cart")}</h1>
-          <CartItems
-            items={items}
-            locale={locale}
-            onUpdateQuantity={updateQuantity}
-            onRemoveItem={removeFromCart}
-            showRemoveButton={true}
-          />
-        </div>
       </div>
     </div>
   );

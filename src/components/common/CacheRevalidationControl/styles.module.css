@@ -11,18 +11,28 @@
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
-  min-width: 204px;
+  min-width: 12.75rem;
   transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
 
 .refreshIcon {
-  margin-right: 8px;
-  margin-left: 8px;
+  margin-right: var(--spacing-xs);
+  margin-left: var(--spacing-xs);
   color: var(--color-accent);
 }
 
 .spinningIcon {
-  margin-right: 8px;
-  margin-left: 8px;
+  margin-right: var(--spacing-xs);
+  margin-left: var(--spacing-xs);
   animation: spin 1s linear infinite;
+}
+
+@media (max-width: 30em) {
+  .revalidateButton {
+    min-width: 8rem;
+    font-size: 0.95rem;
+    padding: var(--spacing-xs);
+    white-space: normal;
+    text-align: center;
+  }
 }

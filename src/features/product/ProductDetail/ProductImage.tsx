@@ -3,9 +3,9 @@ import Image from "next/image";
 import detailStyles from "@/app/[locale]/products/[productId]/page.module.css";
 import { ProductImageProps } from "./types";
 
-export function ProductImage({ src, alt }: ProductImageProps) {
+export function ProductImage({ src, alt, className }: ProductImageProps) {
   return (
-    <div className={detailStyles.imageContainer}>
+    <div className={`${detailStyles.imageContainer} ${className || ""}`}>
       <Image
         src={src}
         alt={alt}

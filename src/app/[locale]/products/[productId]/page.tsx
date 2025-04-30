@@ -61,9 +61,14 @@ export default async function ProductDetailPage({
       <div className={detailStyles.container}>
         <div className={detailStyles.productGrid}>
           {imageSrc && (
-            <ProductImage src={imageSrc} alt={product.name[safeLocale]} />
+            <ProductImage
+              className={detailStyles.gridImage}
+              src={imageSrc}
+              alt={product.name[safeLocale]}
+            />
           )}
           <ProductInfo
+            className={detailStyles.gridInfo}
             product={product}
             locale={safeLocale}
             formattedPrice={formattedPrice}

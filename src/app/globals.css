@@ -5,12 +5,14 @@
   --color-primary: #b400ae;
   --color-primary-hover: #9300a2;
   --color-accent: #3a558b;
-  --color-text: #212121;
+  --color-text: var(--foreground);
   --color-text-muted: #757575;
   --color-text-dark: #222;
-  --color-bg: #fff;
+  --color-bg: var(--background);
   --color-white: #fff;
   --color-bg-subtle: #ededed;
+  --color-gray-light: #f5f5f5;
+  --color-gray-medium: #e0e0e0;
   --color-border-light: #eee;
   --color-border-medium: #e0e0e0;
   --color-button-hover-bg: #f3e6f7;
@@ -20,15 +22,20 @@
   --border-radius-lg: 0.75rem;
   --border-radius-xl: 1rem;
 
-  --spacing-small: 0.5rem;
-  --spacing-medium: 1rem;
-  --spacing-large: 2rem;
+  --spacing-xxs: 0.25rem;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-xxl: 3rem;
 
   --shadow-sm: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.03);
   --shadow-md: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   --shadow-focus: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  --color-primary-focus-shadow: rgba(180, 0, 174, 0.15);
 
   --color-error-bg: #fdeaee;
   --color-error-text: #b00020;
@@ -44,6 +51,13 @@
   --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
   --button-primary-hover: #383838;
   --button-secondary-hover: #f2f2f2;
+
+  --breakpoint-xxs: 32em;
+  --breakpoint-xs: 36em;
+  --breakpoint-sm: 48em;
+  --breakpoint-md: 62em;
+  --breakpoint-lg: 75em;
+  --breakpoint-xl: 90em;
 }
 
 .icon-accent {
@@ -58,8 +72,8 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
-    --color-bg: #171717;
-    --color-text: #ededed;
+    --color-bg: var(--background);
+    --color-text: var(--foreground);
   }
 }
 
@@ -101,6 +115,7 @@ a {
 }
 
 html {
+  font-size: 100%;
   font-family: var(--font-vazirmatn), Vazirmatn, "Segoe UI", Tahoma, Geneva,
     Arial, sans-serif;
   text-align: start;
