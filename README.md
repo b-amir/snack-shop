@@ -351,7 +351,7 @@ Copy `.env.example` to `.env.local` in the project root and set the required var
 
 ```env
 # Required for Redis connection
-REDIS_URL=redis://localhost:6379
+REDIS_URL=...
 
 # Optional: Use Cloudinary CDN for images
 # If false, uses next/image optimization
