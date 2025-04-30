@@ -1,3 +1,7 @@
+<div style="display: flex; justify-content: center;">
+  <img src="https://raw.githubusercontent.com/b-amir/snack-shop/main/src/docs/screenshots/logo.png" alt="SnackShop Logo" style="max-width: 100%; height: auto;">
+</div>
+
 # SnackShop - E-commerce Demo
 
 This project demonstrates an e-commerce application for an online store with Next.js and Redis caching. It's designed to **simulate a large-scale marketplace (20K+ products, 5M+ users)** where page load speed and server performance are critical.
@@ -5,6 +9,13 @@ This project demonstrates an e-commerce application for an online store with Nex
 👈 [برای مطالعه نسخه فارسی این راهنما، اینجا کلیک کنید.](./src/docs/README-FA.md)
 
 ---
+
+<div align="center">
+  <h2>
+    🚀 <a href="https://h8dxfr-3000.csb.app" target="_blank">Live Demo!</a>
+     ✨ <a href="https://codesandbox.io/p/sandbox/github/b-amir/snack-shop" target="_blank">CodeSandbox</a> 
+  </h2>
+</div>
 
 <div style="display: flex; justify-content: center;">
   <img src="https://raw.githubusercontent.com/b-amir/snack-shop/main/src/docs/screenshots/home-en.png" alt="Home Page (English)" style="max-width: 100%; height: auto;">
