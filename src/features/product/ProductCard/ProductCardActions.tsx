@@ -88,7 +88,7 @@ export function ProductCardActions({ product }: ProductCardActionsProps) {
           onClick={handleAddToCart}
           disabled={isLoading || isProcessing}
         >
-          {isProcessing ? t("adding") : t("addToCart")}
+          {isProcessing ? t("loading") : t("addToCart")}
         </Button>
       )}
     </>
