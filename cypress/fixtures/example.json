@@ -1,0 +1,61 @@
+{
+  "user": {
+    "name": "Test User",
+    "email": "test@example.com",
+    "preferences": {
+      "showCart": true,
+      "language": "en"
+    }
+  },
+  "products": [
+    {
+      "id": "p1",
+      "name": {
+        "en": "Premium Chocolate Bar",
+        "fa": "شکلات ممتاز"
+      },
+      "price": {
+        "en": 3.99,
+        "fa": 159000
+      }
+    },
+    {
+      "id": "p2",
+      "name": {
+        "en": "Organic Potato Chips",
+        "fa": "چیپس سیب زمینی ارگانیک"
+      },
+      "price": {
+        "en": 2.49,
+        "fa": 99000
+      }
+    },
+    {
+      "id": "p3",
+      "name": {
+        "en": "Sparkling Water",
+        "fa": "آب گازدار"
+      },
+      "price": {
+        "en": 1.29,
+        "fa": 52000
+      }
+    }
+  ],
+  "cart": {
+    "items": [
+      {
+        "productId": "p1",
+        "quantity": 2
+      },
+      {
+        "productId": "p3",
+        "quantity": 1
+      }
+    ],
+    "subtotal": {
+      "en": 9.27,
+      "fa": 370000
+    }
+  }
+}
