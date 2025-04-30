@@ -1,6 +1,7 @@
-<div style="display: flex; justify-content: center;">
+<div align="center">
   <img src="https://raw.githubusercontent.com/b-amir/snack-shop/main/src/docs/screenshots/logo.png" alt="SnackShop Logo" style="max-width: 100%; height: auto;">
 </div>
+<br/>
 
 # SnackShop - E-commerce Demo
 
