@@ -6,6 +6,8 @@ This project demonstrates an e-commerce application for an online store with Nex
 
 ---
 
+
+
 <div style="display: flex; justify-content: center;">
   <img src="https://raw.githubusercontent.com/b-amir/snack-shop/main/src/docs/screenshots/home-en.png" alt="Home Page (English)" style="max-width: 100%; height: auto;">
 </div>
