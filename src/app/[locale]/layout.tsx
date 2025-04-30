@@ -47,7 +47,9 @@ export default async function RootLayout(
       <body className={styles.body}>
         <NextIntlClientProvider messages={messages}>
           <Header locale={locale} />
-          <div className={`container ${styles.mainContainer}`}>{children}</div>
+          <main className={`container ${styles.mainContainer}`}>
+            {children}
+          </main>
           <Footer locale={locale} />
         </NextIntlClientProvider>
       </body>
