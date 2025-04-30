@@ -2,6 +2,10 @@
 
 This project demonstrates an e-commerce application for an online store with Next.js and Redis caching. It's designed to **simulate a large-scale marketplace (20K+ products, 5M+ users)** where page load speed and server performance are critical.
 
+👈 [برای مطالعه نسخه فارسی این راهنما، اینجا کلیک کنید.](./src/docs/README-FA.md)
+
+---
+
 <div style="display: flex; justify-content: center;">
   <img src="https://raw.githubusercontent.com/b-amir/snack-shop/main/src/docs/screenshots/home-en.png" alt="Home Page (English)" style="max-width: 100%; height: auto;">
 </div>
