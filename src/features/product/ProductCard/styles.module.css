@@ -1,5 +1,5 @@
 .productCard {
-  background: var(--color-white);
+  background: var(--color-bg);
   border-radius: var(--border-radius-xl);
   padding: var(--spacing-lg) var(--spacing-md) var(--spacing-md)
     var(--spacing-md);

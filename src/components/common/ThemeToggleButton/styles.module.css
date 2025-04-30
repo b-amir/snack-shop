@@ -1,0 +1,16 @@
+.themeToggle {
+  text-decoration: none;
+  color: inherit;
+  padding: var(--spacing-xxs);
+  line-height: 1;
+}
+
+.themeToggle:hover {
+  text-decoration: none;
+  background-color: var(--gray-alpha-100);
+}
+
+.themeToggle svg {
+  display: block;
+  font-size: 1.25rem;
+}

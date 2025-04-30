@@ -37,3 +37,9 @@
     padding: var(--spacing-md);
   }
 }
+
+.controlsWrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
