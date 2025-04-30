@@ -9,3 +9,36 @@
   margin-left: 0.15rem;
   margin-right: 0.15rem;
 }
+
+.pending {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.selectLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.selectIcon {
+  display: inline-flex;
+  vertical-align: middle;
+  color: var(--color-accent);
+  min-width: 18px;
+}
+
+.selectText {
+  display: none;
+  color: var(--color-accent);
+}
+
+@media (min-width: 640px) {
+  .selectText {
+    display: inline;
+  }
+
+  .selectIcon {
+    margin-right: 0.25rem;
+  }
+}

@@ -1,4 +1,4 @@
-import { SelectHTMLAttributes } from "react";
+import { SelectHTMLAttributes, ReactNode } from "react";
 
 export type SelectOption = {
   value: string | number;
@@ -7,5 +7,5 @@ export type SelectOption = {
 
 export type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
   options: SelectOption[];
-  label?: string;
+  label?: ReactNode;
 };

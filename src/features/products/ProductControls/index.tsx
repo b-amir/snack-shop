@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { getSortOptions, getPageSizeOptions, createQueryString } from "./utils";
 import { Select } from "@/components/ui/Select";
 import { ProductControlsProps } from "./types";
+import { SortIcon, GridViewIcon } from "./icon";
 import styles from "./styles.module.css";
 
 export function ProductControls({
@@ -49,7 +50,12 @@ export function ProductControls({
     <div className={`${styles.controlRow} ${isPending ? styles.pending : ""}`}>
       <Select
         id="sort-select"
-        label={`${t("sortBy")}:`}
+        label={
+          <span className={styles.selectLabel}>
+            <SortIcon className={styles.selectIcon} />
+            <span className={styles.selectText}>{t("sortBy")}:</span>
+          </span>
+        }
         options={sortOptions}
         value={initialSort}
         onChange={handleSortChange}
@@ -57,7 +63,12 @@ export function ProductControls({
       />
       <Select
         id="page-size-select"
-        label={`${t("productsPerPage")}:`}
+        label={
+          <span className={styles.selectLabel}>
+            <GridViewIcon className={styles.selectIcon} />
+            <span className={styles.selectText}>{t("productsPerPage")}:</span>
+          </span>
+        }
         options={pageSizeOptions}
         value={String(initialPageSize)}
         onChange={handlePageSizeChange}
