@@ -1,15 +1,22 @@
 import { getCache, setCache } from "@/utils/cache";
 import { Product } from "@/types/product";
 
-export const getBaseUrl = (): string => {
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-  return `http://localhost:${process.env.PORT ?? 3000}`;
+export const getApiBaseUrl = (): string => {
+  if (typeof window === "undefined") {
+    return "/api";
+  }
+
+  if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api`;
+  }
+  return `http://localhost:${process.env.PORT ?? 3000}/api`;
 };
 
-export const API_BASE_URL = `${getBaseUrl()}/api`;
+export const API_BASE_URL = getApiBaseUrl();
 
 export const buildApiUrl = (path: string, params?: URLSearchParams): string => {
-  const url = `${API_BASE_URL}${path}`;
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  const url = `${API_BASE_URL}${normalizedPath}`;
   return params ? `${url}?${params.toString()}` : url;
 };
 
