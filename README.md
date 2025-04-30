@@ -5,7 +5,7 @@
 
 # SnackShop - E-commerce Demo
 
-This project demonstrates an e-commerce application for an online store with Next.js and Redis caching. It's designed to **simulate a large-scale marketplace (20K+ products, 5M+ users)** where page load speed and server performance are critical.
+This project demonstrates an e-commerce application for an online store with Next.js and Redis caching. It simulates a large-scale marketplace (20K+ products, 5M+ users) where page load speed and server performance are critical.
 
 👈 [برای مطالعه نسخه فارسی این راهنما، اینجا کلیک کنید.](./src/docs/README-FA.md)
 
@@ -25,42 +25,39 @@ This project demonstrates an e-commerce application for an online store with Nex
 ## Core Architecture
 
 - **Framework**: Next.js 15 App Router
-- **Caching**: Redis-based `caching strategy` for product data & API responses
-- **Rendering**: `Hybrid rendering approach` optimized for each page type
+- **Caching**: Redis-based caching strategy for product data & API responses
+- **Rendering**: Hybrid rendering approach optimized for each page type
 - **i18n**: Supports English & Farsi using `next-intl`
-- **State Management**: Cart data stored in `Redis` with client-side `Zustand`
-- **Testing**: Unit and E2E tests with `Jest` and `Cypress`
+- **State Management**: Cart data stored in Redis with client-side Zustand
+- **Testing**: Unit and E2E tests with Jest and Cypress
 
 ## Deliberate Constraints
 
-- **Minimal use of external libraries**: To reduce the complexity, as well as the bundle size.
-- **No UI libraries**: Only css modules are used for styling.
-- **No authentication**: No authentication is implemented, only a session id cookie is used to keep track of the cart.
-- **No analytics**: No analytics are implemented. I deliberately decided to cache 8 of the newest products as a simulation of high-traffic products.
-- **No database**: Only a json file is used to store the product data for simplicity.
+This project intentionally limits its scope to focus on core functionality. Key constraints include:
+
+- **Minimal libraries**: Reduces complexity and bundle size by using only essential packages.
+- **No UI libraries**: Uses only CSS modules for styling.
+- **No authentication**: Relies on session ID cookies for cart tracking instead of full authentication.
+- **No analytics**: Simulates high-traffic products by caching the 8 newest products.
+- **No database**: Uses a JSON file for product data storage to simplify implementation.
 
 ## Rendering Patterns
 
-Each page type employs a specific Next.js rendering strategy, further enhanced by Redis caching, to optimize for performance and data freshness in a simulated large-scale environment.
+Each page type uses a specific Next.js rendering strategy with Redis caching to optimize performance.
 
 ### Product Listing Pages (PLP - `/`)
 
-- **Next.js Strategy**: Dynamic Rendering with **Incremental Static Regeneration (ISR)**.
-  - The page utilizes React Server Components for server-side data fetching.
-  - `export const revalidate = 60;` in `src/app/[locale]/page.tsx` configures Next.js to regenerate the page at most once every 60 seconds upon request.
-- **Reasoning**: Balances data freshness with performance. Ensures users see relatively up-to-date product listings without hitting the origin API on every request, while ISR keeps the page updated periodically.
+- **Next.js Strategy**: Dynamic Rendering with Incremental Static Regeneration (ISR).
+  - Uses React Server Components for server-side data fetching.
+  - Configures page regeneration every 60 seconds with `revalidate = 60`.
+- **Reasoning**: Balances data freshness with performance. Shows updated product listings while reducing API calls.
 - **Redis Cache Strategy**:
-  - Product list API responses fetched by `fetchProducts` are cached in Redis with a **5-minute TTL** (`PRODUCT_LIST_CACHE_TTL`).
-  - This Redis cache acts as a faster layer before the Next.js ISR regeneration might trigger an API call.
+  - Caches product list API responses with a 5-minute TTL.
+  - Provides faster data access before Next.js ISR regeneration triggers.
 
 ```tsx
 // src/app/[locale]/page.tsx - Configures Next.js ISR
 export const revalidate = 60; // Regenerate page max once per 60s
-
-// src/features/products/ProductList/index.tsx - Uses RSC for data fetching
-export async function ProductList({ locale, searchParams }: ProductListProps) {
-  // ...fetches data using fetchProducts which interacts with Redis cache...
-}
 
 // src/constants/index.ts - Defines Redis TTL for product list API data
 export const PRODUCT_LIST_CACHE_TTL = 5 * 60; // 5 minutes
@@ -68,26 +65,19 @@ export const PRODUCT_LIST_CACHE_TTL = 5 * 60; // 5 minutes
 
 ### Product Details Pages (PDP - `/products/[productId]`)
 
-- **Next.js Strategy**: **Static Site Generation (SSG)** at build time for a subset of products (newest 8), combined with **Incremental Static Regeneration (ISR)** for all product pages.
-  - `generateStaticParams` in `src/app/[locale]/products/[productId]/page.tsx` pre-renders the details pages for the 8 newest products during the build process.
-  - `export const revalidate = 3600;` applies ISR to _all_ product detail pages (pre-rendered or not), allowing regeneration at most once per hour upon request.
-  - `export const dynamicParams = true;` ensures that pages for products _not_ pre-rendered at build time are generated on the first request and then follow the ISR `revalidate` interval.
-- **Reasoning**: Optimizes for high-traffic products by serving them statically from the edge/CDN after build. ISR ensures that even less popular product pages remain reasonably up-to-date without requiring a full rebuild.
+- **Next.js Strategy**: Static Site Generation (SSG) at build time for the newest 8 products, with Incremental Static Regeneration (ISR) for all product pages.
+  - Pre-renders the 8 newest products via `generateStaticParams`.
+  - Sets hourly regeneration with `revalidate = 3600`.
+  - Enables on-demand page generation with `dynamicParams = true`.
+- **Reasoning**: Optimizes for high-traffic products by serving them from the edge/CDN. ISR keeps less popular pages updated without requiring full rebuilds.
 - **Redis Cache Strategy**:
-  - Individual product detail API responses fetched by `fetchProductById` are cached in Redis with a **30-minute TTL** (`PRODUCT_DETAIL_CACHE_TTL`).
-  - This provides an intermediate cache layer, faster than waiting for the 1-hour ISR interval if the data is needed sooner.
+  - Caches product detail API responses with a 30-minute TTL.
+  - Provides faster access than waiting for the 1-hour ISR interval.
 
 ```tsx
 // src/app/[locale]/products/[productId]/page.tsx
 export const revalidate = 3600; // Regenerate page max once per hour (ISR)
 export const dynamicParams = true; // Allow generating pages not built initially
-
-// Pre-renders pages for the 8 newest products at build time (SSG subset)
-export async function generateStaticParams() {
-  // ... fetches and returns { productId, locale } for newest 8 products ...
-  const newestProductIds = allProducts.slice(0, 8).map((p) => p.id);
-  // ...
-}
 
 // src/constants/index.ts - Defines Redis TTL for product detail API data
 export const PRODUCT_DETAIL_CACHE_TTL = 30 * 60; // 30 minutes
@@ -118,11 +108,11 @@ export const useCartStore = create<CartState>()((set, get) => ({
 
 ### Multi-layered Caching Architecture
 
-This project implements a multi-layered caching strategy to handle high traffic loads:
+This project implements a multi-layered caching strategy:
 
-1. **Next.js ISR Layer**: Utilizing Incremental Static Regeneration to cache rendered pages
-2. **Redis Cache Layer**: Caching API responses before they reach Next.js
-3. **CDN/Edge Layer**: When deployed to a platform like Vercel, the ISR pages are cached at the edge
+1. **Next.js ISR Layer**: Caches rendered pages with timed invalidation
+2. **Redis Cache Layer**: Caches API responses before they reach Next.js
+3. **CDN/Edge Layer**: Caches ISR pages at the edge when deployed to platforms like Vercel
 
 ```mermaid
 sequenceDiagram
@@ -151,13 +141,13 @@ sequenceDiagram
 
 ### Redis Caching Strategy
 
-The application uses Redis for high-performance caching of API responses with carefully tuned TTLs:
+The application uses Redis for high-performance caching with appropriate TTLs:
 
-- **Product listings**: Cached for **5 minutes** (`PRODUCT_LIST_CACHE_TTL`)
-- **Product details**: Cached for **30 minutes** (`PRODUCT_DETAIL_CACHE_TTL`)
-- **Related products**: Cached for **15 minutes** (`RELATED_PRODUCTS_CACHE_TTL`)
+- **Product listings**: 5 minutes (`PRODUCT_LIST_CACHE_TTL`)
+- **Product details**: 30 minutes (`PRODUCT_DETAIL_CACHE_TTL`)
+- **Related products**: 15 minutes (`RELATED_PRODUCTS_CACHE_TTL`)
 
-Each cache entry uses a structured key pattern for targeted invalidation:
+Each cache entry uses a structured key pattern:
 
 ```
 products:{page}:{pageSize}:{sort}    // For product listings
@@ -270,7 +260,7 @@ export async function POST(request: NextRequest) {
 
 ### Fallback Mechanism
 
-The system includes a fallback in-memory cache that automatically activates if Redis becomes unavailable, ensuring the application remains functional even during Redis outages:
+The system includes a fallback in-memory cache that activates if Redis becomes unavailable:
 
 ```typescript
 // src/utils/cache/client/redis.ts
@@ -285,19 +275,19 @@ async function getClient(): Promise<CacheClient | null> {
 
 ### Image Optimization
 
-- Next.js Image component for automatic format selection and responsive sizing
-- Lazy loading for below-the-fold images
-- Option to use Cloudinary CDN for images (env flag)
+- Uses Next.js Image component for format selection and responsive sizing
+- Implements lazy loading for below-the-fold images
+- Provides optional Cloudinary CDN integration via environment flag
 
 ### Core Web Vitals Focus
 
-- Optimized LCP through prioritized loading of critical content
-- Reduced CLS by maintaining proper image aspect ratios
-- Improved FID by minimizing main thread work with React Server Components
+- Optimizes LCP through prioritized loading of critical content
+- Reduces CLS by maintaining proper image aspect ratios
+- Improves FID by minimizing main thread work with React Server Components
 
 ### Code Optimizations
 
-- Shared components for consistent UI and reduced bundle size
+- Uses shared components for consistent UI and reduced bundle size
 
 ## Running the Project
 
@@ -384,17 +374,3 @@ NEXT_PUBLIC_USE_CLOUDINARY_CDN=true
 | Home (EN)                                                                                                         | Home (FA)                                                                                                       | PDP                                                                                                           | Redis Logs                                                                                                  |
 | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
 | ![Home Page (English)](https://raw.githubusercontent.com/b-amir/snack-shop/main/src/docs/screenshots/home-en.png) | ![Home Page (Farsi)](https://raw.githubusercontent.com/b-amir/snack-shop/main/src/docs/screenshots/home-fa.png) | ![Product Detail Page](https://raw.githubusercontent.com/b-amir/snack-shop/main/src/docs/screenshots/pdp.png) | ![Redis Logs](https://raw.githubusercontent.com/b-amir/snack-shop/main/src/docs/screenshots/redis-logs.png) |
-
-## Performance & Scalability
-
-- **Redis Caching**: Leverages Redis for caching product lists, details, and related items with appropriate TTLs (e.g., 5min for lists, 30min for details).
-
-### Caching Optimization Techniques
-
-- **Granular TTLs**: Different cache durations based on data volatility (product details: 30min, listings: 5min, recommendations: 1hr)
-- **Staggered Invalidation**: High-traffic keys are invalidated gradually to prevent thundering herd problems
-- **Targeted Cache Keys**: Using specific patterns like `product:123:details` and `list:category:snacks:page:1` for precise invalidation
-- **Cache Warming**: A separate **standalone worker** (`src/workers/cacheWarmer.ts`) preloads popular products and the default product list into the Redis cache periodically.
-- **Optimized Connections**: Redis connections use retry logic and keep-alive settings for stability.
-- **Intelligent Invalidation**: `/api/revalidate` endpoint clears relevant Redis keys (product details, related products, product lists) when data changes.
-- **Fallback**: Includes a simple in-memory cache fallback if Redis is unavailable.
