@@ -1,19 +1,23 @@
 "use client";
 
+import { useState } from "react";
 import { useCartStore } from "@/store/store";
 import { CartItems } from "@/features/cart/CartItems";
-import Button from "@/components/ui/Button";
 import { useTranslations, useLocale } from "next-intl";
-import styles from "./page.module.css";
 import { SupportedLocale } from "@/types/product";
-import Skeleton from "@/components/common/Skeleton";
 import { safeAdd, safeMultiply } from "@/utils/math";
+import Button from "@/components/ui/Button";
+import styles from "./page.module.css";
+import Skeleton from "@/components/common/Skeleton";
 
 export default function CartPage() {
   const t = useTranslations("productList");
+  const tCommon = useTranslations("common");
   const { items, clearCart, updateQuantity, removeFromCart, isLoading } =
     useCartStore();
   const locale = useLocale() as SupportedLocale;
+  const [isProcessing, setIsProcessing] = useState(false);
+
   const totalPrice = items.reduce(
     (acc, item) =>
       safeAdd(acc, safeMultiply(item.product.price[locale], item.quantity)),
@@ -21,14 +25,51 @@ export default function CartPage() {
   );
 
   const formattedTotalPrice =
-    locale === "fa" ? totalPrice.toLocaleString("fa-IR") : totalPrice;
+    locale === "fa"
+      ? totalPrice.toLocaleString("fa-IR")
+      : totalPrice.toLocaleString();
 
   const currencyString =
     items.length > 0 ? items[0].product.currency[locale] : "";
 
-  if (isLoading) {
+  const handleUpdateQuantity = async (productId: string, quantity: number) => {
+    setIsProcessing(true);
+    try {
+      await updateQuantity(productId, quantity);
+    } catch (error) {
+      console.error("CartPage: Failed to update quantity", error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleRemoveItem = async (productId: string) => {
+    setIsProcessing(true);
+    try {
+      await removeFromCart(productId);
+    } catch (error) {
+      console.error("CartPage: Failed to remove item", error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleClearCart = async () => {
+    setIsProcessing(true);
+    try {
+      await clearCart();
+    } catch (error) {
+      console.error("CartPage: Failed to clear cart", error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  if (isLoading && items.length === 0) {
     return <Skeleton layout="cartPage" />;
   }
+
+  const isDisabled = isLoading || isProcessing;
 
   return (
     <div className={styles.container}>
@@ -38,9 +79,10 @@ export default function CartPage() {
           <CartItems
             items={items}
             locale={locale}
-            onUpdateQuantity={updateQuantity}
-            onRemoveItem={removeFromCart}
+            onUpdateQuantity={handleUpdateQuantity}
+            onRemoveItem={handleRemoveItem}
             showRemoveButton={true}
+            disabled={isDisabled}
           />
         </div>
         {items.length > 0 ? (
@@ -53,17 +95,23 @@ export default function CartPage() {
               </span>
               <span>{t("total")}</span>
             </div>
-            <Button variant="primary" size="large" fullWidth disabled>
+            <Button
+              variant="primary"
+              size="large"
+              fullWidth
+              disabled={isDisabled || true}
+            >
               {t("checkout")}
             </Button>
             <Button
               variant="secondary"
               size="large"
               fullWidth
-              onClick={clearCart}
+              onClick={handleClearCart}
               className={styles.clearCartButton}
+              disabled={isDisabled}
             >
-              {t("clearCart")}
+              {isProcessing ? tCommon("loading") : t("clearCart")}
             </Button>
           </div>
         ) : (

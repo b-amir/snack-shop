@@ -7,4 +7,5 @@ export type CartItemsProps = {
   onUpdateQuantity: (productId: string, quantity: number) => void;
   onRemoveItem: (productId: string) => void;
   showRemoveButton?: boolean;
+  disabled?: boolean;
 };

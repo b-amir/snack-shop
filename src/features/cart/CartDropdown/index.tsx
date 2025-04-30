@@ -1,19 +1,22 @@
 "use client";
+import { useState } from "react";
 import { useCartStore } from "@/store/store";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { SupportedLocale } from "@/types/product";
 import { CartItems } from "@/features/cart/CartItems";
 import { CartDropdownProps } from "./types";
+import { safeAdd, safeMultiply } from "@/utils/math";
 import Button from "@/components/ui/Button";
 import styles from "./styles.module.css";
-import { safeAdd, safeMultiply } from "@/utils/math";
 
 export function CartDropdown({ dir, locale, onClose }: CartDropdownProps) {
   const { items, removeFromCart, updateQuantity, clearCart } = useCartStore();
   const t = useTranslations("productList");
   const tCommon = useTranslations("common");
   const router = useRouter();
+
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const currentLocale = locale as SupportedLocale;
 
@@ -27,7 +30,44 @@ export function CartDropdown({ dir, locale, onClose }: CartDropdownProps) {
   );
 
   const formattedTotalPrice =
-    currentLocale === "fa" ? totalPrice.toLocaleString("fa-IR") : totalPrice;
+    currentLocale === "fa"
+      ? totalPrice.toLocaleString("fa-IR")
+      : totalPrice.toLocaleString();
+
+  const handleUpdateQuantity = async (productId: string, quantity: number) => {
+    setIsProcessing(true);
+    try {
+      await updateQuantity(productId, quantity);
+    } catch (error) {
+      console.error("CartDropdown: Failed to update quantity", error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleRemoveItem = async (productId: string) => {
+    setIsProcessing(true);
+    try {
+      await removeFromCart(productId);
+    } catch (error) {
+      console.error("CartDropdown: Failed to remove item", error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleClearCart = async () => {
+    setIsProcessing(true);
+    try {
+      await clearCart();
+    } catch (error) {
+      console.error("CartDropdown: Failed to clear cart", error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const isDisabled = isProcessing;
 
   return (
     <div className={styles.cartDropdown + " " + styles[dir]}>
@@ -38,9 +78,10 @@ export function CartDropdown({ dir, locale, onClose }: CartDropdownProps) {
         <CartItems
           items={items}
           locale={currentLocale}
-          onUpdateQuantity={updateQuantity}
-          onRemoveItem={removeFromCart}
+          onUpdateQuantity={handleUpdateQuantity}
+          onRemoveItem={handleRemoveItem}
           showRemoveButton={false}
+          disabled={isDisabled}
         />
       )}
       {items.length > 0 && (
@@ -56,11 +97,11 @@ export function CartDropdown({ dir, locale, onClose }: CartDropdownProps) {
           <Button
             variant="secondary"
             fullWidth
-            onClick={clearCart}
+            onClick={handleClearCart}
             className={styles.clearCartButton}
-            disabled={items.length === 0}
+            disabled={isDisabled || items.length === 0}
           >
-            {t("clearCart")}
+            {isProcessing ? tCommon("loading") : t("clearCart")}
           </Button>
         )}
         <Button
@@ -71,7 +112,7 @@ export function CartDropdown({ dir, locale, onClose }: CartDropdownProps) {
             router.push(`/${locale}/cart`);
           }}
           className={styles.goToCartButton}
-          disabled={items.length === 0}
+          disabled={items.length === 0 || isDisabled}
         >
           {t("goToCart")}
         </Button>

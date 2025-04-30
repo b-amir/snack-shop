@@ -13,6 +13,7 @@ export function CartItems({
   onUpdateQuantity,
   onRemoveItem,
   showRemoveButton = true,
+  disabled = false,
 }: CartItemsProps) {
   const t = useTranslations("productList");
 
@@ -28,7 +29,7 @@ export function CartItems({
         const formattedPrice =
           locale === "fa"
             ? product.price[locale].toLocaleString("fa-IR")
-            : product.price[locale];
+            : product.price[locale].toLocaleString();
 
         return (
           <React.Fragment key={product.id}>
@@ -50,20 +51,13 @@ export function CartItems({
                   <QuantityControl
                     value={quantity}
                     size="small"
-                    min={1}
                     onIncrease={() =>
                       onUpdateQuantity(product.id, quantity + 1)
                     }
                     onDecrease={() =>
-                      quantity > 1
-                        ? onUpdateQuantity(product.id, quantity - 1)
-                        : onRemoveItem(product.id)
+                      onUpdateQuantity(product.id, quantity - 1)
                     }
-                    onChange={(val) =>
-                      val > 0
-                        ? onUpdateQuantity(product.id, val)
-                        : onRemoveItem(product.id)
-                    }
+                    onChange={(val) => onUpdateQuantity(product.id, val)}
                     inputId={`qty-${product.id}`}
                     inputClassName={cartStyles.quantityInput}
                     decreaseAriaLabel={`${t("decrease")} ${
@@ -76,6 +70,7 @@ export function CartItems({
                     increaseButtonTestId={`increase-qty-${product.id}`}
                     decreaseButtonTestId={`decrease-qty-${product.id}`}
                     quantityDisplayTestId="quantity-display"
+                    disabled={disabled}
                   />
                 </div>
 
@@ -86,6 +81,7 @@ export function CartItems({
                     className={cartStyles.removeButton}
                     aria-label={`${t("remove")} ${product.name[locale]}`}
                     data-testid={`remove-item-${product.id}`}
+                    disabled={disabled}
                   >
                     {t("remove")}
                   </Button>
